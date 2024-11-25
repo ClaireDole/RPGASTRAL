@@ -1,5 +1,6 @@
 package fr.rpgastral.model.entity;
 
+import fr.rpgastral.controler.RpgMain;
 import fr.rpgastral.model.carte.Terrain;
 import fr.rpgastral.model.collectible.Armes;
 import fr.rpgastral.model.collectible.Potion;
@@ -13,14 +14,15 @@ public class Player extends Entity{
     private float Déplacement;
     private int BonusAttaque;
 
-    public Player(int x, int y) {
-		super(x, y);
+    public Player(int x, int y, final RpgMain game) {
+		super(x, y, game);
 		this.PV = 3;
 		this.Mana = 3;
 		this.Déplacement = 3;
 		this.md = this.mg = null;
 		this.tenue = null;
 		this.BonusAttaque = 0;
+		this.texture = game.getAtlas().findRegion("Game/player/player");
 	}
     public float GetMana() {
     	return this.Mana;
@@ -57,6 +59,7 @@ public class Player extends Entity{
     }
  
     public void move(int i){
+    	
         //regarder le déplacement du player
     	//proposer les cases possibles où se déplacer en les faisant apparaître d'une couleur différente
     	//regarder le clic souris

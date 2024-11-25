@@ -1,11 +1,14 @@
 package fr.rpgastral.model.entity;
 
+import fr.rpgastral.controler.RpgMain;
+
 public class PNJ extends Entity{
 	public String race;
     String message;
+    private RpgMain game;
 
-    public PNJ(int x, int y) {
-		super(x, y);
+    public PNJ(int x, int y, final RpgMain game) {
+		super(x, y, game);
 	}
     public void Dialogue(){
         System.out.println(this.message);

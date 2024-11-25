@@ -20,7 +20,7 @@ public class MenuScreen implements Screen {
 	private OrthographicCamera camera;
 	private ScreenViewport viewport;
 	private SpriteBatch menubatch;
-	private BitmapFont font;
+	private Font font;
 	
 	public MenuScreen(final RpgMain game) {
 		this.game = game;
@@ -29,7 +29,7 @@ public class MenuScreen implements Screen {
 		camera = new OrthographicCamera(800,800);
 		viewport = new ScreenViewport(camera);
 		menubatch = new SpriteBatch();
-		font = new BitmapFont();
+		font = new Font();
 		}
 	
 	public void render(float delta) {
@@ -38,7 +38,7 @@ public class MenuScreen implements Screen {
 		menubatch.setProjectionMatrix(camera.combined);
 		menubatch.begin();
 		menubatch.draw(region, 100,100,654,640);
-		font.draw(menubatch, "Retourner à l'écran de jeu --> P", 200,600);
+		font.Getfont1().draw(menubatch, "Retourner à l'écran de jeu --> P", 200,600);
 		menubatch.end();
 
 		if (Gdx.input.isKeyPressed(Keys.P)) {

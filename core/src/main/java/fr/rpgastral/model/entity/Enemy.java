@@ -1,10 +1,13 @@
 package fr.rpgastral.model.entity;
 
+import fr.rpgastral.controler.RpgMain;
+
 public abstract class Enemy extends Entity{
     private float damage;
+    private RpgMain game;
 
-    public Enemy(int x, int y) {
-		super(x, y);
+    public Enemy(int x, int y, final RpgMain game) {
+		super(x, y, game);
 	}
     public float Getdamage() {
     	return this.damage;

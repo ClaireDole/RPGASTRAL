@@ -19,27 +19,26 @@ public class MainMenuScreen implements Screen {
 	private OrthographicCamera camera;
 	private AtlasRegion region;
 	private ScreenViewport viewport;
-	private BitmapFont font;
+	private Font font;
 
 	public MainMenuScreen(final RpgMain game) {
 		this.game = game;
 		game.getManager().load("pack.png", Texture.class);
 		region = game.getAtlas().findRegion("Interface/MainMenubackground");
-		camera = new OrthographicCamera(800, 800);
+		camera = new OrthographicCamera(600, 600);
 		viewport = new ScreenViewport(camera);
-		font = new BitmapFont();
+		font = new Font();
 	}
 
 	public void render(float delta) {
 		ScreenUtils.clear(0, 0, 0.2f, 1);
 		viewport.apply();
 		game.getBatch().setProjectionMatrix(viewport.getCamera().combined);
-		font.setColor(Color.BLACK);
 		game.getBatch().begin();
 		game.getBatch().draw(region, 200, 200, 500, 500);
-		font.draw(game.getBatch(), "Bienvenue sur Tales of Liwa !! ", 200, 600, 350, 450, false);
-		font.draw(game.getBatch(), "Un mélange d'action et de tactical", 350, 500);
-		font.draw(game.getBatch(), "Appuyer sur la touche espace pour commencer", 300, 400);
+		font.Getfont2().draw(game.getBatch(), "Bienvenue sur Tales of Liwa !! ", 200, 600, 350, 450, false);
+		font.Getfont1().draw(game.getBatch(), "Un mélange d'action et de tactical", 350, 500);
+		font.Getfont1().draw(game.getBatch(), "Appuyer sur la touche espace pour commencer", 300, 400);
 		game.getBatch().end();
 
 		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {

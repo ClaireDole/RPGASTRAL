@@ -1,5 +1,7 @@
 package fr.rpgastral.model.carte;
 
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+
 public class Terrain{
     private int x;
     private int y;
@@ -16,13 +18,14 @@ public class Terrain{
     	this.x = x;
     	this.y = y;
     	this.name = n;
-    	if(this.name =="Plaine" | this.name =="Chemin" | this.name =="Roche volcanique") {
+    	if(this.name =="plaine" | this.name =="chemin" | this.name =="volcanique") {
     		this.franchissement = true;
     	}
     	else {
     		this.franchissement = false;
     	}
     }
+    
     public int Getx() {
     	return this.x;
     }

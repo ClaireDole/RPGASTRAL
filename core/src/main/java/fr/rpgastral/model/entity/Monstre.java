@@ -1,9 +1,12 @@
 package fr.rpgastral.model.entity;
 
-public abstract class Monstre extends Enemy {
+import fr.rpgastral.controler.RpgMain;
 
-	public Monstre(int x, int y) {
-		super(x, y);
+public abstract class Monstre extends Enemy {
+    private RpgMain game;
+
+    public Monstre(int x, int y, final RpgMain game) {
+		super(x, y, game);
 	}
 
 }
