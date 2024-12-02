@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.utils.Logger;
+
 import fr.rpgastral.controler.loader.Loader;
 import fr.rpgastral.controler.texture.TexturePackerHelper;
 import fr.rpgastral.controler.tiled.TiledParser;
@@ -34,11 +35,10 @@ public class RpgMain extends Game {
 	public RpgMain() {
 		this.logger = new Logger("début initialisation des variables du jeu");
 		this.logger.info("début initialisation des variables du jeu");
-    	// creer le parser de carte tiled; le texturepacker; le loader
+    	// creer le parser de carte tiled; le texturepacker; le loader et l'asset manager
     	tiledParser = new TiledParser();
     	texturePackerHelper = new TexturePackerHelper();
     	loader = new Loader(this);
-    	// creation de l'assetmanager
     	manager = new AssetManager(); 
     	this.logger = new Logger("fin initialisation des variables du jeu");
     	this.logger.info("fin initialisation des variables du jeu");
@@ -81,8 +81,7 @@ public class RpgMain extends Game {
     	//cycle de vie du jeu
     	//faire une boucle d'attente des évènements du jeu
     	//sortie de cette boucle si le joueur tape la sortie du jeu
-    	//on créer classe boucle qui attends les évènements 
-    	//créer la classe évènement qui traite les réponses 
+    	
     	//évènement.getreponse() : choix 1 : créer un listener 
     	//choix 2 : implémenter le design pattern observer
     	//choix 3 : faire une boucle temporelle de lecture des évènements toutes les 0.5 secondes
@@ -138,16 +137,8 @@ public class RpgMain extends Game {
 		return atlas;
 	}
 
-	public void setAtlas(TextureAtlas atlas) {
-		this.atlas = atlas;
-	}
-
 	public AssetManager getManager() {
 		return manager;
-	}
-
-	public void setManager(AssetManager manager) {
-		this.manager = manager;
 	}
 
 	public SpriteBatch getBatch() {
@@ -158,14 +149,6 @@ public class RpgMain extends Game {
 		this.batch = batch;
 	}
 
-	public MainMenuScreen getMainMenuScreen() {
-		return mainMenuScreen;
-	}
-
-	public void setMainMenuScreen(MainMenuScreen mainMenuScreen) {
-		this.mainMenuScreen = mainMenuScreen;
-	}
-
 	public GameScreen getGamescreen() {
 		return gamescreen;
 	}
@@ -173,4 +156,5 @@ public class RpgMain extends Game {
 	public void setGamescreen(GameScreen gamescreen) {
 		this.gamescreen = gamescreen;
 	}
+
 }

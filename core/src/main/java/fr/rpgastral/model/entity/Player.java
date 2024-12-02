@@ -1,5 +1,7 @@
 package fr.rpgastral.model.entity;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
+
 import fr.rpgastral.controler.RpgMain;
 import fr.rpgastral.model.carte.Terrain;
 import fr.rpgastral.model.collectible.Armes;
@@ -13,6 +15,7 @@ public class Player extends Entity{
     private float Mana;
     private float Déplacement;
     private int BonusAttaque;
+    private Sprite sprite;
 
     public Player(int x, int y, final RpgMain game) {
 		super(x, y, game);
@@ -23,7 +26,9 @@ public class Player extends Entity{
 		this.tenue = null;
 		this.BonusAttaque = 0;
 		this.texture = game.getAtlas().findRegion("Game/player/player");
+		this.sprite = new Sprite(this.texture);
 	}
+    
     public float GetMana() {
     	return this.Mana;
     }
@@ -86,12 +91,6 @@ public class Player extends Entity{
         	e.takedamage(this.mg.Getdamage()+ this.BonusAttaque);
     	}
     }
-    public void attaquemg(Terrain t){
-//            t.takedamage();
-    }
-    public void attaquemd(Terrain t){
-//        t.takedamage();
-}
     public void attaquemd(Enemy e){
     	if((this.md.Getname()=="Arc") && ((e.x == this.x +2 && e.y == this.y +2) | (e.x == this.x +2 && e.y == this.y -2) | (e.x == this.x -2 && e.y == this.y +2) | (e.x == this.x -2 && e.y == this.y -2))) {
     		e.takedamage(this.md.Getdamage()+ this.BonusAttaque);
@@ -163,5 +162,37 @@ public class Player extends Entity{
     	//nombre random qui permet de savoir si on peut convaincre ou pas
     	//si oui alors on dispawn l'ennemi
     }
+
+	public Sprite getSprite() {
+		return sprite;
+	}
+
+	public void setSprite(Sprite sprite) {
+		this.sprite = sprite;
+	}
+
+	public Armes getMg() {
+		return mg;
+	}
+
+	public Armes getMd() {
+		return md;
+	}
+
+	public Tenue getTenue() {
+		return tenue;
+	}
+
+	public float getMana() {
+		return Mana;
+	}
+
+	public float getDéplacement() {
+		return Déplacement;
+	}
+
+	public int getBonusAttaque() {
+		return BonusAttaque;
+	}
 }
 

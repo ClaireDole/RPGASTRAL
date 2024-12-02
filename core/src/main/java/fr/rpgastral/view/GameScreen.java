@@ -1,5 +1,7 @@
 package fr.rpgastral.view;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
@@ -13,38 +15,55 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import fr.rpgastral.controler.RpgMain;
+import fr.rpgastral.controler.observerpattern.Event;
+import fr.rpgastral.controler.observerpattern.Observer;
+import fr.rpgastral.controler.observerpattern.sujet;
+import fr.rpgastral.controler.observerpattern.concreteobserver.GameM;
 import fr.rpgastral.model.entity.Player;
 
-public class GameScreen implements Screen {
+public class GameScreen implements Screen, sujet {
 
 	final private  RpgMain game;
 	private OrthographicCamera camera;
 	private ExtendViewport viewport;
 	private OrthogonalTiledMapRenderer renderer;
 	private Player player;
-	private Boolean fenetre;
-	private Boolean up;
+	private int camwidth;
+	private int camheight;
+	private ArrayList<Observer> list;
 	
 	public GameScreen(final RpgMain game) {
 		this.game = game;
+		this.list = new ArrayList<Observer>();
 	    // charger les images et la map
 		game.getManager().load("pack.png",Texture.class);
-		//si la taille de la map est inférieure à la taille minimum ...faire des if permettant de gérer les games units en fonction de la taille de la worldmap
 		//charger les sons
 		
-		//booléens pour les input
-		fenetre = false;
+		//observer
+		attach(new GameM(game));
 		
-		player = new Player(27,29,game);
+		player = new Player(27,25,game);
 		
 		//rendu
-		float unitScale = 1 / 32f; //les tiles de la map sont en 32px32p et correspondent à 1 unit game
-		renderer = new OrthogonalTiledMapRenderer(game.getmap(), unitScale);
+		int a = game.getTiledModel().getTilewidth();
+		float unitScale = (float) (1.0/a);
+		renderer = new OrthogonalTiledMapRenderer(game.getmap(),unitScale);
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 20, 20); //20 unit game par 20 unit game
-		viewport = new ExtendViewport(20,20,camera); //le viewport doit être de la taille de la map et camera permet de gérer la taille de ce que l'on voit à l'écran
-		this.render(0.01f);
 		
+		//gestion des dimensions de la camera et viewport en fonction des dimensions de la carte tiled
+		if(game.getTiledModel().getWidth() < 20) { 
+			this.camwidth = game.getTiledModel().getWidth();
+		}
+		else if (game.getTiledModel().getHeight()<20) {
+			this.camheight = game.getTiledModel().getHeight();
+		}
+		else {
+			this.camheight = this.camwidth = 20;
+		}
+		camera.setToOrtho(false, camwidth, camheight);
+		viewport = new ExtendViewport(camwidth,camheight,camera); 
+		player.getSprite().setSize(1,1);
+		this.render(0.01f);	
 	}
 	
 	public void render(float delta) {
@@ -55,19 +74,13 @@ public class GameScreen implements Screen {
 	
 	private void input() {
 		if (Gdx.input.isKeyPressed(Keys.SEMICOLON)) {
-			this.game.setScreen(new MenuScreen(this.game));
+			Event event = new Event("GameScreen", true, "M");
+			notify(event);
 		}
 		if(Gdx.input.isKeyPressed(Keys.UP)) {
 		}
 		
-		if(Gdx.input.isKeyPressed(Keys.R)) {
-			if(fenetre) {
-				fenetre = false;
-			}
-			else {
-				fenetre = true;
-			}
-		}
+		
 	}
 	private void logic() {
 		//exemple si le player faisait 64 par 64
@@ -85,26 +98,46 @@ public class GameScreen implements Screen {
 	    camera.update();
 	    game.getBatch().setProjectionMatrix(camera.combined);
 	    renderer.setView(camera);
+	    player.getSprite().setPosition(player.Getx(), player.Gety());
 	    viewport.apply();
 	    game.getBatch().begin();
 	    renderer.render();
-	    if (fenetre) {
-	    	game.getBatch().draw(game.getAtlas().findRegion("Interface/window"), 0, 0, 20,7);
-	    }
+	    player.getSprite().draw(game.getBatch());
 	    game.getBatch().end();
 	}
+	@Override
 	public void resize(int width, int height) {
 		this.viewport.update(width, height, true);
 	}
+	@Override
 	public void show() {
 	}
+	@Override
 	public void hide() {
 	}
+	@Override
 	public void pause() {
 	}
+	@Override
 	public void resume() {
 	}
+	@Override
 	public void dispose() {
+	}
+	@Override
+	public void attach(Observer o) {
+		this.list.add(o);
+		
+	}
+	@Override
+	public void unattach(Observer o) {
+		this.list.remove(o);
+		
+	}
+	@Override
+	public void notify(Event e) {
+		this.list.forEach(observer -> observer.update(e));
+		
 	}
 
 }

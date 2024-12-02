@@ -1,5 +1,7 @@
 package fr.rpgastral.view;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -12,17 +14,24 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import fr.rpgastral.controler.RpgMain;
+import fr.rpgastral.controler.observerpattern.Event;
+import fr.rpgastral.controler.observerpattern.Observer;
+import fr.rpgastral.controler.observerpattern.sujet;
+import fr.rpgastral.controler.observerpattern.concreteobserver.mainmenuSPACE;
 
-public class MainMenuScreen implements Screen {
+public class MainMenuScreen implements Screen, sujet{
 
 	final RpgMain game;
 	private OrthographicCamera camera;
 	private AtlasRegion region;
 	private ScreenViewport viewport;
 	private Font font;
+	private ArrayList<Observer> list;
 
 	public MainMenuScreen(final RpgMain game) {
 		this.game = game;
+		this.list = new ArrayList<Observer>();
+		attach(new mainmenuSPACE(this.game));
 		game.getManager().load("pack.png", Texture.class);
 		region = game.getAtlas().findRegion("Interface/MainMenubackground");
 		camera = new OrthographicCamera(600, 600);
@@ -42,28 +51,44 @@ public class MainMenuScreen implements Screen {
 		game.getBatch().end();
 
 		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-			game.setScreen(game.getGamescreen());// set l'écran du jeu sur le gamescreen créé lors de la création de
-													// l'occurence RPG
+			Event event = new Event("MainMenuScreen",true,"SPACE");
+			notify(event);
 			this.dispose();
 		}
 	}
-
+	@Override
 	public void resize(int width, int height) {
 		this.viewport.update(width, height, true);
 	}
-
+	@Override
 	public void show() {
 	}
-
+	@Override
 	public void hide() {
 	}
-
+	@Override
 	public void pause() {
 	}
-
+	@Override
 	public void resume() {
 	}
-
+	@Override
 	public void dispose() {
+	}
+
+	@Override
+	public void attach(Observer o) {
+		this.list.add(o);
+		
+	}
+	@Override
+	public void unattach(Observer o) {
+		this.list.remove(o);
+		
+	}
+	@Override
+	public void notify(Event e) {
+		this.list.forEach(observer -> observer.update(e));
+		
 	}
 }
