@@ -18,7 +18,11 @@ import fr.rpgastral.controler.RpgMain;
 import fr.rpgastral.controler.observerpattern.Event;
 import fr.rpgastral.controler.observerpattern.Observer;
 import fr.rpgastral.controler.observerpattern.sujet;
+import fr.rpgastral.controler.observerpattern.concreteobserver.GameDown;
+import fr.rpgastral.controler.observerpattern.concreteobserver.GameLeft;
 import fr.rpgastral.controler.observerpattern.concreteobserver.GameM;
+import fr.rpgastral.controler.observerpattern.concreteobserver.GameRight;
+import fr.rpgastral.controler.observerpattern.concreteobserver.GameUp;
 import fr.rpgastral.model.entity.Player;
 
 public class GameScreen implements Screen, sujet {
@@ -41,6 +45,10 @@ public class GameScreen implements Screen, sujet {
 		
 		//observer
 		attach(new GameM(game));
+		attach(new GameUp(game));
+		attach(new GameDown(game));
+		attach(new GameLeft(game));
+		attach(new GameRight(game));
 		
 		player = new Player(27,25,game);
 		
@@ -63,7 +71,7 @@ public class GameScreen implements Screen, sujet {
 		camera.setToOrtho(false, camwidth, camheight);
 		viewport = new ExtendViewport(camwidth,camheight,camera); 
 		player.getSprite().setSize(1,1);
-		this.render(0.01f);	
+		this.render(0.5f);	
 	}
 	
 	public void render(float delta) {
@@ -77,9 +85,22 @@ public class GameScreen implements Screen, sujet {
 			Event event = new Event("GameScreen", true, "M");
 			notify(event);
 		}
-		if(Gdx.input.isKeyPressed(Keys.UP)) {
+		if(Gdx.input.isKeyJustPressed(Keys.UP)) {
+			Event event = new Event ("GameScreen", true, "UP");
+			notify(event);
 		}
-		
+		if(Gdx.input.isKeyJustPressed(Keys.DOWN)) {
+			Event event = new Event ("GameScreen", true, "DOWN");
+			notify(event);
+		}
+		if(Gdx.input.isKeyJustPressed(Keys.LEFT)) {
+			Event event = new Event ("GameScreen", true, "LEFT");
+			notify(event);
+		}
+		if(Gdx.input.isKeyJustPressed(Keys.RIGHT)) {
+			Event event = new Event ("GameScreen", true, "RIGHT");
+			notify(event);
+		}
 		
 	}
 	private void logic() {
@@ -138,6 +159,14 @@ public class GameScreen implements Screen, sujet {
 	public void notify(Event e) {
 		this.list.forEach(observer -> observer.update(e));
 		
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 
 }

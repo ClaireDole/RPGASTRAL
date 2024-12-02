@@ -63,12 +63,9 @@ public class Player extends Entity{
     	else this.PV =5;
     }
  
-    public void move(int i){
-    	
-        //regarder le déplacement du player
-    	//proposer les cases possibles où se déplacer en les faisant apparaître d'une couleur différente
-    	//regarder le clic souris
-    	//si clic sur une case possible, set x et y du player à la position de la case
+    public void move(int x, int y){
+    	this.x = x;
+    	this.y = y;
     }
     
     public void takedamage(float i){
