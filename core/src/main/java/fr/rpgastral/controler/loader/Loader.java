@@ -1,10 +1,11 @@
 package fr.rpgastral.controler.loader;
 
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Logger;
 import fr.rpgastral.controler.RpgMain;
 import fr.rpgastral.view.LoadingScreen;
 
-public class Loader {
+public class Loader implements Disposable {
 //afficher un screen de loading
 //implémenter start et stop(faire le dispose de l'écran de loading)
 	private Logger logger;
@@ -27,6 +28,11 @@ public class Loader {
 		this.loadingscreen.Setmsg(msg);	
 	}
 	public void stop() {
+		loadingscreen.dispose();
+	}
+
+	@Override
+	public void dispose() {
 		loadingscreen.dispose();
 	}
 }

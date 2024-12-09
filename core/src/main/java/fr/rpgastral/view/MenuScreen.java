@@ -2,6 +2,7 @@ package fr.rpgastral.view;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
@@ -19,6 +20,8 @@ import fr.rpgastral.controler.observerpattern.Event;
 import fr.rpgastral.controler.observerpattern.Observer;
 import fr.rpgastral.controler.observerpattern.sujet;
 import fr.rpgastral.controler.observerpattern.concreteobserver.MenuP;
+import fr.rpgastral.controler.observerpattern.concreteobserver.Quit;
+import fr.rpgastral.controler.observerpattern.concreteobserver.concreteobserver;
 
 public class MenuScreen implements Screen, sujet {
 	final RpgMain game;
@@ -27,18 +30,20 @@ public class MenuScreen implements Screen, sujet {
 	private ScreenViewport viewport;
 	private SpriteBatch menubatch;
 	private Font font;
-	private ArrayList<Observer> list;
+	private ArrayList<concreteobserver> observers;
 	
 	public MenuScreen(final RpgMain game) {
 		this.game = game;
-		this.list = new ArrayList<Observer>();
-		attach(new MenuP(this.game));
+		this.observers = new ArrayList<concreteobserver>();
+		attach(new MenuP("P"));
+		attach(new Quit("Quit"));
 		game.getManager().load("pack.png",Texture.class);
 		region = game.getAtlas().findRegion("Interface/MainMenubackground");
 		camera = new OrthographicCamera(800,800);
 		viewport = new ScreenViewport(camera);
 		menubatch = new SpriteBatch();
 		font = new Font();
+		this.render(0.5f);	
 		}
 	
 	public void render(float delta) {
@@ -51,9 +56,13 @@ public class MenuScreen implements Screen, sujet {
 		menubatch.end();
 
 		if (Gdx.input.isKeyPressed(Keys.P)) {
-			Event event = new Event("MenuScreen", true, "P");
+			Event event = new Event(game,"MenuScreen", true, "P");
 			notify(event);
 			dispose();
+		}
+		if (Gdx.input.isKeyPressed(Keys.A)) {
+			Event event = new Event(game,"MenuScreen", true, "Q");
+			notify(event);
 		}
 	}
 	@Override
@@ -77,18 +86,24 @@ public class MenuScreen implements Screen, sujet {
 		menubatch.dispose();
 	}
 	@Override
-	public void attach(Observer o) {
-		this.list.add(o);
+	public void attach(concreteobserver o) {
+		this.observers.add(o);
 		
 	}
 	@Override
 	public void unattach(Observer o) {
-		this.list.remove(o);
+		this.observers.remove(o);
 		
 	}
 	@Override
 	public void notify(Event e) {
-		this.list.forEach(observer -> observer.update(e));
-		
+		if(e.compare(new Event(game,"GameScreen",true,"Q"))) {
+			for(int i=0; i<observers.size(); i++) {
+				if(observers.get(i).getName() == "Quit") {
+					observers.get(i).update(e);
+				}
+			}
+		}
+		this.observers.forEach(observer -> observer.update(e));	
 	}
 }

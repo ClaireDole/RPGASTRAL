@@ -8,64 +8,38 @@ import fr.rpgastral.model.collectible.Armes;
 import fr.rpgastral.model.collectible.Potion;
 import fr.rpgastral.model.collectible.Tenue;
 
+/**
+ * classe décrivant le joueur
+ */
 public class Player extends Entity{
 	private Armes mg;
     private Armes md;
     private Tenue tenue;
     private float Mana;
-    private float Déplacement;
     private int BonusAttaque;
     private Sprite sprite;
 
-    public Player(int x, int y, final RpgMain game) {
-		super(x, y, game);
+    public Player(int x, int y, RpgMain g) {
+		super(x, y, g);
 		this.PV = 3;
 		this.Mana = 3;
-		this.Déplacement = 3;
 		this.md = this.mg = null;
 		this.tenue = null;
 		this.BonusAttaque = 0;
-		this.texture = game.getAtlas().findRegion("Game/player/player");
+		this.texture = g.getAtlas().findRegion("Game/player/player");
 		this.sprite = new Sprite(this.texture);
 	}
     
-    public float GetMana() {
-    	return this.Mana;
-    }
-    public float GetDéplacement() {
-    	return this.Déplacement;
-    }
-    public Tenue Gettenue(){
-    	return this.tenue;
-    }
-    public int GetBonusAttaque() {
-    	return this.BonusAttaque;
-    }
-    public void SetBonusAttaque(int i) {
-    	this.BonusAttaque = i;
-    }
-    public void SetMana(float n) {
-    	if (n<=6) {
-    		this.Mana = n;
-    	}
-    	else this.Mana = 6;
-    }
-    public void SetDéplacement(float n) {
-    	if (n<=4) {
-    		this.Mana = n;
-    	}
-    	else this.Mana=4;
-    }
-    public void SetPV (float n) {
-    	if(n<=5) {
-    		this.PV=n;
-    	}
-    	else this.PV =5;
-    }
- 
     public void move(int x, int y){
     	this.x = x;
     	this.y = y;
+    	for(int i = 0; i< getG().getTiledModel().getObstacles().size(); i++ ) {
+			int z = getG().getTiledModel().getObstacles().get(i).Getx();
+			int w = getG().getTiledModel().getObstacles().get(i).Gety();
+			if (x == z && y == w && (this.tenue == null) | (this.tenue.Getname() != "Broche d'Izanami")) {
+				this.takedamage(0.5f);
+			}
+		}
     }
     
     public void takedamage(float i){
@@ -142,15 +116,7 @@ public class Player extends Entity{
             }
         }
     }
-    public void Dialogue(PNJ p){
-    	if((p.x == this.x +1 && p.y == this.y +1) | (p.x == this.x +1 && p.y == this.y -1) | (p.x == this.x -1 && p.y == this.y +1) | (p.x == this.x -1 && p.y == this.y -1)) {
-    		p.Dialogue();
-    	}
-    	else {
-    		//afficher ça n'a pas d'effet...
-    	}
-        // si elfe alors boite de dialogue avec réponse y/n pour soin du player
-    }
+    
     public void Convaincre(EnemyHuman e) {
     	if (this.tenue.Getname()=="Apparat du kitsune") {
     		//affiche l'ennemi est convaincu par vos arguments et prend la fuite
@@ -180,16 +146,40 @@ public class Player extends Entity{
 		return tenue;
 	}
 
-	public float getMana() {
-		return Mana;
+	public void setMg(Armes mg) {
+		this.mg = mg;
 	}
 
-	public float getDéplacement() {
-		return Déplacement;
+	public void setMd(Armes md) {
+		this.md = md;
 	}
 
-	public int getBonusAttaque() {
-		return BonusAttaque;
+	public void setTenue(Tenue tenue) {
+		this.tenue = tenue;
 	}
+	public float GetMana() {
+    	return this.Mana;
+    }
+    public Tenue Gettenue(){
+    	return this.tenue;
+    }
+    public int GetBonusAttaque() {
+    	return this.BonusAttaque;
+    }
+    public void SetBonusAttaque(int i) {
+    	this.BonusAttaque = i;
+    }
+    public void SetMana(float n) {
+    	if (n<=6) {
+    		this.Mana = n;
+    	}
+    	else this.Mana = 6;
+    }
+    public void SetPV (float n) {
+    	if(n<=5) {
+    		this.PV=n;
+    	}
+    	else this.PV =5;
+    }
 }
 

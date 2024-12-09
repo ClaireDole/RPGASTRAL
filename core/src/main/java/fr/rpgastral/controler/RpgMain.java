@@ -16,7 +16,8 @@ import fr.rpgastral.view.GameScreen;
 import fr.rpgastral.view.MainMenuScreen;
 
 /**
- * 
+ * classe principale qui sert de point d'entrée dans le jeu
+ * on y lance la configuration à partir de la carte, le traitement des assets, la création de l'écran de jeu ainsi que le spritebatch principal
  */
 public class RpgMain extends Game {
 	
@@ -65,7 +66,7 @@ public class RpgMain extends Game {
     	
     	// le TiledParser lit la carte tiled et creer le model TiledModel
     	try {
-    		tiledModel = tiledParser.parse(map);
+    		tiledModel = tiledParser.parse(map,this);
     	} catch (Exception e) {
     		e.printStackTrace();
     		System.out.println("Erreur lors du parsing tiled");
@@ -95,14 +96,12 @@ public class RpgMain extends Game {
 
     @Override
     public void dispose() {
-    	if (mainMenuScreen != null) {
-    		mainMenuScreen.dispose();
-    	}
-    	if (gamescreen != null) {
-    		gamescreen.dispose();
-    	}
-		manager.dispose();
-		batch.dispose();
+		this.getGamescreen().dispose();
+		this.getMainMenuScreen().dispose();
+		this.getLoader().dispose();
+		this.getMap().dispose();
+		this.getBatch().dispose();
+		this.getManager().dispose();
     }
 
     public TiledMap getmap() {
@@ -140,6 +139,10 @@ public class RpgMain extends Game {
 	public AssetManager getManager() {
 		return manager;
 	}
+	
+	public void setManager(AssetManager manager) {
+		this.manager = manager;
+	}
 
 	public SpriteBatch getBatch() {
 		return batch;
@@ -155,6 +158,30 @@ public class RpgMain extends Game {
 
 	public void setGamescreen(GameScreen gamescreen) {
 		this.gamescreen = gamescreen;
+	}
+
+	public MainMenuScreen getMainMenuScreen() {
+		return mainMenuScreen;
+	}
+
+	public void setMainMenuScreen(MainMenuScreen mainMenuScreen) {
+		this.mainMenuScreen = mainMenuScreen;
+	}
+
+	public TiledMap getMap() {
+		return map;
+	}
+
+	public void setMap(TiledMap map) {
+		this.map = map;
+	}
+
+	public Loader getLoader() {
+		return loader;
+	}
+
+	public void setLoader(Loader loader) {
+		this.loader = loader;
 	}
 
 }

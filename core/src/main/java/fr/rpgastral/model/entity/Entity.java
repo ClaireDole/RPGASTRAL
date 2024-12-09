@@ -8,12 +8,12 @@ public abstract class Entity {
     protected int y;
     protected float PV;
     protected AtlasRegion texture;
-    protected RpgMain game;
+    private RpgMain g;
     
-    public Entity(int x, int y, final RpgMain game) {
+    public Entity(int x, int y, RpgMain game) {
     	this.x = x;
     	this.y = y;
-    	this.game = game;
+    	this.g = game;
     }
     public int Getx() {
     	return this.x;
@@ -36,4 +36,10 @@ public abstract class Entity {
         } 
         else return false;
     }
+	public RpgMain getG() {
+		return g;
+	}
+	public void setG(RpgMain g) {
+		this.g = g;
+	}
 }

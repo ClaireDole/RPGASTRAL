@@ -2,20 +2,18 @@ package fr.rpgastral.controler.observerpattern.concreteobserver;
 
 import fr.rpgastral.controler.RpgMain;
 import fr.rpgastral.controler.observerpattern.Event;
-import fr.rpgastral.controler.observerpattern.Observer;
 
-public class mainmenuSPACE implements Observer{
+public class mainmenuSPACE extends concreteobserver{
 
-	private RpgMain g;
-	
-	public mainmenuSPACE (RpgMain game){
-		this.g = game;
+	public mainmenuSPACE(String name) {
+		super(name);
 	}
-	
+
 	@Override
 	public void update(Event event) {
-		if (event.compare(new Event("MainMenuScreen",true,"SPACE"))) {
-			g.setScreen(g.getGamescreen());
+		RpgMain game = event.getGame();
+		if (event.compare(new Event(game,"MainMenuScreen",true,"SPACE"))) {
+			game.setScreen(game.getGamescreen());
 		}
 	}
 

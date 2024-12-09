@@ -17,8 +17,5 @@ public class Potion extends Collectible{
 		else if (this.name =="Mana") {
 			p.SetMana(p.GetMana() + this.damage);
 		}
-		else if (this.name=="Déplacement"){
-				p.SetDéplacement(p.GetDéplacement()+this.damage);
-		}
 	}
 }

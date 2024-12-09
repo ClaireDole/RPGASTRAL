@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -17,6 +18,8 @@ import fr.rpgastral.controler.RpgMain;
 import fr.rpgastral.controler.observerpattern.Event;
 import fr.rpgastral.controler.observerpattern.Observer;
 import fr.rpgastral.controler.observerpattern.sujet;
+import fr.rpgastral.controler.observerpattern.concreteobserver.Quit;
+import fr.rpgastral.controler.observerpattern.concreteobserver.concreteobserver;
 import fr.rpgastral.controler.observerpattern.concreteobserver.mainmenuSPACE;
 
 public class MainMenuScreen implements Screen, sujet{
@@ -26,17 +29,19 @@ public class MainMenuScreen implements Screen, sujet{
 	private AtlasRegion region;
 	private ScreenViewport viewport;
 	private Font font;
-	private ArrayList<Observer> list;
+	private ArrayList<concreteobserver> observers;
 
 	public MainMenuScreen(final RpgMain game) {
 		this.game = game;
-		this.list = new ArrayList<Observer>();
-		attach(new mainmenuSPACE(this.game));
+		this.observers = new ArrayList<concreteobserver>();
+		attach(new mainmenuSPACE("Space"));
+		attach(new Quit("Quit"));
 		game.getManager().load("pack.png", Texture.class);
 		region = game.getAtlas().findRegion("Interface/MainMenubackground");
-		camera = new OrthographicCamera(600, 600);
+		camera = new OrthographicCamera(800, 800);
 		viewport = new ScreenViewport(camera);
 		font = new Font();
+		this.render(0.5f);	
 	}
 
 	public void render(float delta) {
@@ -51,9 +56,13 @@ public class MainMenuScreen implements Screen, sujet{
 		game.getBatch().end();
 
 		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-			Event event = new Event("MainMenuScreen",true,"SPACE");
+			Event event = new Event(game,"MainMenuScreen",true,"SPACE");
 			notify(event);
 			this.dispose();
+		}
+		if (Gdx.input.isKeyPressed(Keys.A)) {
+			Event event = new Event(game,"MainMenuScreen", true, "Q");
+			notify(event);
 		}
 	}
 	@Override
@@ -77,18 +86,24 @@ public class MainMenuScreen implements Screen, sujet{
 	}
 
 	@Override
-	public void attach(Observer o) {
-		this.list.add(o);
+	public void attach(concreteobserver o) {
+		this.observers.add(o);
 		
 	}
 	@Override
 	public void unattach(Observer o) {
-		this.list.remove(o);
+		this.observers.remove(o);
 		
 	}
 	@Override
 	public void notify(Event e) {
-		this.list.forEach(observer -> observer.update(e));
-		
+		if(e.compare(new Event(game,"GameScreen",true,"Q"))) {
+			for(int i=0; i<observers.size(); i++) {
+				if(observers.get(i).getName() == "Quit") {
+					observers.get(i).update(e);
+				}
+			}
+		}
+		this.observers.forEach(observer -> observer.update(e));	
 	}
 }

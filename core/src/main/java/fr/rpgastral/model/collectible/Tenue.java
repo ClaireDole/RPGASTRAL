@@ -13,6 +13,9 @@ public class Tenue extends Collectible{
 	public Tenue(int x, int y, int e, String s) {
 		super(x,y,e,s);
 	}
+	public Tenue(Player player, String string) {
+		super(player,string);
+	}
 	public void effect(Player p) {
 		if (this.name =="Bénédiction de Susanoo") {
 			p.SetPV(p.GetPV()+2);
@@ -22,10 +25,6 @@ public class Tenue extends Collectible{
 		}
 		else if (this.name=="Armure de Bishamonten") {
 			p.SetBonusAttaque(2);
-			p.SetDéplacement(p.GetDéplacement() - 1);
-		}
-		else if (this.name=="Broche d'Izanami") {
-			p.SetDéplacement(p.GetDéplacement()+2);
 		}
 	}
 }

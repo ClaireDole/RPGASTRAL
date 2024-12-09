@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="1">
+<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="20">
  <properties>
   <property name="franchir" type="bool" value="true"/>
  </properties>
@@ -11,7 +11,7 @@
  <tileset firstgid="1290" source="desert.tsx"/>
  <tileset firstgid="1338" source="volcan.tsx"/>
  <tileset firstgid="1590" source="maison.tsx"/>
- <layer id="2" name="Plaine" class="Plaine" width="50" height="50">
+ <layer id="2" name="Plaine" class="Plaine" width="50" height="50" locked="1">
   <properties>
    <property name="arbuste" type="bool" value="false"/>
    <property name="eau" type="bool" value="false"/>
@@ -371,4 +371,124 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="11" name="Potions" locked="1">
+  <properties>
+   <property name="PNJ" type="bool" value="false"/>
+  </properties>
+  <object id="5" x="1136" y="847">
+   <properties>
+    <property name="Bonus" type="bool" value="true"/>
+    <property name="PV" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="6" x="914" y="622">
+   <properties>
+    <property name="Malus" type="bool" value="true"/>
+    <property name="PV" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="7" x="528" y="784">
+   <properties>
+    <property name="Bonus" type="bool" value="true"/>
+    <property name="Mana" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="8" x="112" y="1073">
+   <properties>
+    <property name="Malus" type="bool" value="true"/>
+    <property name="Mana" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="10" x="1551" y="1456">
+   <properties>
+    <property name="Bonus" type="bool" value="true"/>
+    <property name="Mana" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="11" x="48" y="366">
+   <properties>
+    <property name="Malus" type="bool" value="true"/>
+    <property name="Mana" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="12" x="112" y="530">
+   <properties>
+    <property name="Bonus" type="bool" value="true"/>
+    <property name="PV" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="13" x="913" y="368">
+   <properties>
+    <property name="Malus" type="bool" value="true"/>
+    <property name="PV" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="14" x="782" y="493">
+   <properties>
+    <property name="Malus" type="bool" value="true"/>
+    <property name="PV" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="15" x="464" y="270">
+   <properties>
+    <property name="Bonus" type="bool" value="true"/>
+    <property name="Mana" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="16" x="1136" y="143">
+   <properties>
+    <property name="Bonus" type="bool" value="true"/>
+    <property name="Mana" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="17" x="1521" y="1009">
+   <properties>
+    <property name="Bonus" type="bool" value="true"/>
+    <property name="Mana" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="18" x="1202" y="1170">
+   <properties>
+    <property name="Malus" type="bool" value="true"/>
+    <property name="PV" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="10" name="NPC">
+  <properties>
+   <property name="PNJ" type="bool" value="true"/>
+  </properties>
+  <object id="1" name="Elfe" x="1036.67" y="879.333">
+   <properties>
+    <property name="X" type="int" value="32"/>
+    <property name="Y" type="int" value="22"/>
+   </properties>
+  </object>
+  <object id="2" name="Humain" x="718.667" y="786">
+   <properties>
+    <property name="X" type="int" value="22"/>
+    <property name="Y" type="int" value="25"/>
+    <property name="msg" value="Si tu es sur le chemin comme ici tu ne prends pas de dégâts !"/>
+   </properties>
+  </object>
+  <object id="3" name="Humain" x="716.667" y="817.333">
+   <properties>
+    <property name="X" type="int" value="22"/>
+    <property name="Y" type="int" value="24"/>
+    <property name="msg" value="Bonjour ! Tu devrais essayer d'appuyer sur M"/>
+   </properties>
+  </object>
+  <object id="4" name="Elfe" x="1232.67" y="980">
+   <properties>
+    <property name="X" type="int" value="37"/>
+    <property name="Y" type="int" value="19"/>
+   </properties>
+  </object>
+  <object id="19" name="Humain" x="1585" y="1455">
+   <properties>
+    <property name="X" type="int" value="49"/>
+    <property name="Y" type="int" value="4"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

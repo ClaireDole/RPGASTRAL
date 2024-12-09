@@ -2,15 +2,22 @@ package fr.rpgastral.controler.tiled;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapImageLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+
+import fr.rpgastral.controler.RpgMain;
 import fr.rpgastral.model.TiledModel;
 import fr.rpgastral.model.carte.Terrain;
+import fr.rpgastral.model.collectible.Potion;
+import fr.rpgastral.model.entity.PNJ;
 
 public class TiledParser {
 
-	public TiledModel parse(TiledMap map) {
+	public TiledModel parse(TiledMap map, RpgMain game) {
 		TiledModel tiledmodel = new TiledModel();
 		//gestion des dimensions de la carte et des tiles
 		TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
@@ -95,7 +102,7 @@ public class TiledParser {
 					//ajout de la liste dans le tiledmodel
 					tiledmodel.setChemin(chemin);
 				}
-				else {
+				else if ((boolean) a.get("franchir",Boolean.class)){
 					//créer la liste Plaine
 					ArrayList<Terrain> plaine = new ArrayList<Terrain>();
 					//parcours du tilelayer
@@ -113,7 +120,26 @@ public class TiledParser {
 					tiledmodel.setPlaine(plaine);
 				}
 			}
-			//gestion des ObjectLayers
+				//gestion des ObjectLayer -> layers restant
+			else if((map.getLayers().get(i) instanceof MapLayer)) {
+				MapProperties b = map.getLayers().get(i).getProperties();
+				MapLayer u = (MapLayer) map.getLayers().get(i);
+					if ((boolean) b.get("PNJ", Boolean.class)){
+						//creation liste
+						ArrayList<PNJ> pnj = new ArrayList<PNJ>();
+						//parcours des objets du layer
+						for (MapObject element : u.getObjects()) {
+							if(element.getName().equals("Elfe")) {
+								pnj.add(new PNJ(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),"Elfe",game,element.getProperties().get("msg", String.class)));
+							}
+							else if (element.getName().equals("Humain")) {
+								pnj.add(new PNJ (element.getProperties().get("X", int.class), element.getProperties().get("Y", int.class), "Humain",game,element.getProperties().get("msg", String.class)));
+							}
+						}
+						//ajout liste dans le tiledmodel
+						tiledmodel.setPnj(pnj);
+					}
+				}
 		}
 		return tiledmodel;
 	}

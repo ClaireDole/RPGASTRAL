@@ -2,6 +2,8 @@ package fr.rpgastral.model;
 
 import java.util.ArrayList;
 import fr.rpgastral.model.carte.Terrain;
+import fr.rpgastral.model.collectible.Potion;
+import fr.rpgastral.model.entity.PNJ;
 
 public class TiledModel {
 	private int width;
@@ -13,6 +15,8 @@ public class TiledModel {
 	private ArrayList<Terrain> obstacles;
 	private ArrayList<Terrain> chemin;
 	private ArrayList<Terrain> plaine;
+	private ArrayList<PNJ> pnj;
+	private ArrayList<Potion> potion;
 	
 	
 	public ArrayList<Terrain> getEau() {
@@ -68,6 +72,18 @@ public class TiledModel {
 	}
 	public void setTileheight(int tileheight) {
 		this.tileheight = tileheight;
+	}
+	public ArrayList<PNJ> getPnj() {
+		return pnj;
+	}
+	public void setPnj(ArrayList<PNJ> pnj) {
+		this.pnj = pnj;
+	}
+	public ArrayList<Potion> getPotion() {
+		return potion;
+	}
+	public void setPotion(ArrayList<Potion> potion) {
+		this.potion = potion;
 	}
 	
 	

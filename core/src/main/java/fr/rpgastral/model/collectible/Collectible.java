@@ -1,5 +1,7 @@
 package fr.rpgastral.model.collectible;
 
+import fr.rpgastral.model.entity.Player;
+
 //passer sur du polymorphisme plutôt que des else if pour les potions
 public abstract class Collectible{
  protected int x;
@@ -13,7 +15,11 @@ public abstract class Collectible{
 	 this.damage=e;
 	 this.name=s;
  }
- 
+ public Collectible(Player p, String s) {
+	 this.x = p.Getx();
+	 this.y = p.Gety();
+	 this.name = s;
+ }
  public int Getx() {
 	 return this.x;
  }

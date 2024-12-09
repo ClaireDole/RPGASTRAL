@@ -4,10 +4,9 @@ import fr.rpgastral.controler.RpgMain;
 
 public class EnemyHuman extends Enemy{
 	private String name;
-	private RpgMain game;
 	
-	public EnemyHuman(int x, int y, String n, RpgMain game) {
-		super(x, y,game);
+	public EnemyHuman(int x, int y, String n, RpgMain g) {
+		super(x, y,g);
 		this.name = n;
 		if(this.name =="Brigand") {
 			this.Setdamage(1);
