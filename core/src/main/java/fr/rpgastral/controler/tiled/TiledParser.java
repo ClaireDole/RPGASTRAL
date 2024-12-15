@@ -6,7 +6,6 @@ import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapImageLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 import fr.rpgastral.controler.RpgMain;
@@ -15,6 +14,11 @@ import fr.rpgastral.model.carte.Terrain;
 import fr.rpgastral.model.collectible.Potion;
 import fr.rpgastral.model.entity.PNJ;
 
+/**
+ * classe de gestion des informations de la carte tiled
+ * effectue la transformation des infos en objets pour le jeu
+ * renvoie un tiledmodel qui contient tous les objets ainsi crees
+ */
 public class TiledParser {
 
 	public TiledModel parse(TiledMap map, RpgMain game) {
@@ -138,6 +142,37 @@ public class TiledParser {
 						}
 						//ajout liste dans le tiledmodel
 						tiledmodel.setPnj(pnj);
+					}
+					if ((boolean) b.get("Potion", Boolean.class)){
+						//creation liste
+						ArrayList<Potion> potion = new ArrayList<Potion>();
+						//parcours des objets du layer
+						for (MapObject element : u.getObjects()) {
+							if(element.getName().equals("Bonus")) {
+								if(element.getProperties().get("Type",String.class).equals("PV")) {
+									potion.add(new Potion(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),element.getProperties().get("Quantité", float.class),"PV",game));
+								}
+								if(element.getProperties().get("Type",String.class).equals("Mana")) {
+									potion.add(new Potion(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),element.getProperties().get("Quantité", float.class),"Mana",game));
+								}
+								if(element.getProperties().get("Type",String.class).equals("Attaque")) {
+									potion.add(new Potion(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),element.getProperties().get("Quantité", float.class),"Attaque",game));
+								}
+							}
+							else if (element.getName().equals("Malus")) {
+								if(element.getProperties().get("Type",String.class).equals("PV")) {
+									potion.add(new Potion(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),-(element.getProperties().get("Quantité", float.class)),"PV",game));
+								}
+								if(element.getProperties().get("Type",String.class).equals("Mana")) {
+									potion.add(new Potion(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),-(element.getProperties().get("Quantité", float.class)),"Mana",game));
+								}
+								if(element.getProperties().get("Type",String.class).equals("Attaque")) {
+									potion.add(new Potion(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),-(element.getProperties().get("Quantité", float.class)),"Attaque",game));
+								}
+							}
+						}
+						//ajout liste dans le tiledmodel
+						tiledmodel.setPotion(potion);
 					}
 				}
 		}

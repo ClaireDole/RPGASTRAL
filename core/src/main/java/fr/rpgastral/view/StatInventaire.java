@@ -116,7 +116,7 @@ public class StatInventaire implements Screen, sujet{
 		}
 		else {
 			this.font.Getfont1().draw(this.game.getBatch(), "Arme main gauche :",100,400,175,450,false);
-			this.font.Getfont3().draw(this.game.getBatch(), this.game.getGamescreen().getPlayer().getMg().Getname(), 250, 300, 300, 350, false);
+			this.font.Getfont3().draw(this.game.getBatch(), this.game.getGamescreen().getPlayer().getMg().getName(), 250, 300, 300, 350, false);
 		}
 		if(this.game.getGamescreen().getPlayer().getMd() == null) {
 			this.font.Getfont1().draw(this.game.getBatch(), "Arme main droite :",100,300,175,350,false);
@@ -124,7 +124,7 @@ public class StatInventaire implements Screen, sujet{
 		}
 		else {
 			this.font.Getfont1().draw(this.game.getBatch(), "Arme main droite :",100,300,175,350,false);
-			this.font.Getfont3().draw(this.game.getBatch(), this.game.getGamescreen().getPlayer().getMd().Getname(), 250, 300, 300, 350, false);
+			this.font.Getfont3().draw(this.game.getBatch(), this.game.getGamescreen().getPlayer().getMd().getName(), 250, 300, 300, 350, false);
 		}
 		if(this.game.getGamescreen().getPlayer().getTenue() == null) {
 			this.font.Getfont1().draw(this.game.getBatch(), "Tenue :",100,200,150,250,false);
@@ -132,7 +132,7 @@ public class StatInventaire implements Screen, sujet{
 		}
 		else {
 			this.font.Getfont1().draw(this.game.getBatch(), "Tenue :",100,200,150,250,false);
-			this.font.Getfont3().draw(this.game.getBatch(), this.game.getGamescreen().getPlayer().getTenue().Getname(), 250, 200, 300, 250, false);
+			this.font.Getfont3().draw(this.game.getBatch(), this.game.getGamescreen().getPlayer().getTenue().getName(), 250, 200, 300, 250, false);
 		}
 		this.game.getBatch().end();
 	}

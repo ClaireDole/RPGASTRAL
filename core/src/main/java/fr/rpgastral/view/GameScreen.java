@@ -95,6 +95,12 @@ public class GameScreen implements Screen, sujet {
 				this.game.getTiledModel().getPnj().get(i).getSprite().setSize(1, 1);
 			}
 		}
+		if(this.game.getTiledModel().getPotion() != null ) {
+			for (int i=0; i<this.game.getTiledModel().getPotion().size(); i++) {
+				this.game.getTiledModel().getPotion().get(i).getSprite().setSize(1, 1);
+			}
+		}
+
 		//chargement des fonts
 		this.font = new Font();
 		this.render(0.5f);	
@@ -149,11 +155,17 @@ public class GameScreen implements Screen, sujet {
 	    this.camera.update();
 	    this.game.getBatch().setProjectionMatrix(this.camera.combined);
 	    this.renderer.setView(this.camera);
-	    //SetPosition
+	    //SetPositionPNJ
 	    this.player.getSprite().setPosition(this.player.Getx(), this.player.Gety());
 	    if(this.game.getTiledModel().getPnj() != null ) {
 	    	for (int i=0; i<this.game.getTiledModel().getPnj().size(); i++) {
 	    		this.game.getTiledModel().getPnj().get(i).getSprite().setPosition(this.game.getTiledModel().getPnj().get(i).Getx(), this.game.getTiledModel().getPnj().get(i).Gety());
+	    	}
+	    }
+	    //SetPositionPotion
+	    if(this.game.getTiledModel().getPotion() != null ) {
+	    	for (int i=0; i<this.game.getTiledModel().getPotion().size(); i++) {
+	    		this.game.getTiledModel().getPotion().get(i).getSprite().setPosition(this.game.getTiledModel().getPotion().get(i).getX(), this.game.getTiledModel().getPotion().get(i).getY());
 	    	}
 	    }
 	    this.viewport.apply();
@@ -169,6 +181,12 @@ public class GameScreen implements Screen, sujet {
 	    		else {
 	    			this.game.getTiledModel().getPnj().get(i).getSprite().draw(this.game.getBatch());
 	    		}
+	    	}
+	    }
+	    //Potion
+	    if(this.game.getTiledModel().getPotion() != null ) {
+	    	for (int i=0; i<this.game.getTiledModel().getPotion().size(); i++) {
+	    		this.game.getTiledModel().getPotion().get(i).getSprite().draw(this.game.getBatch());
 	    	}
 	    }
 	    this.game.getBatch().end();

@@ -16,7 +16,7 @@ public class Player extends Entity{
     private Armes md;
     private Tenue tenue;
     private float Mana;
-    private int BonusAttaque;
+    private float BonusAttaque;
     private Sprite sprite;
 
     public Player(int x, int y, RpgMain g) {
@@ -36,7 +36,7 @@ public class Player extends Entity{
     	for(int i = 0; i< getG().getTiledModel().getObstacles().size(); i++ ) {
 			int z = getG().getTiledModel().getObstacles().get(i).Getx();
 			int w = getG().getTiledModel().getObstacles().get(i).Gety();
-			if (x == z && y == w && (this.tenue == null) | (this.tenue.Getname() != "Broche d'Izanami")) {
+			if (x == z && y == w && (this.tenue == null) | (this.tenue.getName() != "Broche d'Izanami")) {
 				this.takedamage(0.5f);
 			}
 		}
@@ -49,66 +49,51 @@ public class Player extends Entity{
         }
     }
     public void attaquemg(Enemy e){
-    	if((this.mg.Getname()=="Arc") && ((e.x == this.x +2 && e.y == this.y +2) | (e.x == this.x +2 && e.y == this.y -2) | (e.x == this.x -2 && e.y == this.y +2) | (e.x == this.x -2 && e.y == this.y -2))) {
-    		e.takedamage(this.mg.Getdamage() + this.BonusAttaque);
+    	if((this.mg.getName()=="Arc") && ((e.x == this.x +2 && e.y == this.y +2) | (e.x == this.x +2 && e.y == this.y -2) | (e.x == this.x -2 && e.y == this.y +2) | (e.x == this.x -2 && e.y == this.y -2))) {
+    		e.takedamage(this.mg.getDamage() + this.BonusAttaque);
     	}
-    	else if (this.mg.Getname()=="Spectre" &&(((e.x == this.x +2 && e.y == this.y +2) | (e.x == this.x +2 && e.y == this.y -2) | (e.x == this.x -2 && e.y == this.y +2) | (e.x == this.x -2 && e.y == this.y -2))
+    	else if (this.mg.getName()=="Spectre" &&(((e.x == this.x +2 && e.y == this.y +2) | (e.x == this.x +2 && e.y == this.y -2) | (e.x == this.x -2 && e.y == this.y +2) | (e.x == this.x -2 && e.y == this.y -2))
     			|((e.x == this.x +1 && e.y == this.y +1) | (e.x == this.x +1 && e.y == this.y -1) | (e.x == this.x -1 && e.y == this.y +1) | (e.x == this.x -1 && e.y == this.y -1))|
     			((e.x == this.x +3 && e.y == this.y +3) | (e.x == this.x +3 && e.y == this.y -3) | (e.x == this.x -3 && e.y == this.y +3) | (e.x == this.x -3 && e.y == this.y -3)))) {
-    		e.takedamage(this.mg.Getdamage() + this.BonusAttaque);
+    		e.takedamage(this.mg.getDamage() + this.BonusAttaque);
     		this.Mana = this.Mana - this.mg.Getcout();
     	}
     	else if((e.x == this.x +1 && e.y == this.y +1) | (e.x == this.x +1 && e.y == this.y -1) | (e.x == this.x -1 && e.y == this.y +1) | (e.x == this.x -1 && e.y == this.y -1)) {
-        	e.takedamage(this.mg.Getdamage()+ this.BonusAttaque);
+        	e.takedamage(this.mg.getDamage()+ this.BonusAttaque);
     	}
     }
     public void attaquemd(Enemy e){
-    	if((this.md.Getname()=="Arc") && ((e.x == this.x +2 && e.y == this.y +2) | (e.x == this.x +2 && e.y == this.y -2) | (e.x == this.x -2 && e.y == this.y +2) | (e.x == this.x -2 && e.y == this.y -2))) {
-    		e.takedamage(this.md.Getdamage()+ this.BonusAttaque);
+    	if((this.md.getName()=="Arc") && ((e.x == this.x +2 && e.y == this.y +2) | (e.x == this.x +2 && e.y == this.y -2) | (e.x == this.x -2 && e.y == this.y +2) | (e.x == this.x -2 && e.y == this.y -2))) {
+    		e.takedamage(this.md.getDamage()+ this.BonusAttaque);
     	}
-    	else if (this.md.Getname()=="Spectre" &&(((e.x == this.x +2 && e.y == this.y +2) | (e.x == this.x +2 && e.y == this.y -2) | (e.x == this.x -2 && e.y == this.y +2) | (e.x == this.x -2 && e.y == this.y -2))
+    	else if (this.md.getName()=="Spectre" &&(((e.x == this.x +2 && e.y == this.y +2) | (e.x == this.x +2 && e.y == this.y -2) | (e.x == this.x -2 && e.y == this.y +2) | (e.x == this.x -2 && e.y == this.y -2))
     			|((e.x == this.x +1 && e.y == this.y +1) | (e.x == this.x +1 && e.y == this.y -1) | (e.x == this.x -1 && e.y == this.y +1) | (e.x == this.x -1 && e.y == this.y -1))|
     			((e.x == this.x +3 && e.y == this.y +3) | (e.x == this.x +3 && e.y == this.y -3) | (e.x == this.x -3 && e.y == this.y +3) | (e.x == this.x -3 && e.y == this.y -3)))) {
-    		e.takedamage(this.md.Getdamage()+this.BonusAttaque);
+    		e.takedamage(this.md.getDamage()+this.BonusAttaque);
     		this.Mana = this.Mana - this.md.Getcout();
     	}
     	else if((e.x == this.x +1 && e.y == this.y +1) | (e.x == this.x +1 && e.y == this.y -1) | (e.x == this.x -1 && e.y == this.y +1) | (e.x == this.x -1 && e.y == this.y -1)) {
-        	e.takedamage(this.md.Getdamage()+this.BonusAttaque);
+        	e.takedamage(this.md.getDamage()+this.BonusAttaque);
     	}
     }
     
     public void Collect (Potion c){
-        if(this.x == c.Getx() && this.y == c.Gety()){
-            c.effect(this);
-            c.dispawn(c);
-        }
-    }
-    public void Collect (Tenue c) {
-       if(this.x==c.Getx() && this.y==c.Gety()) {
-        	if (this.tenue == null) {
-        		this.tenue = c;
-        		c.effect(this);
-        		c.dispawn(c);
-        	}
-        	else {
-        		//proposer choix de tenue
-        		//si c est choisie alors on affect c; on dispawn c; on met la tenue précédente dans une liste qui est affichée dans la maison permettant de changer de tenue
-        	}
-        }
+        c.effect(this);
+        c.dispawn();
     }
     public void Collect (Armes c) {
-        if(this.x == c.Getx() && this.y == c.Gety()){
+        if(this.x == c.getX() && this.y == c.getY()){
             if (this.md == null && !c.Getmaindouble()) { 
             	this.md = c;
-            	c.dispawn(c);
+            	c.dispawn();
             }
             else if (this.mg == null && !c.Getmaindouble()) { 
             	this.mg = c;
-            	c.dispawn(c);
+            	c.dispawn();
             }
             else if (this.mg == null && this.md == null && c.Getmaindouble()){
             	this.mg=this.md=c;
-            	c.dispawn(c);
+            	c.dispawn();
             }
             else {
             	//proposer choix
@@ -118,7 +103,7 @@ public class Player extends Entity{
     }
     
     public void Convaincre(EnemyHuman e) {
-    	if (this.tenue.Getname()=="Apparat du kitsune") {
+    	if (this.tenue.getName()=="Apparat du kitsune") {
     		//affiche l'ennemi est convaincu par vos arguments et prend la fuite
     		//e.dispose();
     	}
@@ -163,17 +148,23 @@ public class Player extends Entity{
     public Tenue Gettenue(){
     	return this.tenue;
     }
-    public int GetBonusAttaque() {
+    public float GetBonusAttaque() {
     	return this.BonusAttaque;
     }
-    public void SetBonusAttaque(int i) {
-    	this.BonusAttaque = i;
+    public void SetBonusAttaque(float f) {
+    	this.BonusAttaque = f;
+    	if (this.BonusAttaque<0) {
+    		this.BonusAttaque = 0;
+    	}
     }
     public void SetMana(float n) {
     	if (n<=6) {
     		this.Mana = n;
     	}
     	else this.Mana = 6;
+    	if(this.Mana<0) {
+    		this.Mana = 0;
+    	}
     }
     public void SetPV (float n) {
     	if(n<=5) {

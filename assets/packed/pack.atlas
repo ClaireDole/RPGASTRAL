@@ -24,7 +24,7 @@ size: 64, 64
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-Game/player/player
+Game/collectible/potion
   rotate: false
   xy: 2, 2
   size: 32, 32
@@ -33,6 +33,19 @@ Game/player/player
   index: -1
 
 pack3.png
+size: 64, 64
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Game/player/player
+  rotate: false
+  xy: 2, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+
+pack4.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
@@ -52,7 +65,7 @@ Game/terrain/volcanique
   offset: 0, 0
   index: -1
 
-pack4.png
+pack5.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
@@ -79,7 +92,7 @@ Game/terrain/tree
   offset: 0, 0
   index: -1
 
-pack5.png
+pack6.png
 size: 1024, 256
 format: RGBA8888
 filter: Nearest, Nearest

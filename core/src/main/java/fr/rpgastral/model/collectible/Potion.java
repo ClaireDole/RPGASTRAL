@@ -1,21 +1,41 @@
 package fr.rpgastral.model.collectible;
 
+import java.util.ArrayList;
+
+import com.badlogic.gdx.graphics.g2d.Sprite;
+
+import fr.rpgastral.controler.RpgMain;
 import fr.rpgastral.model.entity.Player;
 
 public class Potion extends Collectible{
 	
-	public Potion(int x, int y, int e, String s) {
-		super(x,y,e,s);
+	public Potion(int x, int y, float e, String s, RpgMain g) {
+		super(x,y,e,s,g);
+		setTexture(g.getAtlas().findRegion("Game/collectible/potion"));
+		setSprite(new Sprite(this.getTexture()));
 	}
 	public void effect(Player p) {
-		if (p.Gettenue().Getname()=="Protection d'Amaterasu" && this.damage < 0) {
-			this.damage = 0;
+		if (p.Gettenue()!=null && p.Gettenue().getName().equals("Protection d'Amaterasu") && this.getDamage() < 0) {
+			setDamage(0);;
 		}
-		else if(this.name == "PV") {
-			p.SetPV(p.GetPV() + this.damage);
+		else if(this.getName().equals("PV")) {
+			p.SetPV(p.GetPV() + this.getDamage());
+			if(!p.isAlive()) {
+				p.SetPV(0.25f);
+			}
 		}
-		else if (this.name =="Mana") {
-			p.SetMana(p.GetMana() + this.damage);
+		else if (this.getName().equals("Mana")) {
+			p.SetMana(p.GetMana() + this.getDamage());
+		}
+		else if (this.getName().equals("Attaque")) {
+			p.SetBonusAttaque(p.GetBonusAttaque() + this.getDamage());
 		}
 	}
+	@Override
+	public void dispawn() {
+		ArrayList<Potion> list = this.getG().getTiledModel().getPotion();
+		list.remove(this);
+		this.getG().getTiledModel().setPotion(list);
+	}
+	
 }

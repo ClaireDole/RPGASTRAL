@@ -1,28 +1,30 @@
 package fr.rpgastral.model.collectible;
 
+import fr.rpgastral.controler.RpgMain;
+
 public class Armes extends Collectible{
 	private Boolean maindouble;
 	private int cout;
 
-	public Armes(int x, int y, int e, String s) {
-		super(x,y,e,s);
+	public Armes(int x, int y, int e, String s, RpgMain g) {
+		super(x,y,e,s,g);
 		this.maindouble = false;
 		if (s =="Bâton") {
-			this.damage = 1; 
+			setDamage(1); 
 		}
 		else if (s=="Epée") {
-			this.damage = 2;
+			setDamage(2);
 		}
 		else if (s=="Hâche") {
-			this.damage = 3;
+			setDamage(3);
 			this.maindouble = true;
 		}
 		else if (s=="Spectre") {
-			this.damage = 3;
+			setDamage(3);
 			this.cout = 1;
 		}
 		else if (s=="Arc"){
-			this.damage = 2;
+			setDamage(2);
 		}
 	}
 	public Boolean Getmaindouble() {

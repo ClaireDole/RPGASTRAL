@@ -37,10 +37,10 @@ public class PNJ extends Entity{
     }
     
     public void Soin(Player p){
-    	if(p.Gettenue().Getname()=="Bénédiction de Susanoo") {
+    	if(p.Gettenue().getName()=="Bénédiction de Susanoo") {
     		p.SetPV(5);
     	}
-    	else if(p.Gettenue().Getname()=="Eclat de Tsukuyomi") {
+    	else if(p.Gettenue().getName()=="Eclat de Tsukuyomi") {
     		p.SetMana(6);
     	}
     	else {
