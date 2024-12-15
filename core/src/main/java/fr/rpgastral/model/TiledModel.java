@@ -3,6 +3,7 @@ package fr.rpgastral.model;
 import java.util.ArrayList;
 import fr.rpgastral.model.carte.Terrain;
 import fr.rpgastral.model.collectible.Potion;
+import fr.rpgastral.model.collectible.Tenue;
 import fr.rpgastral.model.entity.PNJ;
 
 public class TiledModel {
@@ -17,6 +18,7 @@ public class TiledModel {
 	private ArrayList<Terrain> plaine;
 	private ArrayList<PNJ> pnj;
 	private ArrayList<Potion> potion;
+	private ArrayList<Tenue> tenue;
 	
 	
 	public ArrayList<Terrain> getEau() {
@@ -84,6 +86,12 @@ public class TiledModel {
 	}
 	public void setPotion(ArrayList<Potion> potion) {
 		this.potion = potion;
+	}
+	public ArrayList<Tenue> getTenue() {
+		return tenue;
+	}
+	public void setTenue(ArrayList<Tenue> tenue) {
+		this.tenue = tenue;
 	}
 	
 	

@@ -15,11 +15,18 @@ public abstract class Collectible{
  private Sprite sprite;
  private AtlasRegion texture;
  private RpgMain g;
+ private String description;
  
  public Collectible(int x, int y, float damage, String name, RpgMain g) {
 	 this.x=x;
 	 this.y=y;
 	 this.damage=damage;
+	 this.name=name;
+	 this.setG(g);
+ }
+ public Collectible(int x, int y, String name, RpgMain g) {
+	 this.x=x;
+	 this.y=y;
 	 this.name=name;
 	 this.setG(g);
  }
@@ -73,4 +80,11 @@ public RpgMain getG() {
 public void setG(RpgMain g) {
 	this.g = g;
 }
+public String getDescription() {
+	return description;
 }
+public void setDescription(String description) {
+	this.description = description;
+}
+}
+

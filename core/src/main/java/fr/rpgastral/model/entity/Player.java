@@ -7,6 +7,7 @@ import fr.rpgastral.model.carte.Terrain;
 import fr.rpgastral.model.collectible.Armes;
 import fr.rpgastral.model.collectible.Potion;
 import fr.rpgastral.model.collectible.Tenue;
+import fr.rpgastral.view.MsgScreen;
 
 /**
  * classe décrivant le joueur
@@ -33,13 +34,10 @@ public class Player extends Entity{
     public void move(int x, int y){
     	this.x = x;
     	this.y = y;
-    	for(int i = 0; i< getG().getTiledModel().getObstacles().size(); i++ ) {
-			int z = getG().getTiledModel().getObstacles().get(i).Getx();
-			int w = getG().getTiledModel().getObstacles().get(i).Gety();
-			if (x == z && y == w && (this.tenue == null) | (this.tenue.getName() != "Broche d'Izanami")) {
-				this.takedamage(0.5f);
-			}
-		}
+    	if(this.tenue!= null) {
+    		this.tenue.setX(this.x);
+    		this.tenue.setY(this.y);
+    	}
     }
     
     public void takedamage(float i){
@@ -80,6 +78,16 @@ public class Player extends Entity{
     public void Collect (Potion c){
         c.effect(this);
         c.dispawn();
+    }
+    public void Collect(Tenue c) {
+    	if (this.tenue ==  null) {
+    		this.tenue = c;
+    		c.effect(this);
+    		c.dispawn();
+    	}
+    	else {
+    		getG().setScreen(new MsgScreen(getG(),c));
+    	}
     }
     public void Collect (Armes c) {
         if(this.x == c.getX() && this.y == c.getY()){

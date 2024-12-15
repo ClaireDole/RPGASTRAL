@@ -1,6 +1,7 @@
 package fr.rpgastral.controler.observerpattern;
 
 import fr.rpgastral.controler.RpgMain;
+import fr.rpgastral.model.collectible.Collectible;
 
 /**
  * classe permettant l'aiguillage des input vers le concreteobserver correspondant
@@ -11,12 +12,17 @@ public class Event {
 	private Boolean keypressed;
 	private String touche;
 	private RpgMain game;
+	private Collectible c;
 	
 	public Event(RpgMain game, String screen, Boolean keypressed, String touche) {
 		this.game = game;
 		this.screen = screen;
 		this.keypressed = keypressed;
 		this.touche = touche;
+	}
+	public Event(RpgMain game, String screen, Boolean keypressed, String touche, Collectible c) {
+		this(game, screen, keypressed, touche);
+		this.c = c;
 	}
 	
 	public Boolean compare(Event e) {
@@ -58,6 +64,12 @@ public class Event {
 
 	public void setGame(RpgMain game) {
 		this.game = game;
+	}
+	public Collectible getC() {
+		return c;
+	}
+	public void setC(Collectible c) {
+		this.c = c;
 	}
 
 }

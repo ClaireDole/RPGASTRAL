@@ -18,16 +18,16 @@ public class Potion extends Collectible{
 		if (p.Gettenue()!=null && p.Gettenue().getName().equals("Protection d'Amaterasu") && this.getDamage() < 0) {
 			setDamage(0);;
 		}
-		else if(this.getName().equals("PV")) {
+		if(this.getName().equals("PV")) {
 			p.SetPV(p.GetPV() + this.getDamage());
 			if(!p.isAlive()) {
 				p.SetPV(0.25f);
 			}
 		}
-		else if (this.getName().equals("Mana")) {
+		if (this.getName().equals("Mana")) {
 			p.SetMana(p.GetMana() + this.getDamage());
 		}
-		else if (this.getName().equals("Attaque")) {
+		if (this.getName().equals("Attaque")) {
 			p.SetBonusAttaque(p.GetBonusAttaque() + this.getDamage());
 		}
 	}

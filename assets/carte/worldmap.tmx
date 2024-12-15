@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="20">
+<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="26">
  <properties>
   <property name="franchir" type="bool" value="true"/>
  </properties>
@@ -371,11 +371,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="11" name="Potions">
-  <properties>
-   <property name="PNJ" type="bool" value="false"/>
-   <property name="Potion" type="bool" value="true"/>
-  </properties>
+ <objectgroup id="11" name="Potions" locked="1">
   <object id="5" name="Bonus" x="1136" y="847">
    <properties>
     <property name="Quantité" type="float" value="1"/>
@@ -482,10 +478,6 @@
   </object>
  </objectgroup>
  <objectgroup id="10" name="NPC" locked="1">
-  <properties>
-   <property name="PNJ" type="bool" value="true"/>
-   <property name="Potion" type="bool" value="false"/>
-  </properties>
   <object id="1" name="Elfe" x="1036.67" y="879.333">
    <properties>
     <property name="X" type="int" value="32"/>
@@ -516,6 +508,44 @@
    <properties>
     <property name="X" type="int" value="49"/>
     <property name="Y" type="int" value="4"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="12" name="Tenues">
+  <object id="20" name="Bénédiction de Susanoo" x="1167.33" y="1552.67">
+   <properties>
+    <property name="X" type="int" value="36"/>
+    <property name="Y" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="21" name="Apparat du kitsune" x="528" y="1199.33">
+   <properties>
+    <property name="X" type="int" value="16"/>
+    <property name="Y" type="int" value="12"/>
+   </properties>
+  </object>
+  <object id="22" name="Armure de Bishamonten" x="1424.33" y="369">
+   <properties>
+    <property name="X" type="int" value="44"/>
+    <property name="Y" type="int" value="39"/>
+   </properties>
+  </object>
+  <object id="23" name="Protection d'Amaterasu" x="342" y="46">
+   <properties>
+    <property name="X" type="int" value="10"/>
+    <property name="Y" type="int" value="48"/>
+   </properties>
+  </object>
+  <object id="24" name="Broche d'Izanami" x="1552" y="79.5">
+   <properties>
+    <property name="X" type="int" value="48"/>
+    <property name="Y" type="int" value="47"/>
+   </properties>
+  </object>
+  <object id="25" name="Eclat de Tsukuyomi" x="977" y="720.5">
+   <properties>
+    <property name="X" type="int" value="30"/>
+    <property name="Y" type="int" value="28"/>
    </properties>
   </object>
  </objectgroup>

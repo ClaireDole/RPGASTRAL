@@ -42,12 +42,33 @@ public class GameUp extends concreteobserver{
 				}
 			}
 			if(game.getGamescreen().getPlayer().Gety()+1 < game.getTiledModel().getHeight() && valid) {
+				if(game.getTiledModel().getVolcanique() != null) {
+					for(int i = 0; i< game.getTiledModel().getVolcanique().size(); i++ ) {
+						int x = game.getTiledModel().getVolcanique().get(i).Getx();
+						int y = game.getTiledModel().getVolcanique().get(i).Gety();
+						if (x == game.getGamescreen().getPlayer().Getx() && y == game.getGamescreen().getPlayer().Gety()+1) {
+							if(!(game.getGamescreen().getPlayer().GetPV() - 0.25f <=0) && (game.getGamescreen().getPlayer().Gettenue()==null ||
+									game.getGamescreen().getPlayer().Gettenue().getName() != "Broche d'Izanami")) {
+								game.getGamescreen().getPlayer().takedamage(0.25f);;
+							}
+						}
+					}
+				}
 				if(game.getTiledModel().getPotion() != null) {
 					for(int i = 0; i< game.getTiledModel().getPotion().size(); i++ ) {
 						int x = game.getTiledModel().getPotion().get(i).getX();
 						int y = game.getTiledModel().getPotion().get(i).getY();
 						if (x == game.getGamescreen().getPlayer().Getx() && y == game.getGamescreen().getPlayer().Gety()+1) {
 							game.getGamescreen().getPlayer().Collect(game.getTiledModel().getPotion().get(i));
+						}
+					}
+				}
+				if(game.getTiledModel().getTenue() != null) {
+					for(int i = 0; i< game.getTiledModel().getTenue().size(); i++ ) {
+						int x = game.getTiledModel().getTenue().get(i).getX();
+						int y = game.getTiledModel().getTenue().get(i).getY();
+						if (x == game.getGamescreen().getPlayer().Getx() && y == game.getGamescreen().getPlayer().Gety()+1) {
+							game.getGamescreen().getPlayer().Collect(game.getTiledModel().getTenue().get(i));
 						}
 					}
 				}

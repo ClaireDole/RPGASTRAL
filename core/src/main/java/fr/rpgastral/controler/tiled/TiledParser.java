@@ -12,6 +12,7 @@ import fr.rpgastral.controler.RpgMain;
 import fr.rpgastral.model.TiledModel;
 import fr.rpgastral.model.carte.Terrain;
 import fr.rpgastral.model.collectible.Potion;
+import fr.rpgastral.model.collectible.Tenue;
 import fr.rpgastral.model.entity.PNJ;
 
 /**
@@ -126,9 +127,8 @@ public class TiledParser {
 			}
 				//gestion des ObjectLayer -> layers restant
 			else if((map.getLayers().get(i) instanceof MapLayer)) {
-				MapProperties b = map.getLayers().get(i).getProperties();
 				MapLayer u = (MapLayer) map.getLayers().get(i);
-					if ((boolean) b.get("PNJ", Boolean.class)){
+					if (u.getName().equals("NPC")){
 						//creation liste
 						ArrayList<PNJ> pnj = new ArrayList<PNJ>();
 						//parcours des objets du layer
@@ -143,7 +143,7 @@ public class TiledParser {
 						//ajout liste dans le tiledmodel
 						tiledmodel.setPnj(pnj);
 					}
-					if ((boolean) b.get("Potion", Boolean.class)){
+					if (u.getName().equals("Potions")){
 						//creation liste
 						ArrayList<Potion> potion = new ArrayList<Potion>();
 						//parcours des objets du layer
@@ -173,6 +173,16 @@ public class TiledParser {
 						}
 						//ajout liste dans le tiledmodel
 						tiledmodel.setPotion(potion);
+					}
+					if (u.getName().equals("Tenues")){
+						//creation liste
+						ArrayList<Tenue> tenue = new ArrayList<Tenue>();
+						//parcours des objets du layer
+						for (MapObject element : u.getObjects()) {
+							tenue.add(new Tenue(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),element.getName(),game));
+						}
+						//ajout liste dans le tiledmodel
+						tiledmodel.setTenue(tenue);
 					}
 				}
 		}

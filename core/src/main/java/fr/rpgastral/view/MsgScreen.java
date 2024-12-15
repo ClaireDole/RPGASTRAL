@@ -15,8 +15,12 @@ import fr.rpgastral.controler.RpgMain;
 import fr.rpgastral.controler.observerpattern.Event;
 import fr.rpgastral.controler.observerpattern.Observer;
 import fr.rpgastral.controler.observerpattern.sujet;
+import fr.rpgastral.controler.observerpattern.concreteobserver.Msg1;
+import fr.rpgastral.controler.observerpattern.concreteobserver.Msg2;
 import fr.rpgastral.controler.observerpattern.concreteobserver.MsgP;
 import fr.rpgastral.controler.observerpattern.concreteobserver.concreteobserver;
+import fr.rpgastral.model.collectible.Collectible;
+import fr.rpgastral.model.collectible.Tenue;
 
 public class MsgScreen implements Screen, sujet{
 
@@ -27,22 +31,35 @@ public class MsgScreen implements Screen, sujet{
 	private Font font;
 	private ArrayList<concreteobserver> observers;
 	private String msg;
+	private Boolean choix;
+	private Collectible c;
 	
 	public MsgScreen(RpgMain g) {
 		this.game=g;
 		this.camera = new OrthographicCamera(800,800);
 		this.viewport = new ScreenViewport(camera);
 		this.font = new Font();
+		this.choix = false;
+		this.msg=null;
 		game.getManager().load("pack.png", Texture.class);
 		this.window = this.game.getAtlas().findRegion("Interface/window");
 		this.observers = new ArrayList<concreteobserver>();
 		attach(new MsgP("P"));
+		attach(new Msg1("1"));
+		attach(new Msg2("2"));
 		this.render(0.5f);	
 	}
 	
 	public MsgScreen(RpgMain g, String m) {
 		this(g);
 		this.msg = m;
+		this.choix = false;
+	}
+	
+	public MsgScreen(RpgMain g, Collectible c) {
+		this(g);
+		this.choix = true;
+		this.c = c;
 	}
 	
 	@Override
@@ -106,14 +123,38 @@ public class MsgScreen implements Screen, sujet{
 		this.game.getBatch().setProjectionMatrix(this.viewport.getCamera().combined);
 		this.game.getBatch().begin();
 		this.game.getBatch().draw(this.window,0,0,800,800);
-		this.font.Getfont1().draw(this.game.getBatch(), msg, 50, 400);
-		this.font.Getfont1().draw(this.game.getBatch(), "Appuie sur P pour retourner au jeu", 100, 200);
+		if(this.msg!=null) {
+			this.font.Getfont1().draw(this.game.getBatch(), msg, 50, 400);
+		}
+		if(this.c != null && choix) {
+			if(c instanceof Tenue) {
+				this.font.Getfont1().draw(this.game.getBatch(),"Choix 1 : " + this.game.getGamescreen().getPlayer().getTenue().getName(), 50, 400);
+				this.font.Getfont1().draw(this.game.getBatch(),this.game.getGamescreen().getPlayer().getTenue().getDescription(), 100, 350);
+				this.font.Getfont1().draw(this.game.getBatch(),"Choix 2 : " + c.getName(), 50, 250);
+				this.font.Getfont1().draw(this.game.getBatch(),c.getDescription(), 100, 200);
+			}
+		}
+		if(!choix) {
+			this.font.Getfont1().draw(this.game.getBatch(), "Appuie sur P pour retourner au jeu", 100, 100);
+		}
 		this.game.getBatch().end();
 	}
 	
 	private void input() {
-		if (Gdx.input.isKeyPressed(Input.Keys.P)) {
-			Event event = new Event(this.game,"MsgScreen",true,"P");
+		if(!choix) {
+			if (Gdx.input.isKeyPressed(Input.Keys.P)) {
+				Event event = new Event(this.game,"MsgScreen",true,"P");
+				notify(event);
+				this.dispose();
+			}
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
+			Event event = new Event(this.game,"MsgScreen",true,"1");
+			notify(event);
+			this.dispose();
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
+			Event event = new Event(this.game,"MsgScreen",true,"2",c);
 			notify(event);
 			this.dispose();
 		}

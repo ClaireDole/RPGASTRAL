@@ -100,6 +100,11 @@ public class GameScreen implements Screen, sujet {
 				this.game.getTiledModel().getPotion().get(i).getSprite().setSize(1, 1);
 			}
 		}
+		if(this.game.getTiledModel().getTenue() != null ) {
+			for (int i=0; i<this.game.getTiledModel().getTenue().size(); i++) {
+				this.game.getTiledModel().getTenue().get(i).getSprite().setSize(1, 1);
+			}
+		}
 
 		//chargement des fonts
 		this.font = new Font();
@@ -168,6 +173,12 @@ public class GameScreen implements Screen, sujet {
 	    		this.game.getTiledModel().getPotion().get(i).getSprite().setPosition(this.game.getTiledModel().getPotion().get(i).getX(), this.game.getTiledModel().getPotion().get(i).getY());
 	    	}
 	    }
+	    //SetPositionTenue
+	    if(this.game.getTiledModel().getTenue() != null ) {
+	    	for (int i=0; i<this.game.getTiledModel().getTenue().size(); i++) {
+	    		this.game.getTiledModel().getTenue().get(i).getSprite().setPosition(this.game.getTiledModel().getTenue().get(i).getX(), this.game.getTiledModel().getTenue().get(i).getY());
+	    	}
+	    }
 	    this.viewport.apply();
 	    this.game.getBatch().begin();
 	    this.renderer.render();
@@ -187,6 +198,12 @@ public class GameScreen implements Screen, sujet {
 	    if(this.game.getTiledModel().getPotion() != null ) {
 	    	for (int i=0; i<this.game.getTiledModel().getPotion().size(); i++) {
 	    		this.game.getTiledModel().getPotion().get(i).getSprite().draw(this.game.getBatch());
+	    	}
+	    }
+	  //Tenue
+	    if(this.game.getTiledModel().getTenue() != null ) {
+	    	for (int i=0; i<this.game.getTiledModel().getTenue().size(); i++) {
+	    		this.game.getTiledModel().getTenue().get(i).getSprite().draw(this.game.getBatch());
 	    	}
 	    }
 	    this.game.getBatch().end();
