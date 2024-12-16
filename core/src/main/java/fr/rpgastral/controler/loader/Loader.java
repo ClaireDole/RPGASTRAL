@@ -5,9 +5,12 @@ import com.badlogic.gdx.utils.Logger;
 import fr.rpgastral.controler.RpgMain;
 import fr.rpgastral.view.LoadingScreen;
 
+/**
+ * classe permettant d'afficher au besoin une erreur si celle-ci arrive lors du parsing de la carte, 
+ * du packing des assets ou de la création du jeu
+ */
 public class Loader implements Disposable {
-//afficher un screen de loading
-//implémenter start et stop(faire le dispose de l'écran de loading)
+	
 	private Logger logger;
 	private LoadingScreen loadingscreen;
 	private RpgMain game;
@@ -26,9 +29,6 @@ public class Loader implements Disposable {
 		this.logger.info(msg);
 		this.loadingscreen.Setprint(true);
 		this.loadingscreen.Setmsg(msg);	
-	}
-	public void stop() {
-		loadingscreen.dispose();
 	}
 
 	@Override

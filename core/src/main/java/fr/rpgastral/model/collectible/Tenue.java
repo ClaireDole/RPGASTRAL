@@ -7,13 +7,16 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import fr.rpgastral.controler.RpgMain;
 import fr.rpgastral.model.entity.Player;
 
+/**
+ * les tenues et leurs effets
+ * Bénédiction de Susanoo --> marche sur l'eau et augmente PV 
+ * Apparat du kitsune --> convainct à 100% de réussite 
+ * Protection d'Amaterasu --> protège des malus
+ * Armure de Bishamonten --> augmente l'attaque 
+ * Eclat de Tsukuyomi --> augmente le mana 
+ * Broche d'Izanami --> annule les effets des terrains
+ */
 public class Tenue extends Collectible{
-	//Bénédiction de Susanoo --> marche sur l'eau et augmente PV
-	//Apparat du kitsune --> convainct à 100% de réussite
-	//Protection d'Amaterasu --> protège des malus
-	//Armure de Bishamonten --> augmente l'attaque
-	//Eclat de Tsukuyomi --> augmente le mana
-	//Broche d'Izanami --> annule les effets des terrains
 	
 	public Tenue(int x, int y, String s, RpgMain g) {
 		super(x,y,s,g);
@@ -38,9 +41,11 @@ public class Tenue extends Collectible{
 			setDescription("Bonus de mana");
 		}
 	}
-	public Tenue(Player player, String string) {
-		super(player,string);
-	}
+	
+	/**
+	 * les effets sur le joueur directement
+	 * @param p
+	 */
 	public void effect(Player p) {
 		if (this.getName().equals("Bénédiction de Susanoo")) {
 			p.SetPV(p.GetPV()+2);
@@ -52,10 +57,13 @@ public class Tenue extends Collectible{
 			p.SetBonusAttaque(2);
 		}
 	}
+	/**
+	 * suppression des tenues 
+	 */
 	@Override
 	public void dispawn() {
-		ArrayList<Tenue> list = this.getG().getTiledModel().getTenue();
+		ArrayList<Tenue> list = this.getG().getTiledModel().getTenues();
 		list.remove(this);
-		this.getG().getTiledModel().setTenue(list);
+		this.getG().getTiledModel().setTenues(list);
 	}
 }

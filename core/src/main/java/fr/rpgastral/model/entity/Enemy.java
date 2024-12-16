@@ -18,7 +18,7 @@ public abstract class Enemy extends Entity{
         p.takedamage(this.damage);
     }
     public void takedamage(float i){
-        this.PV = this.PV - i;
+        setPV(this.getPV() - i);
     }
     public void dispawn(Enemy e) {
     	//l'enlever de la collection d'ennemis de la carte

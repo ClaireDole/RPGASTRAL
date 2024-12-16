@@ -3,6 +3,13 @@ package fr.rpgastral.controler.observerpattern.concreteobserver;
 import fr.rpgastral.controler.RpgMain;
 import fr.rpgastral.controler.observerpattern.Event;
 
+/**
+ * gestion du mouvement du joueur lorsqu'il veut aller vers la gauche
+ * on vérifie s'il peut (sortie de la carte, obstacles)
+ * puis on regarde s'il existe des collectibles à l'endroit où le joueur se déplace
+ * si oui on gère la collecte du collectible
+ * on déplace le joueur
+ */
 public class GameLeft extends concreteobserver{
 	
 	public GameLeft(String name) {
@@ -42,6 +49,7 @@ public class GameLeft extends concreteobserver{
 				}
 			}
 			if(game.getGamescreen().getPlayer().Getx() -1 >= 0 && valid) {
+				//gestion des effets terrain volcanique
 				if(game.getTiledModel().getVolcanique() != null) {
 					for(int i = 0; i< game.getTiledModel().getVolcanique().size(); i++ ) {
 						int x = game.getTiledModel().getVolcanique().get(i).Getx();
@@ -54,21 +62,33 @@ public class GameLeft extends concreteobserver{
 						}
 					}
 				}
-				if(game.getTiledModel().getPotion() != null) {
-					for(int i = 0; i< game.getTiledModel().getPotion().size(); i++ ) {
-						int x = game.getTiledModel().getPotion().get(i).getX();
-						int y = game.getTiledModel().getPotion().get(i).getY();
+				//gestion des potions
+				if(game.getTiledModel().getPotions() != null) {
+					for(int i = 0; i< game.getTiledModel().getPotions().size(); i++ ) {
+						int x = game.getTiledModel().getPotions().get(i).getX();
+						int y = game.getTiledModel().getPotions().get(i).getY();
 						if (x == game.getGamescreen().getPlayer().Getx()-1 && y == game.getGamescreen().getPlayer().Gety()) {
-							game.getGamescreen().getPlayer().Collect(game.getTiledModel().getPotion().get(i));
+							game.getGamescreen().getPlayer().Collect(game.getTiledModel().getPotions().get(i));
 						}
 					}
 				}
-				if(game.getTiledModel().getTenue() != null) {
-					for(int i = 0; i< game.getTiledModel().getTenue().size(); i++ ) {
-						int x = game.getTiledModel().getTenue().get(i).getX();
-						int y = game.getTiledModel().getTenue().get(i).getY();
+				//gestion des tenues
+				if(game.getTiledModel().getTenues() != null) {
+					for(int i = 0; i< game.getTiledModel().getTenues().size(); i++ ) {
+						int x = game.getTiledModel().getTenues().get(i).getX();
+						int y = game.getTiledModel().getTenues().get(i).getY();
 						if (x == game.getGamescreen().getPlayer().Getx()-1 && y == game.getGamescreen().getPlayer().Gety()) {
-							game.getGamescreen().getPlayer().Collect(game.getTiledModel().getTenue().get(i));
+							game.getGamescreen().getPlayer().Collect(game.getTiledModel().getTenues().get(i));
+						}
+					}
+				}
+				//gestion armes
+				if(game.getTiledModel().getArmes() != null) {
+					for(int i = 0; i< game.getTiledModel().getArmes().size(); i++ ) {
+						int x = game.getTiledModel().getArmes().get(i).getX();
+						int y = game.getTiledModel().getArmes().get(i).getY();
+						if (x == game.getGamescreen().getPlayer().Getx()-1 && y == game.getGamescreen().getPlayer().Gety()) {
+							game.getGamescreen().getPlayer().Collect(game.getTiledModel().getArmes().get(i));
 						}
 					}
 				}

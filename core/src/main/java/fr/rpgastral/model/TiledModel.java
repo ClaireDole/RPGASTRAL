@@ -2,24 +2,32 @@ package fr.rpgastral.model;
 
 import java.util.ArrayList;
 import fr.rpgastral.model.carte.Terrain;
+import fr.rpgastral.model.collectible.Armes;
 import fr.rpgastral.model.collectible.Potion;
 import fr.rpgastral.model.collectible.Tenue;
 import fr.rpgastral.model.entity.PNJ;
 
+/**
+ * classe qui décrit le monde du jeu
+ * elle résulte des informations de la carte tiled
+ * on retrouve les dimensions, les terrains, les collectibles et les ennemis
+ * sous cette forme, les informations sont utilisables dans le programme 
+ */
 public class TiledModel {
+	
 	private int width;
 	private int height;
 	private int tilewidth;
 	private int tileheight;
 	private ArrayList<Terrain> eau;
-	private ArrayList<Terrain> volcanique;
+	private ArrayList<Terrain> volcaniques;
 	private ArrayList<Terrain> obstacles;
-	private ArrayList<Terrain> chemin;
-	private ArrayList<Terrain> plaine;
-	private ArrayList<PNJ> pnj;
-	private ArrayList<Potion> potion;
-	private ArrayList<Tenue> tenue;
-	
+	private ArrayList<Terrain> chemins;
+	private ArrayList<Terrain> plaines;
+	private ArrayList<PNJ> pnjs;
+	private ArrayList<Potion> potions;
+	private ArrayList<Tenue> tenues;
+	private ArrayList<Armes> armes;
 	
 	public ArrayList<Terrain> getEau() {
 		return eau;
@@ -28,10 +36,10 @@ public class TiledModel {
 		this.eau = eau;
 	}
 	public ArrayList<Terrain> getVolcanique() {
-		return volcanique;
+		return volcaniques;
 	}
 	public void setVolcanique(ArrayList<Terrain> volcanique) {
-		this.volcanique = volcanique;
+		this.volcaniques = volcanique;
 	}
 	public ArrayList<Terrain> getObstacles() {
 		return obstacles;
@@ -40,16 +48,16 @@ public class TiledModel {
 		this.obstacles = obstacles;
 	}
 	public ArrayList<Terrain> getChemin() {
-		return chemin;
+		return chemins;
 	}
 	public void setChemin(ArrayList<Terrain> chemin) {
-		this.chemin = chemin;
+		this.chemins = chemin;
 	}
 	public ArrayList<Terrain> getPlaine() {
-		return plaine;
+		return plaines;
 	}
-	public void setPlaine(ArrayList<Terrain> plaine) {
-		this.plaine = plaine;
+	public void setPlaines(ArrayList<Terrain> plaine) {
+		this.plaines = plaine;
 	}
 	public int getWidth() {
 		return width;
@@ -75,23 +83,30 @@ public class TiledModel {
 	public void setTileheight(int tileheight) {
 		this.tileheight = tileheight;
 	}
-	public ArrayList<PNJ> getPnj() {
-		return pnj;
+	
+	public ArrayList<PNJ> getPnjs() {
+		return pnjs;
 	}
-	public void setPnj(ArrayList<PNJ> pnj) {
-		this.pnj = pnj;
+	public void setPnjs(ArrayList<PNJ> pnjs) {
+		this.pnjs = pnjs;
 	}
-	public ArrayList<Potion> getPotion() {
-		return potion;
+	public ArrayList<Potion> getPotions() {
+		return potions;
 	}
-	public void setPotion(ArrayList<Potion> potion) {
-		this.potion = potion;
+	public void setPotions(ArrayList<Potion> potions) {
+		this.potions = potions;
 	}
-	public ArrayList<Tenue> getTenue() {
-		return tenue;
+	public ArrayList<Tenue> getTenues() {
+		return tenues;
 	}
-	public void setTenue(ArrayList<Tenue> tenue) {
-		this.tenue = tenue;
+	public void setTenues(ArrayList<Tenue> tenues) {
+		this.tenues = tenues;
+	}
+	public ArrayList<Armes> getArmes() {
+		return armes;
+	}
+	public void setArmes(ArrayList<Armes> armes) {
+		this.armes = armes;
 	}
 	
 	

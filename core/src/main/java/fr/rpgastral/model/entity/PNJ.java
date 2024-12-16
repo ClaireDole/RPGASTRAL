@@ -4,6 +4,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import fr.rpgastral.controler.RpgMain;
 
+/**
+ * Personnages Non Joueurs
+ */
 public class PNJ extends Entity{
 	private String race;
     private String message;
@@ -13,29 +16,32 @@ public class PNJ extends Entity{
 		super(x, y, g);
 		this.race = race;
 		if(race=="Elfe") {
-			this.texture = g.getAtlas().findRegion("Game/elf");
-			this.sprite = new Sprite(this.texture);
+			setTexture(g.getAtlas().findRegion("Game/elf"));
+			this.sprite = new Sprite(this.getTexture());
 		}
 		else if(race=="Humain") {
-			this.texture = g.getAtlas().findRegion("Game/PNJ");
-			this.sprite = new Sprite(this.texture);
+			setTexture(g.getAtlas().findRegion("Game/PNJ"));
+			this.sprite = new Sprite(this.getTexture());
 		}
 	}
     
+    /**
+     * constructeur si le PNJ a un message
+     * @param x
+     * @param y
+     * @param race
+     * @param g
+     * @param msg
+     */
     public PNJ(int x, int y, String race, RpgMain g, String msg) {
-    	super(x, y, g);
-		this.race = race;
-		if(race=="Elfe") {
-			this.texture = g.getAtlas().findRegion("Game/elf");
-			this.sprite = new Sprite(this.texture);
-		}
-		else if(race=="Humain") {
-			this.texture = g.getAtlas().findRegion("Game/PNJ");
-			this.sprite = new Sprite(this.texture);
-		}
+    	this(x, y, race, g);
 		this.message = msg;
     }
     
+    /**
+     * les elfes peuvent soigner le joueur s'il a besoin
+     * @param p
+     */
     public void Soin(Player p){
     	if(p.Gettenue().getName()=="Bénédiction de Susanoo") {
     		p.SetPV(5);

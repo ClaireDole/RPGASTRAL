@@ -20,20 +20,55 @@ Game/elf
   index: -1
 
 pack2.png
-size: 128, 128
+size: 512, 128
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-Game/collectible/potion
+Game/collectible/arc
+  rotate: false
+  xy: 68, 45
+  size: 64, 68
+  orig: 64, 68
+  offset: 0, 0
+  index: -1
+Game/collectible/baton
+  rotate: false
+  xy: 2, 38
+  size: 64, 75
+  orig: 64, 75
+  offset: 0, 0
+  index: -1
+Game/collectible/epee
   rotate: false
   xy: 2, 2
+  size: 64, 34
+  orig: 64, 34
+  offset: 0, 0
+  index: -1
+Game/collectible/hache
+  rotate: false
+  xy: 134, 49
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+Game/collectible/potion
+  rotate: false
+  xy: 68, 11
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
+Game/collectible/sceptre
+  rotate: false
+  xy: 200, 49
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
 Game/collectible/tenue
   rotate: false
-  xy: 2, 36
+  xy: 266, 50
   size: 64, 63
   orig: 64, 63
   offset: 0, 0

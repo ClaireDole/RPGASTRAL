@@ -3,11 +3,23 @@ package fr.rpgastral.model.entity;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import fr.rpgastral.controler.RpgMain;
 
+/**
+ * les entités du jeu
+ */
 public abstract class Entity {
-    protected int x;
-    protected int y;
-    protected float PV;
-    protected AtlasRegion texture;
+	/**
+	 * coordonnées en abscisse
+	 */
+    private int x;
+    /**
+     * coordoonnées en ordonnée
+     */
+    private int y;
+    private float PV;
+    /**
+	 * region de l'image utilisée lors de l'affichage
+	 */
+    private AtlasRegion texture;
     private RpgMain g;
     
     public Entity(int x, int y, RpgMain game) {
@@ -15,6 +27,7 @@ public abstract class Entity {
     	this.y = y;
     	this.g = game;
     }
+    
     public int Getx() {
     	return this.x;
     }
@@ -41,5 +54,37 @@ public abstract class Entity {
 	}
 	public void setG(RpgMain g) {
 		this.g = g;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public float getPV() {
+		return PV;
+	}
+
+	public void setPV(float pV) {
+		PV = pV;
+	}
+
+	public AtlasRegion getTexture() {
+		return texture;
+	}
+
+	public void setTexture(AtlasRegion texture) {
+		this.texture = texture;
 	}
 }

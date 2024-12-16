@@ -21,18 +21,47 @@ import fr.rpgastral.view.MainMenuScreen;
  */
 public class RpgMain extends Game {
 	
+	/**
+	 * permet la gestion de la carte tiled
+	 */
 	private TiledParser tiledParser; 
+	/**
+	 * stockage des informations traitées par la carte tiled
+	 */
 	private TiledModel tiledModel;
+	/**
+	 * gestion des assets
+	 */
 	private TexturePackerHelper texturePackerHelper;
+	/**
+	 * atlas pour retrouver les différentes assets
+	 */
 	private TextureAtlas atlas;
 	private AssetManager manager;
+	/**
+	 * batch permettant d'afficher un rendu
+	 */
 	private SpriteBatch batch;
+	/**
+	 * carte tiled sous format tmx
+	 */
 	private TiledMap map;
 	private MainMenuScreen mainMenuScreen;
+	/**
+	 * on lie le gamescreen à la classe main pour éviter les erreurs comme la remise à zéro de l'écran de jeu après l'ouverture d'un menu
+	 * on garantit ainsi une unique instance du gamescreen 
+	 */
 	private GameScreen gamescreen;
+	/**
+	 * gestion du chargement du jeu
+	 */
 	private Loader loader;
 	private Logger logger;
 	
+	/**
+	 * constructeur lancé automatiquement lors de l'exécution
+	 * vient des propriétés de la classe Game
+	 */
 	public RpgMain() {
 		this.logger = new Logger("début initialisation des variables du jeu");
 		this.logger.info("début initialisation des variables du jeu");
@@ -45,6 +74,11 @@ public class RpgMain extends Game {
     	this.logger.info("fin initialisation des variables du jeu");
 	}
 	
+	/**
+	 * création du jeu
+	 * override une méthode de Game
+	 * chargement de la carte tiled, des assets, gestion du parsing de la carte et des screen pour démarrer
+	 */
     @Override
     public void create() {
 		//charge la carte Tiled
@@ -73,27 +107,24 @@ public class RpgMain extends Game {
     		return;
     	}
     	loader.print("fin de la lecture de la carte");
-    	loader.stop();
+    	loader.dispose();
     	gamescreen = new GameScreen(this);
     	// screen de demarrage
     	mainMenuScreen = new MainMenuScreen(this);
-    	this.setScreen(mainMenuScreen);  
-    
-    	//cycle de vie du jeu
-    	//faire une boucle d'attente des évènements du jeu
-    	//sortie de cette boucle si le joueur tape la sortie du jeu
-    	
-    	//évènement.getreponse() : choix 1 : créer un listener 
-    	//choix 2 : implémenter le design pattern observer
-    	//choix 3 : faire une boucle temporelle de lecture des évènements toutes les 0.5 secondes
-    	
+    	this.setScreen(mainMenuScreen);  	
     }
 
+    /**
+     * gestion du rendu du jeu
+     */
     @Override
     public void render() {
         super.render();
     }
 
+    /**
+     * gestion pour la suppression du jeu
+     */
     @Override
     public void dispose() {
 		this.getGamescreen().dispose();

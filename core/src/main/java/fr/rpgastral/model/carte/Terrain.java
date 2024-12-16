@@ -1,18 +1,16 @@
 package fr.rpgastral.model.carte;
 
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
-
+/**
+ * description des terrains franchissables ou non et ceux avec des effets
+ * eau peut être franchie uniquement si le joueue a une tenue spécifique, la bénédiction de Susanoo
+ * volcanique cause des dégâts au joueur chaque fois qu'il se déplace mais cela ne le tuera pas
+ * on peut annuler les effets des terrains volcaniques avec la tenue broche d'Izanami
+ */
 public class Terrain{
     private int x;
     private int y;
     private Boolean franchissement;
     private String name;
-
-    //si sur chemin alors player peut pas prendre de damage
-    //plaine = terrain classique
-    //roche volcanique = damage tous les x temps
-    //obstacle = franchissement impossible
-    //eau = cas à part
     
     public Terrain(int x, int y, String n) {
     	this.x = x;

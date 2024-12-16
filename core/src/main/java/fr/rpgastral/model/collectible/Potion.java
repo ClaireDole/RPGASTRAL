@@ -7,6 +7,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import fr.rpgastral.controler.RpgMain;
 import fr.rpgastral.model.entity.Player;
 
+/**
+ * descriptions des potions qui peuvent correspondre soit à des bonus soit à des malus
+ * lorsque le joueur récupère une potion, celle-ci disparait et lance son effet
+ * on ne peut pas le savoir avant d'avoir vu l'effet sur le joueur
+ */
 public class Potion extends Collectible{
 	
 	public Potion(int x, int y, float e, String s, RpgMain g) {
@@ -14,6 +19,11 @@ public class Potion extends Collectible{
 		setTexture(g.getAtlas().findRegion("Game/collectible/potion"));
 		setSprite(new Sprite(this.getTexture()));
 	}
+	/**
+	 * les effets possibles selon les potions
+	 * la tenue protection d'Amaterasu protège des effets malus
+	 * @param p
+	 */
 	public void effect(Player p) {
 		if (p.Gettenue()!=null && p.Gettenue().getName().equals("Protection d'Amaterasu") && this.getDamage() < 0) {
 			setDamage(0);;
@@ -31,11 +41,16 @@ public class Potion extends Collectible{
 			p.SetBonusAttaque(p.GetBonusAttaque() + this.getDamage());
 		}
 	}
+	
+	/**
+	 * suppression des potions dans le modèle de la carte
+	 * pour plus d'informations @see TiledModel class
+	 */
 	@Override
 	public void dispawn() {
-		ArrayList<Potion> list = this.getG().getTiledModel().getPotion();
+		ArrayList<Potion> list = this.getG().getTiledModel().getPotions();
 		list.remove(this);
-		this.getG().getTiledModel().setPotion(list);
+		this.getG().getTiledModel().setPotions(list);
 	}
 	
 }

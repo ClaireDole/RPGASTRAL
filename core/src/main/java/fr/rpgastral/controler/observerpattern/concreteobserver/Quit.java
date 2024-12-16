@@ -3,6 +3,9 @@ package fr.rpgastral.controler.observerpattern.concreteobserver;
 import fr.rpgastral.controler.RpgMain;
 import fr.rpgastral.controler.observerpattern.Event;
 
+/**
+ * permet de quitter le jeu
+ */
 public class Quit extends concreteobserver{
 
 	public Quit(String name) {

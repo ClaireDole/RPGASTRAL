@@ -27,10 +27,21 @@ public class StatInventaire implements Screen, sujet{
 	private RpgMain game;
 	private OrthographicCamera camera;
 	private ScreenViewport viewport;
+	/**
+	 * region de l'image utilisée lors de l'affichage
+	 */
 	private AtlasRegion window;
 	private Font font;
+	/**
+	 * liste des observers concrets utilisés sur le menu principal
+	 * permet de gérer les effets des inputs sur l'écran
+	 */
 	private ArrayList<concreteobserver> observers;
 	
+	/**
+	 * constructeur
+	 * @param game
+	 */
 	public StatInventaire(final RpgMain game) {
 		this.game = game;
 		this.camera = new OrthographicCamera(800,800);
@@ -44,16 +55,25 @@ public class StatInventaire implements Screen, sujet{
 		this.render(0.5f);	
 	}
 	
+	/**
+	 * @see controler/observerpattern/sujet
+	 */
 	@Override
 	public void attach(concreteobserver o) {
 		this.observers.add(o);
 	}
 
+	/**
+	 * @see controler/observerpattern/sujet
+	 */
 	@Override
 	public void unattach(Observer o) {
 		this.observers.remove(o);
 	}
 
+	/**
+	 * @see controler/observerpattern/sujet
+	 */
 	@Override
 	public void notify(Event e) {
 		if(e.compare(new Event(this.game,"GameScreen",true,"Q"))) {
@@ -98,6 +118,9 @@ public class StatInventaire implements Screen, sujet{
 		font.dispose();
 	}
 	
+	/**
+	 * gestion de l'affichage
+	 */
 	private void draw() {
 		ScreenUtils.clear(0, 0, 0.2f, 1);
 		this.viewport.apply();
@@ -116,7 +139,7 @@ public class StatInventaire implements Screen, sujet{
 		}
 		else {
 			this.font.Getfont1().draw(this.game.getBatch(), "Arme main gauche :",100,400,175,450,false);
-			this.font.Getfont3().draw(this.game.getBatch(), this.game.getGamescreen().getPlayer().getMg().getName(), 250, 300, 300, 350, false);
+			this.font.Getfont3().draw(this.game.getBatch(), this.game.getGamescreen().getPlayer().getMg().getName(), 250, 400, 300, 450, false);
 		}
 		if(this.game.getGamescreen().getPlayer().getMd() == null) {
 			this.font.Getfont1().draw(this.game.getBatch(), "Arme main droite :",100,300,175,350,false);
@@ -137,6 +160,9 @@ public class StatInventaire implements Screen, sujet{
 		this.game.getBatch().end();
 	}
 	
+	/**
+	 * gestion des inputs
+	 */
 	private void input() {
 		if (Gdx.input.isKeyPressed(Input.Keys.P)) {
 			Event event = new Event(this.game,"StatInventaireScreen",true,"P");

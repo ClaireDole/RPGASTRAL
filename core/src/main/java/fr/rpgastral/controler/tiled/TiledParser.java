@@ -11,6 +11,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import fr.rpgastral.controler.RpgMain;
 import fr.rpgastral.model.TiledModel;
 import fr.rpgastral.model.carte.Terrain;
+import fr.rpgastral.model.collectible.Armes;
 import fr.rpgastral.model.collectible.Potion;
 import fr.rpgastral.model.collectible.Tenue;
 import fr.rpgastral.model.entity.PNJ;
@@ -18,7 +19,10 @@ import fr.rpgastral.model.entity.PNJ;
 /**
  * classe de gestion des informations de la carte tiled
  * effectue la transformation des infos en objets pour le jeu
- * renvoie un tiledmodel qui contient tous les objets ainsi crees
+ * renvoie un tiledmodel qui contient tous les objets ainsi crées
+ * on gère en premier les TileLayers de la carte pour la gestion des terrains
+ * ensuite, on gère les ObjectLayer pour le reste des informations : collectibles, entités, point de téléportation
+ * Attention : la classe TiledMapObjectLayer n'étant pas disponible, on itère sur les MapLayer de façon générale pour la seconde partie
  */
 public class TiledParser {
 
@@ -122,7 +126,7 @@ public class TiledParser {
 					    }
 					}
 					//ajout de la liste dans le tiledmodel
-					tiledmodel.setPlaine(plaine);
+					tiledmodel.setPlaines(plaine);
 				}
 			}
 				//gestion des ObjectLayer -> layers restant
@@ -130,59 +134,83 @@ public class TiledParser {
 				MapLayer u = (MapLayer) map.getLayers().get(i);
 					if (u.getName().equals("NPC")){
 						//creation liste
-						ArrayList<PNJ> pnj = new ArrayList<PNJ>();
+						ArrayList<PNJ> pnjs = new ArrayList<PNJ>();
 						//parcours des objets du layer
 						for (MapObject element : u.getObjects()) {
 							if(element.getName().equals("Elfe")) {
-								pnj.add(new PNJ(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),"Elfe",game,element.getProperties().get("msg", String.class)));
+								pnjs.add(new PNJ(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),"Elfe",game,element.getProperties().get("msg", String.class)));
 							}
 							else if (element.getName().equals("Humain")) {
-								pnj.add(new PNJ (element.getProperties().get("X", int.class), element.getProperties().get("Y", int.class), "Humain",game,element.getProperties().get("msg", String.class)));
+								pnjs.add(new PNJ (element.getProperties().get("X", int.class), element.getProperties().get("Y", int.class), "Humain",game,element.getProperties().get("msg", String.class)));
 							}
 						}
 						//ajout liste dans le tiledmodel
-						tiledmodel.setPnj(pnj);
+						tiledmodel.setPnjs(pnjs);
 					}
 					if (u.getName().equals("Potions")){
 						//creation liste
-						ArrayList<Potion> potion = new ArrayList<Potion>();
+						ArrayList<Potion> potions = new ArrayList<Potion>();
 						//parcours des objets du layer
 						for (MapObject element : u.getObjects()) {
 							if(element.getName().equals("Bonus")) {
 								if(element.getProperties().get("Type",String.class).equals("PV")) {
-									potion.add(new Potion(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),element.getProperties().get("Quantité", float.class),"PV",game));
+									potions.add(new Potion(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),element.getProperties().get("Quantité", float.class),"PV",game));
 								}
 								if(element.getProperties().get("Type",String.class).equals("Mana")) {
-									potion.add(new Potion(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),element.getProperties().get("Quantité", float.class),"Mana",game));
+									potions.add(new Potion(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),element.getProperties().get("Quantité", float.class),"Mana",game));
 								}
 								if(element.getProperties().get("Type",String.class).equals("Attaque")) {
-									potion.add(new Potion(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),element.getProperties().get("Quantité", float.class),"Attaque",game));
+									potions.add(new Potion(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),element.getProperties().get("Quantité", float.class),"Attaque",game));
 								}
 							}
 							else if (element.getName().equals("Malus")) {
 								if(element.getProperties().get("Type",String.class).equals("PV")) {
-									potion.add(new Potion(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),-(element.getProperties().get("Quantité", float.class)),"PV",game));
+									potions.add(new Potion(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),-(element.getProperties().get("Quantité", float.class)),"PV",game));
 								}
 								if(element.getProperties().get("Type",String.class).equals("Mana")) {
-									potion.add(new Potion(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),-(element.getProperties().get("Quantité", float.class)),"Mana",game));
+									potions.add(new Potion(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),-(element.getProperties().get("Quantité", float.class)),"Mana",game));
 								}
 								if(element.getProperties().get("Type",String.class).equals("Attaque")) {
-									potion.add(new Potion(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),-(element.getProperties().get("Quantité", float.class)),"Attaque",game));
+									potions.add(new Potion(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),-(element.getProperties().get("Quantité", float.class)),"Attaque",game));
 								}
 							}
 						}
 						//ajout liste dans le tiledmodel
-						tiledmodel.setPotion(potion);
+						tiledmodel.setPotions(potions);
 					}
 					if (u.getName().equals("Tenues")){
 						//creation liste
-						ArrayList<Tenue> tenue = new ArrayList<Tenue>();
+						ArrayList<Tenue> tenues = new ArrayList<Tenue>();
 						//parcours des objets du layer
 						for (MapObject element : u.getObjects()) {
-							tenue.add(new Tenue(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),element.getName(),game));
+							tenues.add(new Tenue(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),element.getName(),game));
 						}
 						//ajout liste dans le tiledmodel
-						tiledmodel.setTenue(tenue);
+						tiledmodel.setTenues(tenues);
+					}
+					if (u.getName().equals("Armes")){
+						//creation liste
+						ArrayList<Armes> armes = new ArrayList<Armes>();
+						//parcours des objets du layer
+						for (MapObject element : u.getObjects()) {
+							if(element.getName().equals("Bâton")){
+								armes.add(new Armes(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),"Bâton",game));
+							}
+							else if(element.getName().equals("Hâche")) {
+								armes.add(new Armes(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),"Hâche",game));
+							}
+							else if(element.getName().equals("Arc")) {
+								armes.add(new Armes(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),"Arc",game));
+							}
+							else if(element.getName().equals("Sceptre")) {
+								armes.add(new Armes(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),"Sceptre",game));
+							}
+							else if(element.getName().equals("Epée")) {
+								armes.add(new Armes(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),"Epée",game));
+							}
+						}
+						//ajout liste dans le tiledmodel
+						tiledmodel.setArmes(armes);
 					}
 				}
 		}

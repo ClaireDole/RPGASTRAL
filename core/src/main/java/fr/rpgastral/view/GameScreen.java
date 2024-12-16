@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import fr.rpgastral.controler.RpgMain;
 import fr.rpgastral.controler.observerpattern.Event;
@@ -27,7 +26,6 @@ import fr.rpgastral.controler.observerpattern.concreteobserver.GameUp;
 import fr.rpgastral.controler.observerpattern.concreteobserver.GameX;
 import fr.rpgastral.controler.observerpattern.concreteobserver.Quit;
 import fr.rpgastral.controler.observerpattern.concreteobserver.concreteobserver;
-import fr.rpgastral.model.collectible.Tenue;
 import fr.rpgastral.model.entity.Player;
 
 /**
@@ -41,14 +39,28 @@ public class GameScreen implements Screen, sujet {
 	final private  RpgMain game;
 	private OrthographicCamera camera;
 	private ExtendViewport viewport;
+	/**
+	 * classe spéciale permetant le rendu d'une carte tiled format tmx
+	 */
 	private OrthogonalTiledMapRenderer renderer;
+	/**
+	 * gestion de l'échelle entre les pixels et les gameunit
+	 */
 	private float unitScale;
 	private Player player;
 	private int camwidth;
 	private int camheight;
 	private Font font;
+	/**
+	 * liste des observers concrets utilisés sur le menu principal
+	 * permet de gérer les effets des inputs sur l'écran
+	 */
 	private ArrayList<concreteobserver> observers;
 	
+	/**
+	 * constructeur
+	 * @param game
+	 */
 	public GameScreen(final RpgMain game) {
 		this.game = game;
 		this.observers = new ArrayList<concreteobserver>();
@@ -56,17 +68,7 @@ public class GameScreen implements Screen, sujet {
 		this.game.getManager().load("pack.png",Texture.class);
 		//charger les sons
 		
-		//observer
-		attach(new GameM("M"));
-		attach(new GameUp("Up"));
-		attach(new GameDown("Down"));
-		attach(new GameLeft("Left"));
-		attach(new GameRight("Right"));
-		attach(new Quit("Quit"));
-		attach(new GameR("R"));
-		attach(new GameS("S"));
-		attach(new GameX("X"));
-		
+		gestionobservers();		
 		this.player = new Player(27,25,game);
 		
 		//rendu
@@ -88,30 +90,200 @@ public class GameScreen implements Screen, sujet {
 		}
 		this.camera.setToOrtho(false, this.camwidth, this.camheight);
 		this.viewport = new ExtendViewport(this.camwidth,this.camheight,this.camera); 
-		//gestion des tailles de sprite
-		this.player.getSprite().setSize(1,1);
-		if(this.game.getTiledModel().getPnj() != null ) {
-			for (int i=0; i<this.game.getTiledModel().getPnj().size(); i++) {
-				this.game.getTiledModel().getPnj().get(i).getSprite().setSize(1, 1);
-			}
-		}
-		if(this.game.getTiledModel().getPotion() != null ) {
-			for (int i=0; i<this.game.getTiledModel().getPotion().size(); i++) {
-				this.game.getTiledModel().getPotion().get(i).getSprite().setSize(1, 1);
-			}
-		}
-		if(this.game.getTiledModel().getTenue() != null ) {
-			for (int i=0; i<this.game.getTiledModel().getTenue().size(); i++) {
-				this.game.getTiledModel().getTenue().get(i).getSprite().setSize(1, 1);
-			}
-		}
+		
+		gestionsprites();
 
 		//chargement des fonts
 		this.font = new Font();
 		this.render(0.5f);	
 	}
 	
+	/**
+	 * @see controler/observerpattern/sujet
+	 */
+	@Override
+	public void attach(concreteobserver o) {
+		this.observers.add(o);	
+	}
 	
+	/**
+	 * @see controler/observerpattern/sujet
+	 */
+	@Override
+	public void unattach(Observer o) {
+		this.observers.remove(o);
+	}
+
+	/**
+	 * @see controler/observerpattern/sujet
+	 */
+	@Override
+	public void notify(Event e) {
+		if(e.compare(new Event(this.game,"GameScreen",true,"Q"))) {
+			for(int i=0; i<this.observers.size(); i++) {
+				if(this.observers.get(i).getName() == "Quit") {
+					this.observers.get(i).update(e);
+				}
+			}
+		}
+		this.observers.forEach(observer -> observer.update(e));	
+	}
+
+	@Override
+	public void show() {
+	}
+	
+	@Override
+	public void render(float delta) {
+		draw();
+		input();
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		this.viewport.update(width, height, true);
+		
+	}
+
+	@Override
+	public void pause() {
+	}
+
+	@Override
+	public void resume() {
+	}
+
+	@Override
+	public void hide() {
+	}
+	
+	@Override
+	public void dispose() {
+		font.dispose();
+		renderer.dispose();
+	}
+
+	/**
+	 * on attache les différents concreteobservers nécessaire pour l'écran à observers
+	 */
+	private void gestionobservers() {
+		attach(new GameM("M"));
+		attach(new GameUp("Up"));
+		attach(new GameDown("Down"));
+		attach(new GameLeft("Left"));
+		attach(new GameRight("Right"));
+		attach(new Quit("Quit"));
+		attach(new GameR("R"));
+		attach(new GameS("S"));
+		attach(new GameX("X"));
+
+	}
+	
+	/**
+	 * mise à l'échelle des différents sprites utilisés lors de l'affichage
+	 */
+	private void gestionsprites() {
+		this.player.getSprite().setSize(1,1);
+		if(this.game.getTiledModel().getPnjs() != null ) {
+			for (int i=0; i<this.game.getTiledModel().getPnjs().size(); i++) {
+				this.game.getTiledModel().getPnjs().get(i).getSprite().setSize(1, 1);
+			}
+		}
+		if(this.game.getTiledModel().getPotions() != null ) {
+			for (int i=0; i<this.game.getTiledModel().getPotions().size(); i++) {
+				this.game.getTiledModel().getPotions().get(i).getSprite().setSize(1, 1);
+			}
+		}
+		if(this.game.getTiledModel().getTenues() != null ) {
+			for (int i=0; i<this.game.getTiledModel().getTenues().size(); i++) {
+				this.game.getTiledModel().getTenues().get(i).getSprite().setSize(1, 1);
+			}
+		}
+		if(this.game.getTiledModel().getArmes() != null ) {
+			for (int i=0; i<this.game.getTiledModel().getArmes().size(); i++) {
+				this.game.getTiledModel().getArmes().get(i).getSprite().setSize(1, 1);
+			}
+		}
+	}
+	
+	/**
+	 * gestion de l'affichage
+	 */
+	private void draw() {
+	    ScreenUtils.clear(Color.BLACK);
+	    int x = this.player.Getx();
+	    int y = this.player.Gety();
+	    this.camera.position.x = x;
+	    this.camera.position.y = y;
+	    this.camera.update();
+	    this.game.getBatch().setProjectionMatrix(this.camera.combined);
+	    this.renderer.setView(this.camera);
+	    setposition();
+	    this.viewport.apply();
+	    this.game.getBatch().begin();
+	    this.renderer.render();
+	    this.player.getSprite().draw(this.game.getBatch());
+	    //PNJ
+	    if(this.game.getTiledModel().getPnjs() != null ) {
+	    	for (int i=0; i<this.game.getTiledModel().getPnjs().size(); i++) {
+	    		this.game.getTiledModel().getPnjs().get(i).getSprite().draw(this.game.getBatch());
+	    	}
+	    }
+	    //Potion
+	    if(this.game.getTiledModel().getPotions() != null ) {
+	    	for (int i=0; i<this.game.getTiledModel().getPotions().size(); i++) {
+	    		this.game.getTiledModel().getPotions().get(i).getSprite().draw(this.game.getBatch());
+	    	}
+	    }
+	  //Tenue
+	    if(this.game.getTiledModel().getTenues() != null ) {
+	    	for (int i=0; i<this.game.getTiledModel().getTenues().size(); i++) {
+	    		this.game.getTiledModel().getTenues().get(i).getSprite().draw(this.game.getBatch());
+	    	}
+	    }
+	    //Arme
+	    if(this.game.getTiledModel().getArmes() != null ) {
+	    	for (int i=0; i<this.game.getTiledModel().getArmes().size(); i++) {
+	    		this.game.getTiledModel().getArmes().get(i).getSprite().draw(this.game.getBatch());
+	    	}
+	    }
+	    this.game.getBatch().end();
+	}
+	
+	/**
+	 * gestion des positions des différents sprites
+	 */
+	private void setposition() {
+		//SetPositionPNJ
+		this.player.getSprite().setPosition(this.player.Getx(), this.player.Gety());
+	    if(this.game.getTiledModel().getPnjs() != null ) {
+	    	for (int i=0; i<this.game.getTiledModel().getPnjs().size(); i++) {
+	    		this.game.getTiledModel().getPnjs().get(i).getSprite().setPosition(this.game.getTiledModel().getPnjs().get(i).Getx(), this.game.getTiledModel().getPnjs().get(i).Gety());
+	    	}
+	    }
+	    //SetPositionPotion
+	    if(this.game.getTiledModel().getPotions() != null ) {
+	    	for (int i=0; i<this.game.getTiledModel().getPotions().size(); i++) {
+	    		this.game.getTiledModel().getPotions().get(i).getSprite().setPosition(this.game.getTiledModel().getPotions().get(i).getX(), this.game.getTiledModel().getPotions().get(i).getY());
+	    	}
+	    }
+	    //SetPositionTenue
+	    if(this.game.getTiledModel().getTenues() != null ) {
+	    	for (int i=0; i<this.game.getTiledModel().getTenues().size(); i++) {
+	    		this.game.getTiledModel().getTenues().get(i).getSprite().setPosition(this.game.getTiledModel().getTenues().get(i).getX(), this.game.getTiledModel().getTenues().get(i).getY());
+	    	}
+	    }
+	  //SetPositionArme
+	    if(this.game.getTiledModel().getArmes() != null ) {
+	    	for (int i=0; i<this.game.getTiledModel().getArmes().size(); i++) {
+	    		this.game.getTiledModel().getArmes().get(i).getSprite().setPosition(this.game.getTiledModel().getArmes().get(i).getX(), this.game.getTiledModel().getArmes().get(i).getY());
+	    	}
+	    }
+	}
+	
+	/**
+	 * gestion des inputs sur l'écran
+	 */
 	private void input() {
 		if (Gdx.input.isKeyPressed(Keys.SEMICOLON)) {
 			Event event = new Event(this.game,"GameScreen", true, "M");
@@ -150,123 +322,7 @@ public class GameScreen implements Screen, sujet {
 			notify(event);
 		}
 	}
-
-	private void draw() {
-	    ScreenUtils.clear(Color.GOLD);
-	    int x = this.player.Getx();
-	    int y = this.player.Gety();
-	    this.camera.position.x = x;
-	    this.camera.position.y = y;
-	    this.camera.update();
-	    this.game.getBatch().setProjectionMatrix(this.camera.combined);
-	    this.renderer.setView(this.camera);
-	    //SetPositionPNJ
-	    this.player.getSprite().setPosition(this.player.Getx(), this.player.Gety());
-	    if(this.game.getTiledModel().getPnj() != null ) {
-	    	for (int i=0; i<this.game.getTiledModel().getPnj().size(); i++) {
-	    		this.game.getTiledModel().getPnj().get(i).getSprite().setPosition(this.game.getTiledModel().getPnj().get(i).Getx(), this.game.getTiledModel().getPnj().get(i).Gety());
-	    	}
-	    }
-	    //SetPositionPotion
-	    if(this.game.getTiledModel().getPotion() != null ) {
-	    	for (int i=0; i<this.game.getTiledModel().getPotion().size(); i++) {
-	    		this.game.getTiledModel().getPotion().get(i).getSprite().setPosition(this.game.getTiledModel().getPotion().get(i).getX(), this.game.getTiledModel().getPotion().get(i).getY());
-	    	}
-	    }
-	    //SetPositionTenue
-	    if(this.game.getTiledModel().getTenue() != null ) {
-	    	for (int i=0; i<this.game.getTiledModel().getTenue().size(); i++) {
-	    		this.game.getTiledModel().getTenue().get(i).getSprite().setPosition(this.game.getTiledModel().getTenue().get(i).getX(), this.game.getTiledModel().getTenue().get(i).getY());
-	    	}
-	    }
-	    this.viewport.apply();
-	    this.game.getBatch().begin();
-	    this.renderer.render();
-	    this.player.getSprite().draw(this.game.getBatch());
-	    //PNJ
-	    if(this.game.getTiledModel().getPnj() != null ) {
-	    	for (int i=0; i<this.game.getTiledModel().getPnj().size(); i++) {
-	    		if(this.game.getTiledModel().getPnj().get(i).getRace() == "Elfe") {
-	    			this.game.getTiledModel().getPnj().get(i).getSprite().draw(this.game.getBatch());
-	    		}
-	    		else {
-	    			this.game.getTiledModel().getPnj().get(i).getSprite().draw(this.game.getBatch());
-	    		}
-	    	}
-	    }
-	    //Potion
-	    if(this.game.getTiledModel().getPotion() != null ) {
-	    	for (int i=0; i<this.game.getTiledModel().getPotion().size(); i++) {
-	    		this.game.getTiledModel().getPotion().get(i).getSprite().draw(this.game.getBatch());
-	    	}
-	    }
-	  //Tenue
-	    if(this.game.getTiledModel().getTenue() != null ) {
-	    	for (int i=0; i<this.game.getTiledModel().getTenue().size(); i++) {
-	    		this.game.getTiledModel().getTenue().get(i).getSprite().draw(this.game.getBatch());
-	    	}
-	    }
-	    this.game.getBatch().end();
-	}
 	
-	@Override
-	public void attach(concreteobserver o) {
-		this.observers.add(o);	
-	}
-	
-	@Override
-	public void unattach(Observer o) {
-		this.observers.remove(o);
-	}
-
-	@Override
-	public void notify(Event e) {
-		if(e.compare(new Event(this.game,"GameScreen",true,"Q"))) {
-			for(int i=0; i<this.observers.size(); i++) {
-				if(this.observers.get(i).getName() == "Quit") {
-					this.observers.get(i).update(e);
-				}
-			}
-		}
-		this.observers.forEach(observer -> observer.update(e));	
-	}
-
-	@Override
-	public void show() {
-	}
-	
-	@Override
-	
-	public void render(float delta) {
-		draw();
-		input();
-	}
-
-	@Override
-	public void resize(int width, int height) {
-		this.viewport.update(width, height, true);
-		
-	}
-
-	@Override
-	public void pause() {
-	}
-
-	@Override
-	public void resume() {
-	}
-
-	@Override
-	public void hide() {
-	}
-	
-	@Override
-	public void dispose() {
-		font.dispose();
-		renderer.dispose();
-	}
-
-
 	public Player getPlayer() {
 		return player;
 	}

@@ -7,17 +7,22 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import fr.rpgastral.controler.RpgMain;
 
+/**
+ * écran de chargement qui permet l'affichage du problème s'il est rencontré lors de la création de la Main classe
+ */
 public class LoadingScreen implements Screen{
 
 	private ScreenViewport viewport;
 	private RpgMain game;
+	private OrthographicCamera camera;
 	private Font font;
 	private Boolean print;
 	private String msg;
 	
 	public LoadingScreen(final RpgMain game) {
 		this.game=game;
-		viewport = new ScreenViewport();
+		this.camera = new OrthographicCamera();
+		viewport = new ScreenViewport(camera);
 		font = new Font();
 		print = false;
 	}

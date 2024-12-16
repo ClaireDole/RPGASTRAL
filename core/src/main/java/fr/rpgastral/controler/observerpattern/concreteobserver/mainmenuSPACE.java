@@ -3,6 +3,9 @@ package fr.rpgastral.controler.observerpattern.concreteobserver;
 import fr.rpgastral.controler.RpgMain;
 import fr.rpgastral.controler.observerpattern.Event;
 
+/**
+ * lancement du gamescreen et donc du jeu
+ */
 public class mainmenuSPACE extends concreteobserver{
 
 	public mainmenuSPACE(String name) {

@@ -6,10 +6,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -22,15 +20,33 @@ import fr.rpgastral.controler.observerpattern.concreteobserver.Quit;
 import fr.rpgastral.controler.observerpattern.concreteobserver.concreteobserver;
 import fr.rpgastral.controler.observerpattern.concreteobserver.mainmenuSPACE;
 
+/**
+ * classe décrivant l'affichage du menu principal
+ */
+
 public class MainMenuScreen implements Screen, sujet{
 
+	/**
+	 * instance de la classe main du jeu
+	 */
 	final RpgMain game;
 	private OrthographicCamera camera;
+	/**
+	 * region de l'image utilisée lors de l'affichage
+	 */
 	private AtlasRegion region;
 	private ScreenViewport viewport;
 	private Font font;
+	/**
+	 * liste des observers concrets utilisés sur le menu principal
+	 * permet de gérer les effets des inputs sur l'écran
+	 */
 	private ArrayList<concreteobserver> observers;
 
+	/**
+	 * constructeur, on passe en paramètre l'instance unique de la classe Main afin de récupérer des informations
+	 * @param game
+	 */
 	public MainMenuScreen(final RpgMain game) {
 		this.game = game;
 		this.observers = new ArrayList<concreteobserver>();
@@ -44,6 +60,7 @@ public class MainMenuScreen implements Screen, sujet{
 		this.render(0.5f);	
 	}
 
+	@Override
 	public void render(float delta) {
 		ScreenUtils.clear(0, 0, 0.2f, 1);
 		viewport.apply();
@@ -85,16 +102,27 @@ public class MainMenuScreen implements Screen, sujet{
 	public void dispose() {
 	}
 
+	/**
+	 * @see controler/observerpattern/sujet
+	 */
 	@Override
 	public void attach(concreteobserver o) {
 		this.observers.add(o);
 		
 	}
+	
+	/**
+	 * @see controler/observerpattern/sujet
+	 */
 	@Override
 	public void unattach(Observer o) {
 		this.observers.remove(o);
 		
 	}
+	
+	/**
+	 * @see controler/observerpattern/sujet
+	 */
 	@Override
 	public void notify(Event e) {
 		if(e.compare(new Event(game,"GameScreen",true,"Q"))) {
