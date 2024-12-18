@@ -1,5 +1,6 @@
 package fr.rpgastral.model.entity;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import fr.rpgastral.controler.RpgMain;
 
@@ -20,6 +21,7 @@ public abstract class Entity {
 	 * region de l'image utilisée lors de l'affichage
 	 */
     private AtlasRegion texture;
+    private Sprite sprite;
     private RpgMain g;
     
     public Entity(int x, int y, RpgMain game) {
@@ -28,27 +30,10 @@ public abstract class Entity {
     	this.g = game;
     }
     
-    public int Getx() {
-    	return this.x;
-    }
-    public int Gety() {
-    	return this.y;
-    }
-    public float GetPV() {
-    	return this.PV;
-    }
-    public void Setx(int x) {
-    	this.x = x;
-    }
-    public void Sety (int y) {
-    	this.y = y;
-    }
     public Boolean isAlive(){
-        if (PV> 0){
-            return true;
-        } 
-        else return false;
+        return this.PV>0;
     }
+    
 	public RpgMain getG() {
 		return g;
 	}
@@ -86,5 +71,13 @@ public abstract class Entity {
 
 	public void setTexture(AtlasRegion texture) {
 		this.texture = texture;
+	}
+
+	public Sprite getSprite() {
+		return sprite;
+	}
+
+	public void setSprite(Sprite sprite) {
+		this.sprite = sprite;
 	}
 }

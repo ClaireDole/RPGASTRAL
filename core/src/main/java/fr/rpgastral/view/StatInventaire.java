@@ -128,7 +128,7 @@ public class StatInventaire implements Screen, sujet{
 		this.game.getBatch().begin();
 		this.game.getBatch().draw(this.window,0,0,800,800);
 		this.font.Getfont1().draw(this.game.getBatch(), "PV :",50,600,75,650,false);
-		this.font.Getfont2().draw(this.game.getBatch(),this.game.getGamescreen().getPlayer().GetPV() + "",80,600,105, 650, false);
+		this.font.Getfont2().draw(this.game.getBatch(),this.game.getGamescreen().getPlayer().getPV() + "",80,600,105, 650, false);
 		this.font.Getfont1().draw(this.game.getBatch(), "Mana :",250,600,275,650,false);
 		this.font.Getfont2().draw(this.game.getBatch(),this.game.getGamescreen().getPlayer().GetMana() + "", 300,600,325, 650, false);
 		this.font.Getfont1().draw(this.game.getBatch(), "Bonus Attaque :",400,600,450,650,false);

@@ -1,7 +1,5 @@
 package fr.rpgastral.controler.observerpattern.concreteobserver;
 
-import java.util.ArrayList;
-
 import fr.rpgastral.controler.RpgMain;
 import fr.rpgastral.controler.observerpattern.Event;
 import fr.rpgastral.model.collectible.Armes;
@@ -23,8 +21,8 @@ public class Msg2 extends concreteobserver{
 			if(event.getC() instanceof Tenue) {
 				game.getTiledModel().getTenues().add(game.getGamescreen().getPlayer().getTenue());
 				if(game.getGamescreen().getPlayer().getTenue().getName().equals("Bénédiction de Susanoo")) {
-					if(game.getGamescreen().getPlayer().GetPV()-2>=0.25) {
-						game.getGamescreen().getPlayer().SetPV(game.getGamescreen().getPlayer().GetPV()-2);
+					if(game.getGamescreen().getPlayer().getPV()-2>=0.25) {
+						game.getGamescreen().getPlayer().SetPV(game.getGamescreen().getPlayer().getPV()-2);
 					}
 					else {
 						game.getGamescreen().getPlayer().SetPV(0.25f);
@@ -82,16 +80,16 @@ public class Msg2 extends concreteobserver{
 			for(int i = 0; i< game.getTiledModel().getObstacles().size(); i++ ) {
 				int x = game.getTiledModel().getObstacles().get(i).Getx();
 				int y = game.getTiledModel().getObstacles().get(i).Gety();
-				if (x == game.getGamescreen().getPlayer().Getx()+k && y == game.getGamescreen().getPlayer().Gety()) {
+				if (x == game.getGamescreen().getPlayer().getX()+k && y == game.getGamescreen().getPlayer().getY()) {
 					existx1 = true;
 				}
-				if (x == game.getGamescreen().getPlayer().Getx()-k && y == game.getGamescreen().getPlayer().Gety()) {
+				if (x == game.getGamescreen().getPlayer().getX()-k && y == game.getGamescreen().getPlayer().getY()) {
 					existx2 = true;
 				}
-				if (x == game.getGamescreen().getPlayer().Getx() && y == game.getGamescreen().getPlayer().Gety()+k) {
+				if (x == game.getGamescreen().getPlayer().getX() && y == game.getGamescreen().getPlayer().getY()+k) {
 					existy1 = true;
 				}
-				if (x == game.getGamescreen().getPlayer().Getx() && y == game.getGamescreen().getPlayer().Gety()-k) {
+				if (x == game.getGamescreen().getPlayer().getX() && y == game.getGamescreen().getPlayer().getY()-k) {
 					existy2 = true;
 				}
 			}

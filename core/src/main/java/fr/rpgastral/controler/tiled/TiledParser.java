@@ -14,6 +14,9 @@ import fr.rpgastral.model.carte.Terrain;
 import fr.rpgastral.model.collectible.Armes;
 import fr.rpgastral.model.collectible.Potion;
 import fr.rpgastral.model.collectible.Tenue;
+import fr.rpgastral.model.entity.Enemy;
+import fr.rpgastral.model.entity.EnemyHuman;
+import fr.rpgastral.model.entity.Monstre;
 import fr.rpgastral.model.entity.PNJ;
 
 /**
@@ -75,7 +78,7 @@ public class TiledParser {
 					    }
 					}
 					//ajout de la liste dans le tiledmodel
-					tiledmodel.setVolcanique(volcanique);
+					tiledmodel.setVolcaniques(volcanique);
 				}
 				else if (!(boolean)a.get("franchir",Boolean.class)) {
 					//créer la liste des obstacles
@@ -109,7 +112,7 @@ public class TiledParser {
 					    }
 					}
 					//ajout de la liste dans le tiledmodel
-					tiledmodel.setChemin(chemin);
+					tiledmodel.setChemins(chemin);
 				}
 				else if ((boolean) a.get("franchir",Boolean.class)){
 					//créer la liste Plaine
@@ -129,7 +132,7 @@ public class TiledParser {
 					tiledmodel.setPlaines(plaine);
 				}
 			}
-				//gestion des ObjectLayer -> layers restant
+				//gestion des ObjectLayer -> layers restants
 			else if((map.getLayers().get(i) instanceof MapLayer)) {
 				MapLayer u = (MapLayer) map.getLayers().get(i);
 					if (u.getName().equals("NPC")){
@@ -212,6 +215,37 @@ public class TiledParser {
 						//ajout liste dans le tiledmodel
 						tiledmodel.setArmes(armes);
 					}
+					//gestion des ennemis, creation de la liste des ennemis obligatoire pour terminer le jeu
+					ArrayList<Enemy> enemys = new ArrayList<Enemy>();
+					//gestion des ennemis de type Monstre
+					if (u.getName().equals("Monstres")){
+						//creation liste
+						ArrayList<Monstre> monstres = new ArrayList<Monstre>();
+						//parcours des objets du layer
+						for (MapObject element : u.getObjects()) {
+							monstres.add(new Monstre(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),element.getName(),game));
+							if(element.getProperties().get("obligatoire", Boolean.class)) {
+								enemys.add(new Monstre(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),element.getName(),game));
+							}
+						}
+						//ajout liste dans le tiledmodel
+						tiledmodel.setMonstres(monstres);
+					}
+					//gestion des ennemis de type Humains
+					if (u.getName().equals("EnemyHumans")){
+						//creation liste
+						ArrayList<EnemyHuman> ehumans = new ArrayList<EnemyHuman>();
+						//parcours des objets du layer
+						for (MapObject element : u.getObjects()) {
+							ehumans.add(new EnemyHuman(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),element.getName(),game));
+							if(element.getProperties().get("obligatoire", Boolean.class)) {
+								enemys.add(new EnemyHuman(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),element.getName(),game));
+							}
+						}
+						//ajout liste dans le tiledmodel
+						tiledmodel.setEhumans(ehumans);
+					}
+					tiledmodel.setEnemys(enemys);
 				}
 		}
 		return tiledmodel;

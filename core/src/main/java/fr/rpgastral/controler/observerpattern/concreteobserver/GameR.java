@@ -22,18 +22,18 @@ public class GameR extends concreteobserver{
 		RpgMain game = event.getGame();
 		if(event.compare(new Event(game,"GameScreen", true, "R"))) {
 			for(int i=0; i<game.getTiledModel().getPnjs().size();i++) {
-				if(game.getTiledModel().getPnjs().get(i).Getx() == game.getGamescreen().getPlayer().Getx()) {
-					if(game.getTiledModel().getPnjs().get(i).Gety() == game.getGamescreen().getPlayer().Gety() +1 |
-							game.getTiledModel().getPnjs().get(i).Gety() == game.getGamescreen().getPlayer().Gety() -1) {
+				if(game.getTiledModel().getPnjs().get(i).getX() == game.getGamescreen().getPlayer().getX()) {
+					if(game.getTiledModel().getPnjs().get(i).getY() == game.getGamescreen().getPlayer().getY() +1 |
+							game.getTiledModel().getPnjs().get(i).getY() == game.getGamescreen().getPlayer().getY() -1) {
 						if(game.getTiledModel().getPnjs().get(i).getMessage() != null) {
 							game.setScreen(new MsgScreen(game,game.getTiledModel().getPnjs().get(i).getMessage()));
 							valid=false;
 						}
 					}
 				}
-				else if(game.getTiledModel().getPnjs().get(i).Gety() == game.getGamescreen().getPlayer().Gety()) {
-					if(game.getTiledModel().getPnjs().get(i).Getx() == game.getGamescreen().getPlayer().Getx() +1 |
-							game.getTiledModel().getPnjs().get(i).Getx() == game.getGamescreen().getPlayer().Getx() -1) {
+				else if(game.getTiledModel().getPnjs().get(i).getY() == game.getGamescreen().getPlayer().getY()) {
+					if(game.getTiledModel().getPnjs().get(i).getX() == game.getGamescreen().getPlayer().getX() +1 |
+							game.getTiledModel().getPnjs().get(i).getX() == game.getGamescreen().getPlayer().getX() -1) {
 						if(game.getTiledModel().getPnjs().get(i).getMessage() != null) {
 							game.setScreen(new MsgScreen(game,game.getTiledModel().getPnjs().get(i).getMessage()));
 							valid=false;

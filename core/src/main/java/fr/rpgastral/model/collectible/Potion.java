@@ -29,7 +29,7 @@ public class Potion extends Collectible{
 			setDamage(0);;
 		}
 		if(this.getName().equals("PV")) {
-			p.SetPV(p.GetPV() + this.getDamage());
+			p.SetPV(p.getPV() + this.getDamage());
 			if(!p.isAlive()) {
 				p.SetPV(0.25f);
 			}

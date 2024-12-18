@@ -1,8 +1,15 @@
 package fr.rpgastral.model.entity;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import fr.rpgastral.controler.RpgMain;
+import fr.rpgastral.controler.observerpattern.Event;
+import fr.rpgastral.controler.observerpattern.Observer;
+import fr.rpgastral.controler.observerpattern.sujet;
+import fr.rpgastral.controler.observerpattern.concreteobserver.PlayerMove;
+import fr.rpgastral.controler.observerpattern.concreteobserver.concreteobserver;
 import fr.rpgastral.model.collectible.Armes;
 import fr.rpgastral.model.collectible.Potion;
 import fr.rpgastral.model.collectible.Tenue;
@@ -11,13 +18,25 @@ import fr.rpgastral.view.MsgScreen;
 /**
  * classe décrivant le joueur
  */
-public class Player extends Entity{
+public class Player extends Entity implements sujet{
+	/**
+	 * arme portée avec la main gauche
+	 */
 	private Armes mg;
+	/**
+	 * arme portée avec la main droite
+	 */
     private Armes md;
+    /**
+     * tenue portée
+     */
     private Tenue tenue;
+    /**
+     * energie magique, permet de lancer une attaque avec l'arme sceptre
+     */
     private float Mana;
     private float BonusAttaque;
-    private Sprite sprite;
+    private ArrayList<concreteobserver> observers;
 
     public Player(int x, int y, RpgMain g) {
 		super(x, y, g);
@@ -26,8 +45,10 @@ public class Player extends Entity{
 		this.md = this.mg = null;
 		this.tenue = null;
 		this.BonusAttaque = 0;
+		this.observers = new ArrayList<concreteobserver>();
+		attach(new PlayerMove("move"));
 		setTexture(g.getAtlas().findRegion("Game/player/player"));
-		this.sprite = new Sprite(this.getTexture());
+		setSprite(new Sprite(this.getTexture()));
 	}
     
     /**
@@ -50,6 +71,8 @@ public class Player extends Entity{
     		this.getMg().setX(this.getX());
     		this.getMg().setY(this.getY());
     	}
+    	Event event = new Event(this.getG(), "Player",false,"move");
+    	notify(event);
     }
     
     /**
@@ -65,43 +88,37 @@ public class Player extends Entity{
     }
     
     /**
-     * gestion de l'attaque du joueur
-     * @param e
+     * gestion de l'attaque du joueur avec l'arme en main droite
+     * @param e ennemi à attaquer
      */
-//    public void attaquemg(Enemy e){
-//    	int x = this.getX();
-//		int y = this.getY();
-//		if((this.mg.getName()=="Arc") && ((e.getX() == x +2 && e.getY() == this.getY() +2) | (e.getX() == x +2 && e.y == y -2) | (e.x == x -2 && e.y == y +2) | (e.x == x -2 && e.y == y -2))) {
-//    		e.takedamage(this.mg.getDamage() + this.BonusAttaque);
-//    	}
-//    	else if (this.mg.getName()=="Spectre" &&(((e.x == x +2 && e.y == y +2) | (e.x == x +2 && e.y == y -2) | (e.x == x -2 && e.y == y +2) | (e.x == x -2 && e.y == y -2))
-//    			|((e.x == x +1 && e.y == y +1) | (e.x == x +1 && e.y == y -1) | (e.x == x -1 && e.y == y +1) | (e.x == x -1 && e.y == y -1))|
-//    			((e.x == x +3 && e.y == y +3) | (e.x == x +3 && e.y == y -3) | (e.x == x -3 && e.y == y +3) | (e.x == x -3 && e.y == y -3)))) {
-//    		e.takedamage(this.mg.getDamage() + this.BonusAttaque);
-//    		this.Mana = this.Mana - this.mg.Getcout();
-//    	}
-//    	else if((e.x == x +1 && e.y == y +1) | (e.x == x +1 && e.y == y -1) | (e.x == x -1 && e.y == y +1) | (e.x == x -1 && e.y == y -1)) {
-//        	e.takedamage(this.mg.getDamage()+ this.BonusAttaque);
-//    	}
-//    }
-//    public void attaquemd(Enemy e){
-//    	if((this.md.getName()=="Arc") && ((e.x == this.x +2 && e.y == this.y +2) | (e.x == this.x +2 && e.y == this.y -2) | (e.x == this.x -2 && e.y == this.y +2) | (e.x == this.x -2 && e.y == this.y -2))) {
-//    		e.takedamage(this.md.getDamage()+ this.BonusAttaque);
-//    	}
-//    	else if (this.md.getName()=="Spectre" &&(((e.x == this.x +2 && e.y == this.y +2) | (e.x == this.x +2 && e.y == this.y -2) | (e.x == this.x -2 && e.y == this.y +2) | (e.x == this.x -2 && e.y == this.y -2))
-//    			|((e.x == this.x +1 && e.y == this.y +1) | (e.x == this.x +1 && e.y == this.y -1) | (e.x == this.x -1 && e.y == this.y +1) | (e.x == this.x -1 && e.y == this.y -1))|
-//    			((e.x == this.x +3 && e.y == this.y +3) | (e.x == this.x +3 && e.y == this.y -3) | (e.x == this.x -3 && e.y == this.y +3) | (e.x == this.x -3 && e.y == this.y -3)))) {
-//    		e.takedamage(this.md.getDamage()+this.BonusAttaque);
-//    		this.Mana = this.Mana - this.md.Getcout();
-//    	}
-//    	else if((e.x == this.x +1 && e.y == this.y +1) | (e.x == this.x +1 && e.y == this.y -1) | (e.x == this.x -1 && e.y == this.y +1) | (e.x == this.x -1 && e.y == this.y -1)) {
-//        	e.takedamage(this.md.getDamage()+this.BonusAttaque);
-//    	}
-//    }
-    
+    public void attaquemd(Enemy e) {
+    	if(e instanceof Monstre && e.getName().equals("Volant") && this.getMd().getName().equals("Arc")) {
+    		e.takedamage(e.getPV());
+    	}
+    	else if(e instanceof Monstre && e.getName().equals("Volant") && this.getMd().getName()!="Arc") {
+    		e.takedamage(0.05f);
+    	}
+    	e.takedamage(this.BonusAttaque + this.getMd().getDamage());
+    	this.SetMana(this.Mana - this.getMd().getCout());
+    }
+    /**
+     * gestion de l'attaque du joueur avec l'arme en main gauche
+     * @param e ennemi à attaquer
+     */
+    public void attaquemg(Enemy e) {
+    	if(e instanceof Monstre && e.getName().equals("Volant") && this.getMg().getName().equals("Arc")) {
+    		e.takedamage(e.getPV());
+    	}
+    	else if(e instanceof Monstre && e.getName().equals("Volant") && this.getMg().getName()!="Arc") {
+    		e.takedamage(0.05f);
+    	}
+    	e.takedamage(this.BonusAttaque + this.getMg().getDamage());
+    	this.SetMana(this.Mana - this.getMg().getCout());
+    }
+
     /**
      * la méthode Collect est surchargée pour les trois types de collectibles : potions, tenues et armes
-     * @param c collectible
+     * @param c collectible à récupérer
      */
     public void Collect (Potion c){
         c.effect(this);
@@ -145,21 +162,28 @@ public class Player extends Entity{
      */
     public void Convaincre(EnemyHuman e) {
     	if (this.tenue.getName()=="Apparat du kitsune") {
-    		//affiche l'ennemi est convaincu par vos arguments et prend la fuite
-    		//e.dispose();
+    		this.getG().setScreen(new MsgScreen(this.getG(),"L'ennemi est convaincu par vos arguments et prend la fuite"));
+    		e.dispawn();
     	}
     	//nombre random qui permet de savoir si on peut convaincre ou pas
     	//si oui alors on dispawn l'ennemi
     }
 
-	public Sprite getSprite() {
-		return sprite;
+
+	@Override
+	public void attach(concreteobserver o) {
+		this.observers.add(o);
 	}
 
-	public void setSprite(Sprite sprite) {
-		this.sprite = sprite;
+	@Override
+	public void unattach(Observer o) {
+		this.observers.remove(o);
 	}
 
+	@Override
+	public void notify(Event e) {
+		this.observers.forEach(observer -> observer.update(e));	
+	}
 	public Armes getMg() {
 		return mg;
 	}

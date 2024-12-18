@@ -16,7 +16,9 @@ import fr.rpgastral.controler.RpgMain;
 import fr.rpgastral.controler.observerpattern.Event;
 import fr.rpgastral.controler.observerpattern.Observer;
 import fr.rpgastral.controler.observerpattern.sujet;
+import fr.rpgastral.controler.observerpattern.concreteobserver.GameA;
 import fr.rpgastral.controler.observerpattern.concreteobserver.GameDown;
+import fr.rpgastral.controler.observerpattern.concreteobserver.GameE;
 import fr.rpgastral.controler.observerpattern.concreteobserver.GameLeft;
 import fr.rpgastral.controler.observerpattern.concreteobserver.GameM;
 import fr.rpgastral.controler.observerpattern.concreteobserver.GameR;
@@ -176,7 +178,8 @@ public class GameScreen implements Screen, sujet {
 		attach(new GameR("R"));
 		attach(new GameS("S"));
 		attach(new GameX("X"));
-
+		attach(new GameA("A"));
+		attach(new GameE("E"));
 	}
 	
 	/**
@@ -204,6 +207,11 @@ public class GameScreen implements Screen, sujet {
 				this.game.getTiledModel().getArmes().get(i).getSprite().setSize(1, 1);
 			}
 		}
+		if(this.game.getTiledModel().getMonstres() != null ) {
+			for (int i=0; i<this.game.getTiledModel().getMonstres().size(); i++) {
+				this.game.getTiledModel().getMonstres().get(i).getSprite().setSize(1, 1);
+			}
+		}
 	}
 	
 	/**
@@ -211,8 +219,8 @@ public class GameScreen implements Screen, sujet {
 	 */
 	private void draw() {
 	    ScreenUtils.clear(Color.BLACK);
-	    int x = this.player.Getx();
-	    int y = this.player.Gety();
+	    int x = this.player.getX();
+	    int y = this.player.getY();
 	    this.camera.position.x = x;
 	    this.camera.position.y = y;
 	    this.camera.update();
@@ -247,6 +255,12 @@ public class GameScreen implements Screen, sujet {
 	    		this.game.getTiledModel().getArmes().get(i).getSprite().draw(this.game.getBatch());
 	    	}
 	    }
+	  //Monstre
+	    if(this.game.getTiledModel().getMonstres() != null ) {
+	    	for (int i=0; i<this.game.getTiledModel().getMonstres().size(); i++) {
+	    		this.game.getTiledModel().getMonstres().get(i).getSprite().draw(this.game.getBatch());
+	    	}
+	    }
 	    this.game.getBatch().end();
 	}
 	
@@ -255,10 +269,10 @@ public class GameScreen implements Screen, sujet {
 	 */
 	private void setposition() {
 		//SetPositionPNJ
-		this.player.getSprite().setPosition(this.player.Getx(), this.player.Gety());
+		this.player.getSprite().setPosition(this.player.getX(), this.player.getY());
 	    if(this.game.getTiledModel().getPnjs() != null ) {
 	    	for (int i=0; i<this.game.getTiledModel().getPnjs().size(); i++) {
-	    		this.game.getTiledModel().getPnjs().get(i).getSprite().setPosition(this.game.getTiledModel().getPnjs().get(i).Getx(), this.game.getTiledModel().getPnjs().get(i).Gety());
+	    		this.game.getTiledModel().getPnjs().get(i).getSprite().setPosition(this.game.getTiledModel().getPnjs().get(i).getX(), this.game.getTiledModel().getPnjs().get(i).getY());
 	    	}
 	    }
 	    //SetPositionPotion
@@ -277,6 +291,12 @@ public class GameScreen implements Screen, sujet {
 	    if(this.game.getTiledModel().getArmes() != null ) {
 	    	for (int i=0; i<this.game.getTiledModel().getArmes().size(); i++) {
 	    		this.game.getTiledModel().getArmes().get(i).getSprite().setPosition(this.game.getTiledModel().getArmes().get(i).getX(), this.game.getTiledModel().getArmes().get(i).getY());
+	    	}
+	    }
+	  //SetPositionMonstre
+	    if(this.game.getTiledModel().getMonstres() != null ) {
+	    	for (int i=0; i<this.game.getTiledModel().getMonstres().size(); i++) {
+	    		this.game.getTiledModel().getMonstres().get(i).getSprite().setPosition(this.game.getTiledModel().getMonstres().get(i).getX(), this.game.getTiledModel().getMonstres().get(i).getY());
 	    	}
 	    }
 	}
@@ -319,6 +339,14 @@ public class GameScreen implements Screen, sujet {
 		}
 		if(Gdx.input.isKeyPressed(Keys.X)) {
 			Event event = new Event (this.game,"GameScreen", true, "X");
+			notify(event);
+		}
+		if(Gdx.input.isKeyJustPressed(Keys.Q)) {
+			Event event = new Event (this.game,"GameScreen", true, "A");
+			notify(event);
+		}
+		if(Gdx.input.isKeyJustPressed(Keys.E)) {
+			Event event = new Event (this.game,"GameScreen", true, "E");
 			notify(event);
 		}
 	}

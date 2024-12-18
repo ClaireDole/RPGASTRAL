@@ -24,7 +24,7 @@ public class GameRight extends concreteobserver{
 			for(int i = 0; i< game.getTiledModel().getObstacles().size(); i++ ) {
 				int x = game.getTiledModel().getObstacles().get(i).Getx();
 				int y = game.getTiledModel().getObstacles().get(i).Gety();
-				if (x == game.getGamescreen().getPlayer().Getx()+1 && y == game.getGamescreen().getPlayer().Gety()) {
+				if (x == game.getGamescreen().getPlayer().getX()+1 && y == game.getGamescreen().getPlayer().getY()) {
 					valid = false;
 				}
 			}
@@ -33,7 +33,7 @@ public class GameRight extends concreteobserver{
 					for(int i = 0; i< game.getTiledModel().getEau().size(); i++ ) {
 						int x = game.getTiledModel().getEau().get(i).Getx();
 						int y = game.getTiledModel().getEau().get(i).Gety();
-						if (x == game.getGamescreen().getPlayer().Getx()+1 && y == game.getGamescreen().getPlayer().Gety()) {
+						if (x == game.getGamescreen().getPlayer().getX()+1 && y == game.getGamescreen().getPlayer().getY()) {
 							valid = false;
 						}
 					}
@@ -43,56 +43,20 @@ public class GameRight extends concreteobserver{
 				for(int i = 0; i< game.getTiledModel().getEau().size(); i++ ) {
 					int x = game.getTiledModel().getEau().get(i).Getx();
 					int y = game.getTiledModel().getEau().get(i).Gety();
-					if (x == game.getGamescreen().getPlayer().Getx()+1 && y == game.getGamescreen().getPlayer().Gety()) {
+					if (x == game.getGamescreen().getPlayer().getX()+1 && y == game.getGamescreen().getPlayer().getY()) {
 						valid = false;
 					}
 				}
 			}
-			if(game.getGamescreen().getPlayer().Getx() +1 <= game.getTiledModel().getWidth() && valid) {
-				//gestion des effets terrain volcanique
-				if(game.getTiledModel().getVolcanique() != null) {
-					for(int i = 0; i< game.getTiledModel().getVolcanique().size(); i++ ) {
-						int x = game.getTiledModel().getVolcanique().get(i).Getx();
-						int y = game.getTiledModel().getVolcanique().get(i).Gety();
-						if (x == game.getGamescreen().getPlayer().Getx()+1 && y == game.getGamescreen().getPlayer().Gety()) {
-							if(!(game.getGamescreen().getPlayer().GetPV() - 0.25f <=0) && (game.getGamescreen().getPlayer().Gettenue()==null ||
-									game.getGamescreen().getPlayer().Gettenue().getName() != "Broche d'Izanami")) {
-								game.getGamescreen().getPlayer().takedamage(0.25f);;
-							}
-						}
-					}
+			for(int i = 0; i< game.getTiledModel().getMonstres().size(); i++ ) {
+				int x = game.getTiledModel().getMonstres().get(i).getX();
+				int y = game.getTiledModel().getMonstres().get(i).getY();
+				if (x == game.getGamescreen().getPlayer().getX()+1 && y == game.getGamescreen().getPlayer().getY()) {
+					valid = false;
 				}
-				//gestion des potions
-				if(game.getTiledModel().getPotions() != null) {
-					for(int i = 0; i< game.getTiledModel().getPotions().size(); i++ ) {
-						int x = game.getTiledModel().getPotions().get(i).getX();
-						int y = game.getTiledModel().getPotions().get(i).getY();
-						if (x == game.getGamescreen().getPlayer().Getx()+1 && y == game.getGamescreen().getPlayer().Gety()) {
-							game.getGamescreen().getPlayer().Collect(game.getTiledModel().getPotions().get(i));
-						}
-					}
-				}
-				//gestion des tenues
-				if(game.getTiledModel().getTenues() != null) {
-					for(int i = 0; i< game.getTiledModel().getTenues().size(); i++ ) {
-						int x = game.getTiledModel().getTenues().get(i).getX();
-						int y = game.getTiledModel().getTenues().get(i).getY();
-						if (x == game.getGamescreen().getPlayer().Getx()+1 && y == game.getGamescreen().getPlayer().Gety()) {
-							game.getGamescreen().getPlayer().Collect(game.getTiledModel().getTenues().get(i));
-						}
-					}
-				}
-				//gestion armes
-				if(game.getTiledModel().getArmes() != null) {
-					for(int i = 0; i< game.getTiledModel().getArmes().size(); i++ ) {
-						int x = game.getTiledModel().getArmes().get(i).getX();
-						int y = game.getTiledModel().getArmes().get(i).getY();
-						if (x == game.getGamescreen().getPlayer().Getx()+1 && y == game.getGamescreen().getPlayer().Gety()) {
-							game.getGamescreen().getPlayer().Collect(game.getTiledModel().getArmes().get(i));
-						}
-					}
-				}
-				game.getGamescreen().getPlayer().move(game.getGamescreen().getPlayer().Getx()+1,game.getGamescreen().getPlayer().Gety());
+			}
+			if(game.getGamescreen().getPlayer().getX() +1 <= game.getTiledModel().getWidth() && valid) {
+				game.getGamescreen().getPlayer().move(game.getGamescreen().getPlayer().getX()+1,game.getGamescreen().getPlayer().getY());
 			}
 		}
 		

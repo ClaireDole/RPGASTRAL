@@ -10,18 +10,17 @@ import fr.rpgastral.controler.RpgMain;
 public class PNJ extends Entity{
 	private String race;
     private String message;
-    private Sprite sprite;
 
     public PNJ(int x, int y, String race, RpgMain g) {
 		super(x, y, g);
 		this.race = race;
 		if(race=="Elfe") {
 			setTexture(g.getAtlas().findRegion("Game/elf"));
-			this.sprite = new Sprite(this.getTexture());
+			setSprite(new Sprite(this.getTexture()));
 		}
 		else if(race=="Humain") {
 			setTexture(g.getAtlas().findRegion("Game/PNJ"));
-			this.sprite = new Sprite(this.getTexture());
+			setSprite(new Sprite(this.getTexture()));
 		}
 	}
     
@@ -43,11 +42,13 @@ public class PNJ extends Entity{
      * @param p
      */
     public void Soin(Player p){
-    	if(p.Gettenue().getName()=="Bénédiction de Susanoo") {
-    		p.SetPV(5);
-    	}
-    	else if(p.Gettenue().getName()=="Eclat de Tsukuyomi") {
-    		p.SetMana(6);
+    	if(p.getTenue()!=null) {
+    		if(p.Gettenue().getName()=="Bénédiction de Susanoo") {
+    			p.SetPV(5);
+    		}
+    		else if(p.Gettenue().getName()=="Eclat de Tsukuyomi") {
+    			p.SetMana(6);
+    		}
     	}
     	else {
     		p.SetPV(3);
@@ -60,13 +61,7 @@ public class PNJ extends Entity{
 	public void setRace(String race) {
 		this.race = race;
 	}
-	public Sprite getSprite() {
-		return sprite;
-	}
-	public void setSprite(Sprite sprite) {
-		this.sprite = sprite;
-	}
-
+	
 	public String getMessage() {
 		return message;
 	}

@@ -22,18 +22,18 @@ public class GameS extends concreteobserver{
 		Boolean valid = true;
 		if(event.compare(new Event(game,"GameScreen", true, "S"))) {
 			for(int i=0; i<game.getTiledModel().getPnjs().size();i++) {
-				if(game.getTiledModel().getPnjs().get(i).Getx() == game.getGamescreen().getPlayer().Getx()) {
-					if(game.getTiledModel().getPnjs().get(i).Gety() == game.getGamescreen().getPlayer().Gety() +1 |
-							game.getTiledModel().getPnjs().get(i).Gety() == game.getGamescreen().getPlayer().Gety() -1) {
+				if(game.getTiledModel().getPnjs().get(i).getX() == game.getGamescreen().getPlayer().getX()) {
+					if(game.getTiledModel().getPnjs().get(i).getY() == game.getGamescreen().getPlayer().getY() +1 |
+							game.getTiledModel().getPnjs().get(i).getY() == game.getGamescreen().getPlayer().getY() -1) {
 						if(game.getTiledModel().getPnjs().get(i).getRace().equals("Elfe")) {
 							game.getTiledModel().getPnjs().get(i).Soin(game.getGamescreen().getPlayer());
 							valid=false;
 						}	
 					}
 				}
-				else if(game.getTiledModel().getPnjs().get(i).Gety() == game.getGamescreen().getPlayer().Gety()) {
-					if(game.getTiledModel().getPnjs().get(i).Getx() == game.getGamescreen().getPlayer().Getx() +1 |
-							game.getTiledModel().getPnjs().get(i).Getx() == game.getGamescreen().getPlayer().Getx() -1) {
+				else if(game.getTiledModel().getPnjs().get(i).getY() == game.getGamescreen().getPlayer().getY()) {
+					if(game.getTiledModel().getPnjs().get(i).getX() == game.getGamescreen().getPlayer().getX() +1 |
+							game.getTiledModel().getPnjs().get(i).getX() == game.getGamescreen().getPlayer().getX() -1) {
 						if(game.getTiledModel().getPnjs().get(i).getRace().equals("Elfe")) {
 							game.getTiledModel().getPnjs().get(i).Soin(game.getGamescreen().getPlayer());
 							valid = false;

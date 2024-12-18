@@ -48,7 +48,7 @@ public class Tenue extends Collectible{
 	 */
 	public void effect(Player p) {
 		if (this.getName().equals("Bénédiction de Susanoo")) {
-			p.SetPV(p.GetPV()+2);
+			p.SetPV(p.getPV()+2);
 		}
 		else if (this.getName().equals("Eclat de Tsukuyomi")) {
 			p.SetMana(p.GetMana()+2);

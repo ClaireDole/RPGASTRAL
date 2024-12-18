@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="31">
+<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="16" nextobjectid="69">
  <properties>
   <property name="franchir" type="bool" value="true"/>
  </properties>
@@ -477,7 +477,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="13" name="Armes">
+ <objectgroup id="13" name="Armes" locked="1">
   <object id="26" name="Bâton" x="1200" y="880">
    <properties>
     <property name="X" type="int" value="37"/>
@@ -509,11 +509,217 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup id="14" name="Monstres" locked="1">
+  <object id="31" name="Slime" x="944" y="1072">
+   <properties>
+    <property name="X" type="int" value="29"/>
+    <property name="Y" type="int" value="16"/>
+    <property name="obligatoire" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="32" name="Gobelin" x="721.333" y="1169.33">
+   <properties>
+    <property name="X" type="int" value="22"/>
+    <property name="Y" type="int" value="13"/>
+    <property name="obligatoire" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="33" name="Slime" x="1137.33" y="1103.67">
+   <properties>
+    <property name="X" type="int" value="35"/>
+    <property name="Y" type="int" value="15"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="39" name="Slime" x="1230.67" y="1072.67">
+   <properties>
+    <property name="X" type="int" value="38"/>
+    <property name="Y" type="int" value="16"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="40" name="Slime" x="1170.67" y="1071.67">
+   <properties>
+    <property name="X" type="int" value="36"/>
+    <property name="Y" type="int" value="16"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="34" name="Slime" x="1136.33" y="1167.67">
+   <properties>
+    <property name="X" type="int" value="35"/>
+    <property name="Y" type="int" value="13"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="36" name="Slime" x="1200.33" y="1104.33">
+   <properties>
+    <property name="X" type="int" value="37"/>
+    <property name="Y" type="int" value="15"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="37" name="Slime" x="1168.33" y="1136.33">
+   <properties>
+    <property name="X" type="int" value="36"/>
+    <property name="Y" type="int" value="14"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="41" name="Orc" x="1199.5" y="1519.5">
+   <properties>
+    <property name="X" type="int" value="37"/>
+    <property name="Y" type="int" value="2"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="42" name="Slime" x="1134.5" y="1518.5">
+   <properties>
+    <property name="X" type="int" value="35"/>
+    <property name="Y" type="int" value="2"/>
+    <property name="obligatoire" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="43" name="Orc" x="1199.5" y="1583.5">
+   <properties>
+    <property name="X" type="int" value="37"/>
+    <property name="Y" type="int" value="0"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="44" name="Gobelin" x="1201" y="1551.5">
+   <properties>
+    <property name="X" type="int" value="37"/>
+    <property name="Y" type="int" value="1"/>
+    <property name="obligatoire" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="47" name="Slime" x="82" y="656">
+   <properties>
+    <property name="X" type="int" value="2"/>
+    <property name="Y" type="int" value="29"/>
+    <property name="obligatoire" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="48" name="Orc" x="240" y="144">
+   <properties>
+    <property name="X" type="int" value="7"/>
+    <property name="Y" type="int" value="45"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="52" name="Orc" x="433" y="114">
+   <properties>
+    <property name="X" type="int" value="13"/>
+    <property name="Y" type="int" value="46"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="61" name="Orc" x="1134" y="208">
+   <properties>
+    <property name="X" type="int" value="35"/>
+    <property name="Y" type="int" value="43"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="64" name="Orc" x="1553" y="174">
+   <properties>
+    <property name="X" type="int" value="48"/>
+    <property name="Y" type="int" value="44"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="66" name="Volant" x="1104" y="304">
+   <properties>
+    <property name="X" type="int" value="34"/>
+    <property name="Y" type="int" value="40"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="67" name="Volant" x="1392" y="47">
+   <properties>
+    <property name="X" type="int" value="43"/>
+    <property name="Y" type="int" value="48"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="68" name="Volant" x="1392" y="143">
+   <properties>
+    <property name="X" type="int" value="43"/>
+    <property name="Y" type="int" value="45"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="65" name="Orc" x="1202" y="51">
+   <properties>
+    <property name="X" type="int" value="37"/>
+    <property name="Y" type="int" value="48"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="62" name="Orc" x="786" y="112">
+   <properties>
+    <property name="X" type="int" value="24"/>
+    <property name="Y" type="int" value="46"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="63" name="Orc" x="846" y="48">
+   <properties>
+    <property name="X" type="int" value="26"/>
+    <property name="Y" type="int" value="48"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="55" name="Volant" x="145" y="720">
+   <properties>
+    <property name="X" type="int" value="4"/>
+    <property name="Y" type="int" value="27"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="57" name="Volant" x="304.333" y="848">
+   <properties>
+    <property name="X" type="int" value="9"/>
+    <property name="Y" type="int" value="23"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="58" name="Volant" x="238.667" y="848.667">
+   <properties>
+    <property name="X" type="int" value="7"/>
+    <property name="Y" type="int" value="23"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="60" name="Volant" x="206.667" y="914">
+   <properties>
+    <property name="X" type="int" value="6"/>
+    <property name="Y" type="int" value="21"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="59" name="Volant" x="272.667" y="783.667">
+   <properties>
+    <property name="X" type="int" value="8"/>
+    <property name="Y" type="int" value="25"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="56" name="Volant" x="239.333" y="720.667">
+   <properties>
+    <property name="X" type="int" value="7"/>
+    <property name="Y" type="int" value="27"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup id="10" name="NPC" locked="1">
   <object id="1" name="Elfe" x="1036.67" y="879.333">
    <properties>
     <property name="X" type="int" value="32"/>
     <property name="Y" type="int" value="22"/>
+    <property name="msg" value="Nous elfes pouvons t'aider. Appuie sur S à côté de nous pour te régénérer !"/>
    </properties>
   </object>
   <object id="2" name="Humain" x="718.667" y="786">
@@ -534,15 +740,39 @@
    <properties>
     <property name="X" type="int" value="37"/>
     <property name="Y" type="int" value="19"/>
+    <property name="msg" value="dans un premier temps tu devrais t'occuper de ce troupeau de slime. "/>
    </properties>
   </object>
   <object id="19" name="Humain" x="1585" y="1455">
    <properties>
     <property name="X" type="int" value="49"/>
     <property name="Y" type="int" value="4"/>
+    <property name="msg" value="Il paraît que des chaussures permettant de marcher sur l'eau serait cachées dans les environs!"/>
+   </properties>
+  </object>
+  <object id="46" name="Elfe" x="529" y="1520">
+   <properties>
+    <property name="X" type="int" value="16"/>
+    <property name="Y" type="int" value="2"/>
+    <property name="msg" value="Je me cache des bandits de l'autre côté du chemin. Si seulement quelqu'un pouvait s'en débarasser..."/>
+   </properties>
+  </object>
+  <object id="49" name="Humain" x="1072" y="718">
+   <properties>
+    <property name="X" type="int" value="33"/>
+    <property name="Y" type="int" value="27"/>
+    <property name="msg" value="Attention ! La roche volcanique comme à droite blessent les gens."/>
+   </properties>
+  </object>
+  <object id="51" name="Elfe" x="49" y="81">
+   <properties>
+    <property name="X" type="int" value="1"/>
+    <property name="Y" type="int" value="47"/>
+    <property name="msg" value="L'arc est particulièrement efficace sur les volants ! Il faudrait un archer pour s'occuper de ceux dans la forêt plus au sud..."/>
    </properties>
   </object>
  </objectgroup>
+ <objectgroup id="15" name="EnemyHumans"/>
  <objectgroup id="12" name="Tenues" locked="1">
   <object id="20" name="Bénédiction de Susanoo" x="1167.33" y="1552.67">
    <properties>

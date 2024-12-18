@@ -5,6 +5,9 @@ import fr.rpgastral.model.carte.Terrain;
 import fr.rpgastral.model.collectible.Armes;
 import fr.rpgastral.model.collectible.Potion;
 import fr.rpgastral.model.collectible.Tenue;
+import fr.rpgastral.model.entity.Enemy;
+import fr.rpgastral.model.entity.EnemyHuman;
+import fr.rpgastral.model.entity.Monstre;
 import fr.rpgastral.model.entity.PNJ;
 
 /**
@@ -28,6 +31,9 @@ public class TiledModel {
 	private ArrayList<Potion> potions;
 	private ArrayList<Tenue> tenues;
 	private ArrayList<Armes> armes;
+	private ArrayList<Enemy> enemys;
+	private ArrayList<Monstre> monstres;
+	private ArrayList<EnemyHuman> ehumans;
 	
 	public ArrayList<Terrain> getEau() {
 		return eau;
@@ -35,29 +41,11 @@ public class TiledModel {
 	public void setEau(ArrayList<Terrain> eau) {
 		this.eau = eau;
 	}
-	public ArrayList<Terrain> getVolcanique() {
-		return volcaniques;
-	}
-	public void setVolcanique(ArrayList<Terrain> volcanique) {
-		this.volcaniques = volcanique;
-	}
 	public ArrayList<Terrain> getObstacles() {
 		return obstacles;
 	}
 	public void setObstacles(ArrayList<Terrain> obstacles) {
 		this.obstacles = obstacles;
-	}
-	public ArrayList<Terrain> getChemin() {
-		return chemins;
-	}
-	public void setChemin(ArrayList<Terrain> chemin) {
-		this.chemins = chemin;
-	}
-	public ArrayList<Terrain> getPlaine() {
-		return plaines;
-	}
-	public void setPlaines(ArrayList<Terrain> plaine) {
-		this.plaines = plaine;
 	}
 	public int getWidth() {
 		return width;
@@ -108,6 +96,41 @@ public class TiledModel {
 	public void setArmes(ArrayList<Armes> armes) {
 		this.armes = armes;
 	}
-	
-	
+	public ArrayList<Terrain> getVolcaniques() {
+		return volcaniques;
+	}
+	public void setVolcaniques(ArrayList<Terrain> volcaniques) {
+		this.volcaniques = volcaniques;
+	}
+	public ArrayList<Terrain> getChemins() {
+		return chemins;
+	}
+	public void setChemins(ArrayList<Terrain> chemins) {
+		this.chemins = chemins;
+	}
+	public ArrayList<Monstre> getMonstres() {
+		return monstres;
+	}
+	public void setMonstres(ArrayList<Monstre> monstres) {
+		this.monstres = monstres;
+	}
+	public ArrayList<Terrain> getPlaines() {
+		return plaines;
+	}
+	public void setPlaines(ArrayList<Terrain> plaine) {
+		this.plaines = plaine;
+		
+	}
+	public ArrayList<Enemy> getEnemys() {
+		return enemys;
+	}
+	public void setEnemys(ArrayList<Enemy> enemys) {
+		this.enemys = enemys;
+	}
+	public ArrayList<EnemyHuman> getEhumans() {
+		return ehumans;
+	}
+	public void setEhumans(ArrayList<EnemyHuman> ehumans) {
+		this.ehumans = ehumans;
+	}
 }
