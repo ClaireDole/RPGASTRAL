@@ -3,7 +3,6 @@ package fr.rpgastral.model.entity;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.utils.TimeUtils;
 
 import fr.rpgastral.controler.RpgMain;
 
@@ -12,11 +11,7 @@ import fr.rpgastral.controler.RpgMain;
  * on retrouve les brigands, les voleurs, les chefs et les mousses 
  */
 public class EnemyHuman extends Enemy{
-	
-	/**
-	 * heure à la nanoseconde près lors du lancement du cooldown
-	 */
-	private long cooldownstart;
+
 	/**
 	 * correspond au taux de pourcentage de chance de convaincre l'ennemi
 	 */
@@ -33,14 +28,14 @@ public class EnemyHuman extends Enemy{
 			this.setSprite(new Sprite(this.getTexture()));
 		}
 		else if(this.getName().equals("Brigand")) {
-			this.Setdamage(1.25f);
+			this.Setdamage(1f);
 			this.setPortee(1);
 			this.setTaux(50);
 			this.setTexture(g.getAtlas().findRegion("Game/enemy/brigand"));
 			this.setSprite(new Sprite(this.getTexture()));
 		}
 		else if (this.getName().equals("Voleur")) {
-			this.Setdamage(1.25f);
+			this.Setdamage(0.75f);
 			this.setPosition(1);
 			this.setTaux(70);
 			this.setPortee(2);
@@ -48,7 +43,7 @@ public class EnemyHuman extends Enemy{
 			this.setSprite(new Sprite(this.getTexture()));
 		}
 		else if (this.getName().equals("Chef")) {
-			this.Setdamage(1.5f);
+			this.Setdamage(1.25f);
 			this.setPosition(1);
 			this.setPortee(2);
 			this.setTaux(25);
@@ -103,22 +98,7 @@ public class EnemyHuman extends Enemy{
 			}
 		}
 	}
-
-	/**
-     * lancement du cooldown
-     */
-    private void cooldownstart() {
-    	this.cooldownstart = TimeUtils.nanoTime();
-    }
     
-    /**
-     * on regarde si le cooldown est terminée
-     * @return l'état du cooldown false: en cours et true:finit
-     */
-    private boolean cooldownover() {
-    	return (TimeUtils.nanoTime() - this.cooldownstart) >= 2 * 1_000_000_000L;
-    }
-
 	public int getTaux() {
 		return taux;
 	}

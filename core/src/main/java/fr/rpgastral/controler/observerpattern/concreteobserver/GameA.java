@@ -47,7 +47,34 @@ public class GameA extends concreteobserver {
 				if(valid) {
 						break;
 					}
+				//EnemyHuman
+				for(int j = 0; j< game.getTiledModel().getEhumans().size(); j++ ) {
+					int x = game.getTiledModel().getEhumans().get(j).getX();
+					int y = game.getTiledModel().getEhumans().get(j).getY();
+					if (x == game.getGamescreen().getPlayer().getX() && y == game.getGamescreen().getPlayer().getY()-i) {
+						game.getGamescreen().getPlayer().attaquemg(game.getTiledModel().getEhumans().get(j));
+						valid = true;
+					}
+					else if (x == game.getGamescreen().getPlayer().getX() && y == game.getGamescreen().getPlayer().getY()+i) {
+						game.getGamescreen().getPlayer().attaquemg(game.getTiledModel().getEhumans().get(j));
+						valid = true;
+					}
+					else if (x == game.getGamescreen().getPlayer().getX()-i && y == game.getGamescreen().getPlayer().getY()) {
+						game.getGamescreen().getPlayer().attaquemg(game.getTiledModel().getEhumans().get(j));
+						valid=true;
+					}
+					else if (x == game.getGamescreen().getPlayer().getX()+i && y == game.getGamescreen().getPlayer().getY()) {
+						game.getGamescreen().getPlayer().attaquemg(game.getTiledModel().getEhumans().get(j));
+						valid=true;
+					}
+					if(valid) {
+						break;
+					}
+				if(valid) {
+					break;
 				}
+				}
+			}
 				if(!valid) {
 					game.setScreen(new MsgScreen(game,"Pas d'ennemis à portée"));
 				}

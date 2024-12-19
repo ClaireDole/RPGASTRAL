@@ -127,8 +127,12 @@ public class RpgMain extends Game {
      */
     @Override
     public void dispose() {
-		this.getGamescreen().dispose();
-		this.getMainMenuScreen().dispose();
+    	if(this.getGamescreen()!=null) {
+    		this.getGamescreen().dispose();
+    	}
+    	if(this.getMainMenuScreen()!=null) {
+    		this.getMainMenuScreen().dispose();
+    	}
 		this.getLoader().dispose();
 		this.getMap().dispose();
 		this.getBatch().dispose();

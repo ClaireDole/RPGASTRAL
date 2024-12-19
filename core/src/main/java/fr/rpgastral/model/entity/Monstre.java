@@ -3,7 +3,6 @@ package fr.rpgastral.model.entity;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.utils.TimeUtils;
 
 import fr.rpgastral.controler.RpgMain;
 
@@ -12,14 +11,9 @@ import fr.rpgastral.controler.RpgMain;
  * on retrouve les slimes, les gobelins, les volants et les orcs
  */
 public class Monstre extends Enemy {
-
-	/**
-	 * heure à la nanoseconde près lors du lancement du cooldown
-	 */
-	private long cooldownstart;
 	
     public Monstre(int x, int y,String name, RpgMain g) {
-		super(x, y,name,g);
+    	super(x, y,name,g);
 		if(this.getName().equals("Slime")) {
 			this.Setdamage(0.25f);
 			this.setPV(1.5f);
@@ -98,20 +92,5 @@ public class Monstre extends Enemy {
 			enemys.remove(this);
 			this.getG().getTiledModel().setEnemys(enemys);
 		}
-    }
-    
-    /**
-     * lancement du cooldown
-     */
-    private void cooldownstart() {
-    	this.cooldownstart = TimeUtils.nanoTime();
-    }
-    
-    /**
-     * on regarde si le cooldown est terminée
-     * @return renvoie l'état du cooldown false: en cours et true:finit
-     */
-    private boolean cooldownover() {
-    	return (TimeUtils.nanoTime() - this.cooldownstart) >= 2 * 1_000_000_000L;
     }
 }

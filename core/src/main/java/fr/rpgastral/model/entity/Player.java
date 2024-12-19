@@ -1,6 +1,7 @@
 package fr.rpgastral.model.entity;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -9,6 +10,7 @@ import fr.rpgastral.controler.observerpattern.Event;
 import fr.rpgastral.controler.observerpattern.Observer;
 import fr.rpgastral.controler.observerpattern.sujet;
 import fr.rpgastral.controler.observerpattern.concreteobserver.PlayerMove;
+import fr.rpgastral.controler.observerpattern.concreteobserver.Victory;
 import fr.rpgastral.controler.observerpattern.concreteobserver.concreteobserver;
 import fr.rpgastral.model.collectible.Armes;
 import fr.rpgastral.model.collectible.Potion;
@@ -47,6 +49,7 @@ public class Player extends Entity implements sujet{
 		this.BonusAttaque = 0;
 		this.observers = new ArrayList<concreteobserver>();
 		attach(new PlayerMove("move"));
+		attach(new Victory("victoire"));
 		setTexture(g.getAtlas().findRegion("Game/player/player"));
 		setSprite(new Sprite(this.getTexture()));
 	}
@@ -98,8 +101,12 @@ public class Player extends Entity implements sujet{
     	else if(e instanceof Monstre && e.getName().equals("Volant") && this.getMd().getName()!="Arc") {
     		e.takedamage(0.05f);
     	}
-    	e.takedamage(this.BonusAttaque + this.getMd().getDamage());
+    	else {
+    		e.takedamage(this.BonusAttaque + this.getMd().getDamage());
+    	}
     	this.SetMana(this.Mana - this.getMd().getCout());
+    	Event event = new Event(this.getG(), "Player",false,"victory");
+    	notify(event);
     }
     /**
      * gestion de l'attaque du joueur avec l'arme en main gauche
@@ -112,8 +119,12 @@ public class Player extends Entity implements sujet{
     	else if(e instanceof Monstre && e.getName().equals("Volant") && this.getMg().getName()!="Arc") {
     		e.takedamage(0.05f);
     	}
-    	e.takedamage(this.BonusAttaque + this.getMg().getDamage());
+    	else {
+    		e.takedamage(this.BonusAttaque + this.getMg().getDamage());
+    	}
     	this.SetMana(this.Mana - this.getMg().getCout());
+    	Event event = new Event(this.getG(), "Player",false,"victory");
+    	notify(event);
     }
 
     /**
@@ -156,19 +167,31 @@ public class Player extends Entity implements sujet{
     /**
      * convaincre un ennemi permet d'éviter le combat mais de se débarasser de lui
      * ne fonctionne qu'avec les ennemis humains
-     * la tenue apparat du kitsune permet de convaincre à tous les coûts
+     * la tenue apparat du kitsune permet de convaincre tout le temps
      * sinon cela fonctionne de façon aléatoire et dépend du type d'ennemis
+     * Attention : une seule et unique tentative par ennemi distinct !
      * @param e ennemi surlequel on agit
      */
     public void Convaincre(EnemyHuman e) {
-    	if (this.tenue.getName()=="Apparat du kitsune") {
-    		this.getG().setScreen(new MsgScreen(this.getG(),"L'ennemi est convaincu par vos arguments et prend la fuite"));
-    		e.dispawn();
+    	if(this.tenue!=null) {
+    		if (this.tenue.getName()=="Apparat du kitsune") {
+    			this.getG().setScreen(new MsgScreen(this.getG(),"L'ennemi "+e.getName()+" est convaincu par vos arguments et prend la fuite"));
+    			e.dispawn();
+    		}
     	}
-    	//nombre random qui permet de savoir si on peut convaincre ou pas
-    	//si oui alors on dispawn l'ennemi
+    	else {
+    		Random random = new Random();
+    		int alea = random.nextInt(100);
+    		if(alea < e.getTaux()) {
+    			this.getG().setScreen(new MsgScreen(this.getG(),"L'ennemi "+e.getName()+" est convaincu par vos arguments et prend la fuite."));
+        		e.dispawn();
+    		}
+    		else {
+    			this.getG().setScreen(new MsgScreen(this.getG(), "L'ennemi "+e.getName()+" n/'est pas convaincu par vos arguments et préfère se battre."));
+    			e.setTaux(0);
+    		}
+    	}
     }
-
 
 	@Override
 	public void attach(concreteobserver o) {
@@ -184,6 +207,7 @@ public class Player extends Entity implements sujet{
 	public void notify(Event e) {
 		this.observers.forEach(observer -> observer.update(e));	
 	}
+	
 	public Armes getMg() {
 		return mg;
 	}

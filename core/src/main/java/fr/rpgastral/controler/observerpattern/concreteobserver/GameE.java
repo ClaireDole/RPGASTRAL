@@ -21,6 +21,7 @@ public class GameE extends concreteobserver {
 			else {
 				Boolean valid = false;
 				for(int i=1; i<=game.getGamescreen().getPlayer().getMd().getPortee();i++) {
+					//Monstres
 					for(int j = 0; j< game.getTiledModel().getMonstres().size(); j++ ) {
 						int x = game.getTiledModel().getMonstres().get(j).getX();
 						int y = game.getTiledModel().getMonstres().get(j).getY();
@@ -38,6 +39,33 @@ public class GameE extends concreteobserver {
 						}
 						else if (x == game.getGamescreen().getPlayer().getX()+i && y == game.getGamescreen().getPlayer().getY()) {
 							game.getGamescreen().getPlayer().attaquemd(game.getTiledModel().getMonstres().get(j));
+							valid=true;
+						}
+						if(valid) {
+							break;
+						}
+					if(valid) {
+						break;
+					}
+					}
+					//EnemyHuman
+					for(int j = 0; j< game.getTiledModel().getEhumans().size(); j++ ) {
+						int x = game.getTiledModel().getEhumans().get(j).getX();
+						int y = game.getTiledModel().getEhumans().get(j).getY();
+						if (x == game.getGamescreen().getPlayer().getX() && y == game.getGamescreen().getPlayer().getY()-i) {
+							game.getGamescreen().getPlayer().attaquemd(game.getTiledModel().getEhumans().get(j));
+							valid = true;
+						}
+						else if (x == game.getGamescreen().getPlayer().getX() && y == game.getGamescreen().getPlayer().getY()+i) {
+							game.getGamescreen().getPlayer().attaquemd(game.getTiledModel().getEhumans().get(j));
+							valid = true;
+						}
+						else if (x == game.getGamescreen().getPlayer().getX()-i && y == game.getGamescreen().getPlayer().getY()) {
+							game.getGamescreen().getPlayer().attaquemd(game.getTiledModel().getEhumans().get(j));
+							valid=true;
+						}
+						else if (x == game.getGamescreen().getPlayer().getX()+i && y == game.getGamescreen().getPlayer().getY()) {
+							game.getGamescreen().getPlayer().attaquemd(game.getTiledModel().getEhumans().get(j));
 							valid=true;
 						}
 						if(valid) {

@@ -55,6 +55,14 @@ public class GameLeft extends concreteobserver{
 					valid = false;
 				}
 			}
+			//présence d'ennemis humains
+			for(int i = 0; i< game.getTiledModel().getEhumans().size(); i++ ) {
+				int x = game.getTiledModel().getEhumans().get(i).getX();
+				int y = game.getTiledModel().getEhumans().get(i).getY();
+				if (x == game.getGamescreen().getPlayer().getX()-1 && y == game.getGamescreen().getPlayer().getY()) {
+					valid = false;
+				}
+			}
 			if(game.getGamescreen().getPlayer().getX() -1 >= 0 && valid) {
 				game.getGamescreen().getPlayer().move(game.getGamescreen().getPlayer().getX()-1,game.getGamescreen().getPlayer().getY());
 			}

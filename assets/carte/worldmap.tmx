@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="16" nextobjectid="69">
+<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="16" nextobjectid="81">
  <properties>
   <property name="franchir" type="bool" value="true"/>
  </properties>
@@ -772,7 +772,85 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="15" name="EnemyHumans"/>
+ <objectgroup id="15" name="EnemyHumans">
+  <object id="69" name="Voleur" x="689.167" y="1392">
+   <properties>
+    <property name="X" type="int" value="21"/>
+    <property name="Y" type="int" value="6"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="72" name="Voleur" x="656.167" y="1327">
+   <properties>
+    <property name="X" type="int" value="20"/>
+    <property name="Y" type="int" value="8"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="70" name="Brigand" x="527.167" y="1329.17">
+   <properties>
+    <property name="X" type="int" value="16"/>
+    <property name="Y" type="int" value="8"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="71" name="Brigand" x="591.167" y="1295.83">
+   <properties>
+    <property name="X" type="int" value="18"/>
+    <property name="Y" type="int" value="9"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="73" name="Mousse" x="558.667" y="1360">
+   <properties>
+    <property name="X" type="int" value="17"/>
+    <property name="Y" type="int" value="7"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="74" name="Mousse" x="462.667" y="1360">
+   <properties>
+    <property name="X" type="int" value="14"/>
+    <property name="Y" type="int" value="7"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="75" name="Chef" x="495.333" y="1262.67">
+   <properties>
+    <property name="X" type="int" value="15"/>
+    <property name="Y" type="int" value="10"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="76" name="Voleur" x="176" y="273">
+   <properties>
+    <property name="X" type="int" value="5"/>
+    <property name="Y" type="int" value="41"/>
+    <property name="obligatoire" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="77" name="Chef" x="368" y="401">
+   <properties>
+    <property name="X" type="int" value="11"/>
+    <property name="Y" type="int" value="37"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="79" name="Mousse" x="400" y="466">
+   <properties>
+    <property name="X" type="int" value="12"/>
+    <property name="Y" type="int" value="35"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="80" name="Brigand" x="302" y="434">
+   <properties>
+    <property name="X" type="int" value="9"/>
+    <property name="Y" type="int" value="36"/>
+    <property name="obligatoire" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup id="12" name="Tenues" locked="1">
   <object id="20" name="Bénédiction de Susanoo" x="1167.33" y="1552.67">
    <properties>

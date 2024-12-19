@@ -1,12 +1,27 @@
 package fr.rpgastral.model.entity;
 
+import com.badlogic.gdx.utils.TimeUtils;
+
 import fr.rpgastral.controler.RpgMain;
 
 public abstract class Enemy extends Entity{
-    private float damage;
+    /**
+     * puissance de l'ennemi en terme de dégâts
+     */
+	private float damage;
     private String name;
+    /**
+     * portée de l'ennemi
+     */
     private int portee;
+    /**
+     * position de l'ennemi dans son cycle de mouvement
+     */
     private int position;
+    /**
+	 * heure à la nanoseconde près lors du lancement du cooldown
+	 */
+	private long cooldownstart;
 
     public Enemy(int x, int y,String name, RpgMain g) {
 		super(x, y,g);
@@ -26,6 +41,21 @@ public abstract class Enemy extends Entity{
      * gestion de la suppression
      */
     public abstract void dispawn();
+    
+    /**
+     * lancement du cooldown
+     */
+    public void cooldownstart() {
+    	this.cooldownstart = TimeUtils.nanoTime();
+    }
+    
+    /**
+     * on regarde si le cooldown est terminée
+     * @return l'état du cooldown false: en cours et true:finit
+     */
+    public boolean cooldownover() {
+    	return (TimeUtils.nanoTime() - this.cooldownstart) >= 2 * 1_000_000_000L;
+    }
     
     public float Getdamage() {
     	return this.damage;

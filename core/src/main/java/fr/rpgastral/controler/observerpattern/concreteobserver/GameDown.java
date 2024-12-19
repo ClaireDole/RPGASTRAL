@@ -59,6 +59,14 @@ public class GameDown extends concreteobserver{
 					valid = false;
 				}
 			}
+			//présence d'ennemis humains
+			for(int i = 0; i< game.getTiledModel().getEhumans().size(); i++ ) {
+				int x = game.getTiledModel().getEhumans().get(i).getX();
+				int y = game.getTiledModel().getEhumans().get(i).getY();
+				if (x == game.getGamescreen().getPlayer().getX() && y == game.getGamescreen().getPlayer().getY()-1) {
+					valid = false;
+				}
+			}
 			//déplacement validé, gestion des collectibles puis déplacement du joueur
 			if(game.getGamescreen().getPlayer().getY()-1 >= 0
 					&& valid) {

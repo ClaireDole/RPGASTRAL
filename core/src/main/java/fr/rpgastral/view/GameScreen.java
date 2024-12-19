@@ -26,8 +26,10 @@ import fr.rpgastral.controler.observerpattern.concreteobserver.GameRight;
 import fr.rpgastral.controler.observerpattern.concreteobserver.GameS;
 import fr.rpgastral.controler.observerpattern.concreteobserver.GameUp;
 import fr.rpgastral.controler.observerpattern.concreteobserver.GameX;
+import fr.rpgastral.controler.observerpattern.concreteobserver.GameZ;
 import fr.rpgastral.controler.observerpattern.concreteobserver.Quit;
 import fr.rpgastral.controler.observerpattern.concreteobserver.concreteobserver;
+import fr.rpgastral.model.entity.Enemy;
 import fr.rpgastral.model.entity.Player;
 
 /**
@@ -180,6 +182,7 @@ public class GameScreen implements Screen, sujet {
 		attach(new GameX("X"));
 		attach(new GameA("A"));
 		attach(new GameE("E"));
+		attach(new GameZ("Z"));
 	}
 	
 	/**
@@ -210,6 +213,11 @@ public class GameScreen implements Screen, sujet {
 		if(this.game.getTiledModel().getMonstres() != null ) {
 			for (int i=0; i<this.game.getTiledModel().getMonstres().size(); i++) {
 				this.game.getTiledModel().getMonstres().get(i).getSprite().setSize(1, 1);
+			}
+		}
+		if(this.game.getTiledModel().getEhumans() != null ) {
+			for (int i=0; i<this.game.getTiledModel().getEhumans().size(); i++) {
+				this.game.getTiledModel().getEhumans().get(i).getSprite().setSize(1, 1);
 			}
 		}
 	}
@@ -261,6 +269,12 @@ public class GameScreen implements Screen, sujet {
 	    		this.game.getTiledModel().getMonstres().get(i).getSprite().draw(this.game.getBatch());
 	    	}
 	    }
+	  //EnemyHumans
+	    if(this.game.getTiledModel().getEhumans() != null ) {
+	    	for (int i=0; i<this.game.getTiledModel().getEhumans().size(); i++) {
+	    		this.game.getTiledModel().getEhumans().get(i).getSprite().draw(this.game.getBatch());
+	    	}
+	    }
 	    this.game.getBatch().end();
 	}
 	
@@ -297,6 +311,12 @@ public class GameScreen implements Screen, sujet {
 	    if(this.game.getTiledModel().getMonstres() != null ) {
 	    	for (int i=0; i<this.game.getTiledModel().getMonstres().size(); i++) {
 	    		this.game.getTiledModel().getMonstres().get(i).getSprite().setPosition(this.game.getTiledModel().getMonstres().get(i).getX(), this.game.getTiledModel().getMonstres().get(i).getY());
+	    	}
+	    }
+	  //SetPositionMonstre
+	    if(this.game.getTiledModel().getEhumans() != null ) {
+	    	for (int i=0; i<this.game.getTiledModel().getEhumans().size(); i++) {
+	    		this.game.getTiledModel().getEhumans().get(i).getSprite().setPosition(this.game.getTiledModel().getEhumans().get(i).getX(), this.game.getTiledModel().getEhumans().get(i).getY());
 	    	}
 	    }
 	}
@@ -347,6 +367,10 @@ public class GameScreen implements Screen, sujet {
 		}
 		if(Gdx.input.isKeyJustPressed(Keys.E)) {
 			Event event = new Event (this.game,"GameScreen", true, "E");
+			notify(event);
+		}
+		if(Gdx.input.isKeyPressed(Keys.W)) {
+			Event event = new Event (this.game,"GameScreen", true, "Z");
 			notify(event);
 		}
 	}

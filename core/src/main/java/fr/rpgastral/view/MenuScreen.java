@@ -123,7 +123,15 @@ public class MenuScreen implements Screen, sujet {
 		game.getBatch().setProjectionMatrix(this.camera.combined);
 		game.getBatch().begin();
 		game.getBatch().draw(this.region, 100,100,654,640);
-		font.Getfont1().draw(game.getBatch(), "Retourner à l'écran de jeu --> P", 200,600);
+		font.Getfont1().draw(game.getBatch(), "P --> Retourner à l'écran de jeu", 300,600);
+		font.Getfont1().draw(game.getBatch(), "A --> Attaquer avec main gauche", 300,550);
+		font.Getfont1().draw(game.getBatch(), "E --> Attaquer avec main droite", 300,500);
+		font.Getfont1().draw(game.getBatch(), "Z --> Convaincre", 300,450);
+		font.Getfont1().draw(game.getBatch(), "R --> Parler à un PNJ", 300,400);
+		font.Getfont1().draw(game.getBatch(), "S --> Se soigner grâce aux elfes", 300,350);
+		font.Getfont1().draw(game.getBatch(), "X --> Menu inventaire et statistiques", 300,300);
+		font.Getfont1().draw(game.getBatch(), "M --> Menu aide", 300,250);
+		font.Getfont1().draw(game.getBatch(), "flèches --> Se déplacer", 300,200);
 		game.getBatch().end();
 	}
 	

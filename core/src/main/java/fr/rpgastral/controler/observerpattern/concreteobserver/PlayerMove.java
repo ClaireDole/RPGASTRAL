@@ -2,6 +2,7 @@ package fr.rpgastral.controler.observerpattern.concreteobserver;
 
 import fr.rpgastral.controler.RpgMain;
 import fr.rpgastral.controler.observerpattern.Event;
+import fr.rpgastral.model.entity.EnemyHuman;
 import fr.rpgastral.model.entity.Monstre;
 
 public class PlayerMove extends concreteobserver{
@@ -99,8 +100,98 @@ public class PlayerMove extends concreteobserver{
 			//gestion des ennemis humains
 			if(game.getTiledModel().getEhumans()!=null) {
 				for(int i = 0; i< game.getTiledModel().getEhumans().size(); i++ ) {
-					//gestion du cycle de mouvement
-					
+					EnemyHuman enemy = game.getTiledModel().getEhumans().get(i);
+					//gestion du cycle de mouvement des voleurs
+					if(enemy.getName().equals("Voleur")) {
+						if(enemy.getPosition()==1) {
+							Boolean valid = true;
+							for(int j = 0; j< game.getTiledModel().getObstacles().size(); j++ ) {
+								int x = game.getTiledModel().getObstacles().get(j).Getx();
+								int y = game.getTiledModel().getObstacles().get(j).Gety();
+								if (x == enemy.getX()+1 && y == enemy.getY()+1) {
+									valid = false;
+								}
+							}
+							for(int j = 0; j< game.getTiledModel().getEau().size(); j++ ) {
+								int x = game.getTiledModel().getEau().get(j).Getx();
+								int y = game.getTiledModel().getEau().get(j).Gety();
+								if (x == enemy.getX()+1 && y == enemy.getY()+1) {
+									valid = false;
+								}
+							}
+							if(valid) {
+								enemy.setY(enemy.getY()+1);
+								enemy.setX(enemy.getX()+1);
+							}
+							enemy.setPosition(2);
+						}
+						else if(enemy.getPosition()==2) {
+							Boolean valid = true;
+							for(int j = 0; j< game.getTiledModel().getObstacles().size(); j++ ) {
+								int x = game.getTiledModel().getObstacles().get(j).Getx();
+								int y = game.getTiledModel().getObstacles().get(j).Gety();
+								if (x == enemy.getX()+1 && y == enemy.getY()-1) {
+									valid = false;
+								}
+							}
+							for(int j = 0; j< game.getTiledModel().getEau().size(); j++ ) {
+								int x = game.getTiledModel().getEau().get(j).Getx();
+								int y = game.getTiledModel().getEau().get(j).Gety();
+								if (x == enemy.getX()+1 && y == enemy.getY()-1) {
+									valid = false;
+								}
+							}
+							if(valid) {
+								enemy.setY(enemy.getY()-1);
+								enemy.setX(enemy.getX()+1);
+							}
+							enemy.setPosition(3);
+						}
+						else if(enemy.getPosition()==3) {
+							Boolean valid = true;
+							for(int j = 0; j< game.getTiledModel().getObstacles().size(); j++ ) {
+								int x = game.getTiledModel().getObstacles().get(j).Getx();
+								int y = game.getTiledModel().getObstacles().get(j).Gety();
+								if (x == enemy.getX()-1 && y == enemy.getY()-1) {
+									valid = false;
+								}
+							}
+							for(int j = 0; j< game.getTiledModel().getEau().size(); j++ ) {
+								int x = game.getTiledModel().getEau().get(j).Getx();
+								int y = game.getTiledModel().getEau().get(j).Gety();
+								if (x == enemy.getX()-1 && y == enemy.getY()-1) {
+									valid = false;
+								}
+							}
+							if(valid) {
+								enemy.setY(enemy.getY()-1);
+								enemy.setX(enemy.getX()-1);
+							}
+							enemy.setPosition(4);
+						}
+						else if(enemy.getPosition()==4) {
+							Boolean valid = true;
+							for(int j = 0; j< game.getTiledModel().getObstacles().size(); j++ ) {
+								int x = game.getTiledModel().getObstacles().get(j).Getx();
+								int y = game.getTiledModel().getObstacles().get(j).Gety();
+								if (x == enemy.getX()-1 && y == enemy.getY()+1) {
+									valid = false;
+								}
+							}
+							for(int j = 0; j< game.getTiledModel().getEau().size(); j++ ) {
+								int x = game.getTiledModel().getEau().get(j).Getx();
+								int y = game.getTiledModel().getEau().get(j).Gety();
+								if (x == enemy.getX()-1 && y == enemy.getY()+1) {
+									valid = false;
+								}
+							}
+							if(valid) {
+								enemy.setY(enemy.getY()+1);
+								enemy.setX(enemy.getX()-1);
+							}
+							enemy.setPosition(1);
+						}
+					}
 					//gestion de l'attaque automatique du player
 					if(game.getTiledModel().getEhumans().get(i).getName().equals("Chef") || game.getTiledModel().getEhumans().get(i).getName().equals("Brigand")
 							|| game.getTiledModel().getEhumans().get(i).getName().equals("Voleur")) {

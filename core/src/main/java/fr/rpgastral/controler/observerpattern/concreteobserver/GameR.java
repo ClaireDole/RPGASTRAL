@@ -41,7 +41,7 @@ public class GameR extends concreteobserver{
 					}
 				}
 			}
-			if(event.compare(new Event(game,"GameScreen", true, "R")) && valid) {
+			if(valid) {
 				game.setScreen(new MsgScreen(game,"ça ne marche pas..."));
 			}
 		}

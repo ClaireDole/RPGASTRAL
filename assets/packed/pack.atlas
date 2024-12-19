@@ -75,10 +75,24 @@ Game/collectible/tenue
   index: -1
 
 pack3.png
-size: 256, 128
+size: 512, 128
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
+Game/enemy/brigand
+  rotate: false
+  xy: 351, 18
+  size: 33, 64
+  orig: 33, 64
+  offset: 0, 0
+  index: -1
+Game/enemy/chef
+  rotate: false
+  xy: 68, 18
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
 Game/enemy/gobelin
   rotate: false
   xy: 2, 2
@@ -86,25 +100,39 @@ Game/enemy/gobelin
   orig: 64, 80
   offset: 0, 0
   index: -1
+Game/enemy/mousse
+  rotate: false
+  xy: 312, 18
+  size: 37, 64
+  orig: 37, 64
+  offset: 0, 0
+  index: -1
 Game/enemy/orc
   rotate: false
-  xy: 193, 18
+  xy: 259, 18
   size: 51, 64
   orig: 51, 64
   offset: 0, 0
   index: -1
 Game/enemy/slime
   rotate: false
-  xy: 68, 22
+  xy: 134, 22
   size: 64, 60
   orig: 64, 60
   offset: 0, 0
   index: -1
 Game/enemy/volant
   rotate: false
-  xy: 134, 18
+  xy: 200, 18
   size: 57, 64
   orig: 57, 64
+  offset: 0, 0
+  index: -1
+Game/enemy/voleur
+  rotate: false
+  xy: 386, 18
+  size: 32, 64
+  orig: 32, 64
   offset: 0, 0
   index: -1
 
@@ -122,74 +150,34 @@ Game/player/player
   index: -1
 
 pack5.png
-size: 1024, 1024
-format: RGBA8888
-filter: Nearest, Nearest
-repeat: none
-Game/terrain/herbe
-  rotate: false
-  xy: 2, 204
-  size: 1000, 778
-  orig: 1000, 778
-  offset: 0, 0
-  index: -1
-Game/terrain/volcanique
-  rotate: false
-  xy: 2, 2
-  size: 200, 200
-  orig: 200, 200
-  offset: 0, 0
-  index: -1
-
-pack6.png
-size: 1024, 1024
-format: RGBA8888
-filter: Nearest, Nearest
-repeat: none
-Game/terrain/eau
-  rotate: false
-  xy: 2, 354
-  size: 536, 594
-  orig: 536, 594
-  offset: 0, 0
-  index: -1
-Game/terrain/eau2
-  rotate: false
-  xy: 2, 2
-  size: 340, 350
-  orig: 340, 350
-  offset: 0, 0
-  index: -1
-Game/terrain/tree
-  rotate: false
-  xy: 540, 228
-  size: 352, 720
-  orig: 352, 720
-  offset: 0, 0
-  index: -1
-
-pack7.png
 size: 1024, 256
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
 Interface/DeadMenubackground
   rotate: false
-  xy: 260, 17
+  xy: 260, 83
   size: 256, 169
   orig: 256, 169
   offset: 0, 0
   index: -1
 Interface/MainMenubackground
   rotate: false
-  xy: 518, 58
+  xy: 518, 124
   size: 218, 128
   orig: 218, 128
   offset: 0, 0
   index: -1
-Interface/window
+Interface/laurier
   rotate: false
   xy: 2, 2
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
+Interface/window
+  rotate: false
+  xy: 2, 68
   size: 256, 184
   orig: 256, 184
   offset: 0, 0
