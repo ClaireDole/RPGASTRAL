@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -29,7 +30,6 @@ import fr.rpgastral.controler.observerpattern.concreteobserver.GameX;
 import fr.rpgastral.controler.observerpattern.concreteobserver.GameZ;
 import fr.rpgastral.controler.observerpattern.concreteobserver.Quit;
 import fr.rpgastral.controler.observerpattern.concreteobserver.concreteobserver;
-import fr.rpgastral.model.entity.Enemy;
 import fr.rpgastral.model.entity.Player;
 
 /**
@@ -60,6 +60,7 @@ public class GameScreen implements Screen, sujet {
 	 * permet de gérer les effets des inputs sur l'écran
 	 */
 	private ArrayList<concreteobserver> observers;
+	private Music background;
 	
 	/**
 	 * constructeur
@@ -71,23 +72,39 @@ public class GameScreen implements Screen, sujet {
 	    // charger les images et la map
 		this.game.getManager().load("pack.png",Texture.class);
 		//charger les sons
+		this.background = Gdx.audio.newMusic(Gdx.files.internal("Son/mainbackground.mp3"));
+		this.background.setLooping(true);
+		this.background.setVolume(0.5f);
+		this.background.play();
+		//concreteobservers
+		gestionobservers();
+		//création du player
 		
-		gestionobservers();		
-		this.player = new Player(27,25,game);
-		
+		if (this.game.getTiledModelGame().getTeleports() != null) {
+			//on récupère le point de téléportation correspondant au spawn du player sur la map
+			for (int i = 0; i < this.game.getTiledModelGame().getTeleports().size(); i++) {
+				if (this.game.getTiledModelGame().getTeleports().get(i).getName().equals("Player")) {
+					this.player = new Player(this.game.getTiledModelGame().getTeleports().get(i).getX(),
+							this.game.getTiledModelGame().getTeleports().get(i).getY(), this.game);
+				}
+			} 
+		}
+		else {
+			this.player = new Player(27,24,this.game);
+		}
 		//rendu
 		this.font = new Font();
-		int a = this.game.getTiledModel().getTilewidth();
+		int a = this.game.getTiledModelGame().getTilewidth();
 		this.unitScale = (float) (1.0/a);
-		this.renderer = new OrthogonalTiledMapRenderer(this.game.getmap(),unitScale);
+		this.renderer = new OrthogonalTiledMapRenderer(this.game.getGamemap(),unitScale);
 		this.camera = new OrthographicCamera();
 		
 		//gestion des dimensions de la camera et viewport en fonction des dimensions de la carte tiled
-		if(this.game.getTiledModel().getWidth() < 20) { 
-			this.camwidth = this.game.getTiledModel().getWidth();
+		if(this.game.getTiledModelGame().getWidth() < 20) { 
+			this.camwidth = this.game.getTiledModelGame().getWidth();
 		}
-		else if (this.game.getTiledModel().getHeight()<20) {
-			this.camheight = this.game.getTiledModel().getHeight();
+		else if (this.game.getTiledModelGame().getHeight()<20) {
+			this.camheight = this.game.getTiledModelGame().getHeight();
 		}
 		else {
 			this.camheight = this.camwidth = 20;
@@ -165,6 +182,7 @@ public class GameScreen implements Screen, sujet {
 	public void dispose() {
 		font.dispose();
 		renderer.dispose();
+		background.dispose();
 	}
 
 	/**
@@ -190,34 +208,34 @@ public class GameScreen implements Screen, sujet {
 	 */
 	private void gestionsprites() {
 		this.player.getSprite().setSize(1,1);
-		if(this.game.getTiledModel().getPnjs() != null ) {
-			for (int i=0; i<this.game.getTiledModel().getPnjs().size(); i++) {
-				this.game.getTiledModel().getPnjs().get(i).getSprite().setSize(1, 1);
+		if(this.game.getTiledModelGame().getPnjs() != null ) {
+			for (int i=0; i<this.game.getTiledModelGame().getPnjs().size(); i++) {
+				this.game.getTiledModelGame().getPnjs().get(i).getSprite().setSize(1, 1);
 			}
 		}
-		if(this.game.getTiledModel().getPotions() != null ) {
-			for (int i=0; i<this.game.getTiledModel().getPotions().size(); i++) {
-				this.game.getTiledModel().getPotions().get(i).getSprite().setSize(1, 1);
+		if(this.game.getTiledModelGame().getPotions() != null ) {
+			for (int i=0; i<this.game.getTiledModelGame().getPotions().size(); i++) {
+				this.game.getTiledModelGame().getPotions().get(i).getSprite().setSize(1, 1);
 			}
 		}
-		if(this.game.getTiledModel().getTenues() != null ) {
-			for (int i=0; i<this.game.getTiledModel().getTenues().size(); i++) {
-				this.game.getTiledModel().getTenues().get(i).getSprite().setSize(1, 1);
+		if(this.game.getTiledModelGame().getTenues() != null ) {
+			for (int i=0; i<this.game.getTiledModelGame().getTenues().size(); i++) {
+				this.game.getTiledModelGame().getTenues().get(i).getSprite().setSize(1, 1);
 			}
 		}
-		if(this.game.getTiledModel().getArmes() != null ) {
-			for (int i=0; i<this.game.getTiledModel().getArmes().size(); i++) {
-				this.game.getTiledModel().getArmes().get(i).getSprite().setSize(1, 1);
+		if(this.game.getTiledModelGame().getArmes() != null ) {
+			for (int i=0; i<this.game.getTiledModelGame().getArmes().size(); i++) {
+				this.game.getTiledModelGame().getArmes().get(i).getSprite().setSize(1, 1);
 			}
 		}
-		if(this.game.getTiledModel().getMonstres() != null ) {
-			for (int i=0; i<this.game.getTiledModel().getMonstres().size(); i++) {
-				this.game.getTiledModel().getMonstres().get(i).getSprite().setSize(1, 1);
+		if(this.game.getTiledModelGame().getMonstres() != null ) {
+			for (int i=0; i<this.game.getTiledModelGame().getMonstres().size(); i++) {
+				this.game.getTiledModelGame().getMonstres().get(i).getSprite().setSize(1, 1);
 			}
 		}
-		if(this.game.getTiledModel().getEhumans() != null ) {
-			for (int i=0; i<this.game.getTiledModel().getEhumans().size(); i++) {
-				this.game.getTiledModel().getEhumans().get(i).getSprite().setSize(1, 1);
+		if(this.game.getTiledModelGame().getEhumans() != null ) {
+			for (int i=0; i<this.game.getTiledModelGame().getEhumans().size(); i++) {
+				this.game.getTiledModelGame().getEhumans().get(i).getSprite().setSize(1, 1);
 			}
 		}
 	}
@@ -240,39 +258,39 @@ public class GameScreen implements Screen, sujet {
 	    this.renderer.render();
 	    this.player.getSprite().draw(this.game.getBatch());
 	    //PNJ
-	    if(this.game.getTiledModel().getPnjs() != null ) {
-	    	for (int i=0; i<this.game.getTiledModel().getPnjs().size(); i++) {
-	    		this.game.getTiledModel().getPnjs().get(i).getSprite().draw(this.game.getBatch());
+	    if(this.game.getTiledModelGame().getPnjs() != null ) {
+	    	for (int i=0; i<this.game.getTiledModelGame().getPnjs().size(); i++) {
+	    		this.game.getTiledModelGame().getPnjs().get(i).getSprite().draw(this.game.getBatch());
 	    	}
 	    }
 	    //Potion
-	    if(this.game.getTiledModel().getPotions() != null ) {
-	    	for (int i=0; i<this.game.getTiledModel().getPotions().size(); i++) {
-	    		this.game.getTiledModel().getPotions().get(i).getSprite().draw(this.game.getBatch());
+	    if(this.game.getTiledModelGame().getPotions() != null ) {
+	    	for (int i=0; i<this.game.getTiledModelGame().getPotions().size(); i++) {
+	    		this.game.getTiledModelGame().getPotions().get(i).getSprite().draw(this.game.getBatch());
 	    	}
 	    }
 	  //Tenue
-	    if(this.game.getTiledModel().getTenues() != null ) {
-	    	for (int i=0; i<this.game.getTiledModel().getTenues().size(); i++) {
-	    		this.game.getTiledModel().getTenues().get(i).getSprite().draw(this.game.getBatch());
+	    if(this.game.getTiledModelGame().getTenues() != null ) {
+	    	for (int i=0; i<this.game.getTiledModelGame().getTenues().size(); i++) {
+	    		this.game.getTiledModelGame().getTenues().get(i).getSprite().draw(this.game.getBatch());
 	    	}
 	    }
 	    //Arme
-	    if(this.game.getTiledModel().getArmes() != null ) {
-	    	for (int i=0; i<this.game.getTiledModel().getArmes().size(); i++) {
-	    		this.game.getTiledModel().getArmes().get(i).getSprite().draw(this.game.getBatch());
+	    if(this.game.getTiledModelGame().getArmes() != null ) {
+	    	for (int i=0; i<this.game.getTiledModelGame().getArmes().size(); i++) {
+	    		this.game.getTiledModelGame().getArmes().get(i).getSprite().draw(this.game.getBatch());
 	    	}
 	    }
 	  //Monstre
-	    if(this.game.getTiledModel().getMonstres() != null ) {
-	    	for (int i=0; i<this.game.getTiledModel().getMonstres().size(); i++) {
-	    		this.game.getTiledModel().getMonstres().get(i).getSprite().draw(this.game.getBatch());
+	    if(this.game.getTiledModelGame().getMonstres() != null ) {
+	    	for (int i=0; i<this.game.getTiledModelGame().getMonstres().size(); i++) {
+	    		this.game.getTiledModelGame().getMonstres().get(i).getSprite().draw(this.game.getBatch());
 	    	}
 	    }
 	  //EnemyHumans
-	    if(this.game.getTiledModel().getEhumans() != null ) {
-	    	for (int i=0; i<this.game.getTiledModel().getEhumans().size(); i++) {
-	    		this.game.getTiledModel().getEhumans().get(i).getSprite().draw(this.game.getBatch());
+	    if(this.game.getTiledModelGame().getEhumans() != null ) {
+	    	for (int i=0; i<this.game.getTiledModelGame().getEhumans().size(); i++) {
+	    		this.game.getTiledModelGame().getEhumans().get(i).getSprite().draw(this.game.getBatch());
 	    	}
 	    }
 	    this.game.getBatch().end();
@@ -284,39 +302,39 @@ public class GameScreen implements Screen, sujet {
 	private void setposition() {
 		//SetPositionPNJ
 		this.player.getSprite().setPosition(this.player.getX(), this.player.getY());
-	    if(this.game.getTiledModel().getPnjs() != null ) {
-	    	for (int i=0; i<this.game.getTiledModel().getPnjs().size(); i++) {
-	    		this.game.getTiledModel().getPnjs().get(i).getSprite().setPosition(this.game.getTiledModel().getPnjs().get(i).getX(), this.game.getTiledModel().getPnjs().get(i).getY());
+	    if(this.game.getTiledModelGame().getPnjs() != null ) {
+	    	for (int i=0; i<this.game.getTiledModelGame().getPnjs().size(); i++) {
+	    		this.game.getTiledModelGame().getPnjs().get(i).getSprite().setPosition(this.game.getTiledModelGame().getPnjs().get(i).getX(), this.game.getTiledModelGame().getPnjs().get(i).getY());
 	    	}
 	    }
 	    //SetPositionPotion
-	    if(this.game.getTiledModel().getPotions() != null ) {
-	    	for (int i=0; i<this.game.getTiledModel().getPotions().size(); i++) {
-	    		this.game.getTiledModel().getPotions().get(i).getSprite().setPosition(this.game.getTiledModel().getPotions().get(i).getX(), this.game.getTiledModel().getPotions().get(i).getY());
+	    if(this.game.getTiledModelGame().getPotions() != null ) {
+	    	for (int i=0; i<this.game.getTiledModelGame().getPotions().size(); i++) {
+	    		this.game.getTiledModelGame().getPotions().get(i).getSprite().setPosition(this.game.getTiledModelGame().getPotions().get(i).getX(), this.game.getTiledModelGame().getPotions().get(i).getY());
 	    	}
 	    }
 	    //SetPositionTenue
-	    if(this.game.getTiledModel().getTenues() != null ) {
-	    	for (int i=0; i<this.game.getTiledModel().getTenues().size(); i++) {
-	    		this.game.getTiledModel().getTenues().get(i).getSprite().setPosition(this.game.getTiledModel().getTenues().get(i).getX(), this.game.getTiledModel().getTenues().get(i).getY());
+	    if(this.game.getTiledModelGame().getTenues() != null ) {
+	    	for (int i=0; i<this.game.getTiledModelGame().getTenues().size(); i++) {
+	    		this.game.getTiledModelGame().getTenues().get(i).getSprite().setPosition(this.game.getTiledModelGame().getTenues().get(i).getX(), this.game.getTiledModelGame().getTenues().get(i).getY());
 	    	}
 	    }
 	  //SetPositionArme
-	    if(this.game.getTiledModel().getArmes() != null ) {
-	    	for (int i=0; i<this.game.getTiledModel().getArmes().size(); i++) {
-	    		this.game.getTiledModel().getArmes().get(i).getSprite().setPosition(this.game.getTiledModel().getArmes().get(i).getX(), this.game.getTiledModel().getArmes().get(i).getY());
+	    if(this.game.getTiledModelGame().getArmes() != null ) {
+	    	for (int i=0; i<this.game.getTiledModelGame().getArmes().size(); i++) {
+	    		this.game.getTiledModelGame().getArmes().get(i).getSprite().setPosition(this.game.getTiledModelGame().getArmes().get(i).getX(), this.game.getTiledModelGame().getArmes().get(i).getY());
 	    	}
 	    }
 	  //SetPositionMonstre
-	    if(this.game.getTiledModel().getMonstres() != null ) {
-	    	for (int i=0; i<this.game.getTiledModel().getMonstres().size(); i++) {
-	    		this.game.getTiledModel().getMonstres().get(i).getSprite().setPosition(this.game.getTiledModel().getMonstres().get(i).getX(), this.game.getTiledModel().getMonstres().get(i).getY());
+	    if(this.game.getTiledModelGame().getMonstres() != null ) {
+	    	for (int i=0; i<this.game.getTiledModelGame().getMonstres().size(); i++) {
+	    		this.game.getTiledModelGame().getMonstres().get(i).getSprite().setPosition(this.game.getTiledModelGame().getMonstres().get(i).getX(), this.game.getTiledModelGame().getMonstres().get(i).getY());
 	    	}
 	    }
 	  //SetPositionMonstre
-	    if(this.game.getTiledModel().getEhumans() != null ) {
-	    	for (int i=0; i<this.game.getTiledModel().getEhumans().size(); i++) {
-	    		this.game.getTiledModel().getEhumans().get(i).getSprite().setPosition(this.game.getTiledModel().getEhumans().get(i).getX(), this.game.getTiledModel().getEhumans().get(i).getY());
+	    if(this.game.getTiledModelGame().getEhumans() != null ) {
+	    	for (int i=0; i<this.game.getTiledModelGame().getEhumans().size(); i++) {
+	    		this.game.getTiledModelGame().getEhumans().get(i).getSprite().setPosition(this.game.getTiledModelGame().getEhumans().get(i).getX(), this.game.getTiledModelGame().getEhumans().get(i).getY());
 	    	}
 	    }
 	}
@@ -405,5 +423,13 @@ public class GameScreen implements Screen, sujet {
 
 	public void setCamheight(int camheight) {
 		this.camheight = camheight;
+	}
+
+	public Music getBackground() {
+		return background;
+	}
+
+	public void setBackground(Music background) {
+		this.background = background;
 	}
 }

@@ -14,7 +14,7 @@ public class Msg3 extends concreteobserver {
 	public void update(Event event) {
 		RpgMain game = event.getGame();
 		if(event.compare(new Event(game,"MsgScreen", true, "3"))) {
-			game.getTiledModel().getArmes().add(game.getGamescreen().getPlayer().getMg());
+			game.getTiledModelGame().getArmes().add(game.getGamescreen().getPlayer().getMg());
 			game.getGamescreen().getPlayer().setMg((Armes) event.getC());
 			event.getC().dispawn();
 			game.setScreen(game.getGamescreen());

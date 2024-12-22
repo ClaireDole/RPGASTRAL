@@ -59,9 +59,9 @@ public class Armes extends Collectible{
 	 */
 	@Override
 	public void dispawn() {
-		ArrayList<Armes> list = this.getG().getTiledModel().getArmes();
+		ArrayList<Armes> list = this.getG().getTiledModelGame().getArmes();
 		list.remove(this);
-		this.getG().getTiledModel().setArmes(list);
+		this.getG().getTiledModelGame().setArmes(list);
 	}
 	
 	public Boolean getMaindouble() {

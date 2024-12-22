@@ -19,7 +19,7 @@ public class Msg2 extends concreteobserver{
 		if(event.compare(new Event(game,"MsgScreen", true, "2"))) {
 			//dans le cas d'une tenue
 			if(event.getC() instanceof Tenue) {
-				game.getTiledModel().getTenues().add(game.getGamescreen().getPlayer().getTenue());
+				game.getTiledModelGame().getTenues().add(game.getGamescreen().getPlayer().getTenue());
 				if(game.getGamescreen().getPlayer().getTenue().getName().equals("Bénédiction de Susanoo")) {
 					if(game.getGamescreen().getPlayer().getPV()-2>=0.25) {
 						game.getGamescreen().getPlayer().SetPV(game.getGamescreen().getPlayer().getPV()-2);
@@ -43,7 +43,7 @@ public class Msg2 extends concreteobserver{
 				//cas d'une arme à deux mains
 				if(((Armes) event.getC()).getMaindouble()) {
 					if(game.getGamescreen().getPlayer().getMd()!= null) {
-						game.getTiledModel().getArmes().add(game.getGamescreen().getPlayer().getMd());
+						game.getTiledModelGame().getArmes().add(game.getGamescreen().getPlayer().getMd());
 					}
 					if(game.getGamescreen().getPlayer().getMg()!= null) {
 						//il faut vérifier qu'on mette mg sur une case atteignable par le joueur...
@@ -55,7 +55,7 @@ public class Msg2 extends concreteobserver{
 				}
 				//cas d'une arme à une main
 				else {
-					game.getTiledModel().getArmes().add(game.getGamescreen().getPlayer().getMd());
+					game.getTiledModelGame().getArmes().add(game.getGamescreen().getPlayer().getMd());
 					game.getGamescreen().getPlayer().setMd((Armes) event.getC());
 					event.getC().dispawn();
 				}
@@ -77,9 +77,9 @@ public class Msg2 extends concreteobserver{
 			Boolean existx2 = false;
 			Boolean existy1 = false;
 			Boolean existy2 = false;
-			for(int i = 0; i< game.getTiledModel().getObstacles().size(); i++ ) {
-				int x = game.getTiledModel().getObstacles().get(i).Getx();
-				int y = game.getTiledModel().getObstacles().get(i).Gety();
+			for(int i = 0; i< game.getTiledModelGame().getObstacles().size(); i++ ) {
+				int x = game.getTiledModelGame().getObstacles().get(i).Getx();
+				int y = game.getTiledModelGame().getObstacles().get(i).Gety();
 				if (x == game.getGamescreen().getPlayer().getX()+k && y == game.getGamescreen().getPlayer().getY()) {
 					existx1 = true;
 				}
@@ -96,25 +96,25 @@ public class Msg2 extends concreteobserver{
 			if(!existx1) {
 				Armes mg = game.getGamescreen().getPlayer().getMg();
 				mg.setX(game.getGamescreen().getPlayer().getX()+k);
-				game.getTiledModel().getArmes().add(mg);
+				game.getTiledModelGame().getArmes().add(mg);
 				valid=true;
 			}
 			else if(!existx2) {
 				Armes mg = game.getGamescreen().getPlayer().getMg();
 				mg.setX(game.getGamescreen().getPlayer().getX()-k);
-				game.getTiledModel().getArmes().add(mg);
+				game.getTiledModelGame().getArmes().add(mg);
 				valid=true;
 			}
 			else if(!existy1) {
 				Armes mg = game.getGamescreen().getPlayer().getMg();
 				mg.setY(game.getGamescreen().getPlayer().getY()+k);
-				game.getTiledModel().getArmes().add(mg);
+				game.getTiledModelGame().getArmes().add(mg);
 				valid=true;
 			}
 			else if(!existy2) {
 				Armes mg = game.getGamescreen().getPlayer().getMg();
 				mg.setY(game.getGamescreen().getPlayer().getY()-k);
-				game.getTiledModel().getArmes().add(mg);
+				game.getTiledModelGame().getArmes().add(mg);
 				valid = true;
 			}
 			k = k+1;

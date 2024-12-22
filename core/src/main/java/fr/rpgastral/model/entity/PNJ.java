@@ -11,6 +11,13 @@ public class PNJ extends Entity{
 	private String race;
     private String message;
 
+    /**
+     * constructeur classique
+     * @param x abscisse
+     * @param y ordonnée
+     * @param race humain ou elfe
+     * @param g instance du jeu
+     */
     public PNJ(int x, int y, String race, RpgMain g) {
 		super(x, y, g);
 		this.race = race;
@@ -26,11 +33,11 @@ public class PNJ extends Entity{
     
     /**
      * constructeur si le PNJ a un message
-     * @param x
-     * @param y
-     * @param race
-     * @param g
-     * @param msg
+     * @param x abscisse
+     * @param y ordonnée
+     * @param race humain ou elfe
+     * @param g instance du jeu
+     * @param msg dialogue du pnj
      */
     public PNJ(int x, int y, String race, RpgMain g, String msg) {
     	this(x, y, race, g);
@@ -39,7 +46,7 @@ public class PNJ extends Entity{
     
     /**
      * les elfes peuvent soigner le joueur s'il a besoin
-     * @param p
+     * @param p joueur
      */
     public void Soin(Player p){
     	if(p.getTenue()!=null) {

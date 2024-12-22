@@ -3,12 +3,15 @@ package fr.rpgastral.model.entity;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import fr.rpgastral.controler.RpgMain;
 import fr.rpgastral.controler.observerpattern.Event;
 import fr.rpgastral.controler.observerpattern.Observer;
 import fr.rpgastral.controler.observerpattern.sujet;
+import fr.rpgastral.controler.observerpattern.concreteobserver.GameOver;
 import fr.rpgastral.controler.observerpattern.concreteobserver.PlayerMove;
 import fr.rpgastral.controler.observerpattern.concreteobserver.Victory;
 import fr.rpgastral.controler.observerpattern.concreteobserver.concreteobserver;
@@ -50,6 +53,7 @@ public class Player extends Entity implements sujet{
 		this.observers = new ArrayList<concreteobserver>();
 		attach(new PlayerMove("move"));
 		attach(new Victory("victoire"));
+		attach(new GameOver("gameover"));
 		setTexture(g.getAtlas().findRegion("Game/player/player"));
 		setSprite(new Sprite(this.getTexture()));
 	}
@@ -86,7 +90,8 @@ public class Player extends Entity implements sujet{
     public void takedamage(float i){
         setPV(getPV()-i);
         if (!this.isAlive()) {
-        	//écran fin de jeu proposer retourner à l'écran d'accueil ou quitter le jeu
+        	Event event = new Event(this.getG(),"Player",false,"gameover");
+        	notify(event);
         }
     }
     
@@ -175,6 +180,8 @@ public class Player extends Entity implements sujet{
     public void Convaincre(EnemyHuman e) {
     	if(this.tenue!=null) {
     		if (this.tenue.getName()=="Apparat du kitsune") {
+    			Sound sound=Gdx.audio.newSound(Gdx.files.internal("Son/success.wav"));
+				sound.play();
     			this.getG().setScreen(new MsgScreen(this.getG(),"L'ennemi "+e.getName()+" est convaincu par vos arguments et prend la fuite"));
     			e.dispawn();
     		}
@@ -183,11 +190,13 @@ public class Player extends Entity implements sujet{
     		Random random = new Random();
     		int alea = random.nextInt(100);
     		if(alea < e.getTaux()) {
+    			Sound sound=Gdx.audio.newSound(Gdx.files.internal("Son/success.wav"));
+				sound.play();
     			this.getG().setScreen(new MsgScreen(this.getG(),"L'ennemi "+e.getName()+" est convaincu par vos arguments et prend la fuite."));
         		e.dispawn();
     		}
     		else {
-    			this.getG().setScreen(new MsgScreen(this.getG(), "L'ennemi "+e.getName()+" n/'est pas convaincu par vos arguments et préfère se battre."));
+    			this.getG().setScreen(new MsgScreen(this.getG(), "L'ennemi "+e.getName()+" n'est pas convaincu par vos arguments et préfère se battre."));
     			e.setTaux(0);
     		}
     	}

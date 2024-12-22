@@ -62,8 +62,8 @@ public class Tenue extends Collectible{
 	 */
 	@Override
 	public void dispawn() {
-		ArrayList<Tenue> list = this.getG().getTiledModel().getTenues();
+		ArrayList<Tenue> list = this.getG().getTiledModelGame().getTenues();
 		list.remove(this);
-		this.getG().getTiledModel().setTenues(list);
+		this.getG().getTiledModelGame().setTenues(list);
 	}
 }

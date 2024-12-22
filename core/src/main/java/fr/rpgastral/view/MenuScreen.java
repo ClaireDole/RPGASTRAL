@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -37,6 +38,7 @@ public class MenuScreen implements Screen, sujet {
 	 * permet de gérer les effets des inputs sur l'écran
 	 */
 	private ArrayList<concreteobserver> observers;
+	private Sound sound;
 	
 	/**
 	 * constructeur
@@ -47,6 +49,8 @@ public class MenuScreen implements Screen, sujet {
 		this.observers = new ArrayList<concreteobserver>();
 		attach(new MenuP("P"));
 		attach(new Quit("Quit"));
+		this.sound=Gdx.audio.newSound(Gdx.files.internal("Son/menu.mp3"));
+		this.sound.play();
 		this.game.getManager().load("pack.png",Texture.class);
 		this.region = game.getAtlas().findRegion("Interface/MainMenubackground");
 		this.camera = new OrthographicCamera(800,800);
@@ -79,6 +83,7 @@ public class MenuScreen implements Screen, sujet {
 	@Override
 	public void dispose() {
 		this.font.dispose();
+		this.sound.dispose();
 	}
 	
 	/**

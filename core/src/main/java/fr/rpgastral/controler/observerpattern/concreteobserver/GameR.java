@@ -1,5 +1,9 @@
 package fr.rpgastral.controler.observerpattern.concreteobserver;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
+
 import fr.rpgastral.controler.RpgMain;
 import fr.rpgastral.controler.observerpattern.Event;
 import fr.rpgastral.view.MsgScreen;
@@ -21,21 +25,21 @@ public class GameR extends concreteobserver{
 		Boolean valid = true;
 		RpgMain game = event.getGame();
 		if(event.compare(new Event(game,"GameScreen", true, "R"))) {
-			for(int i=0; i<game.getTiledModel().getPnjs().size();i++) {
-				if(game.getTiledModel().getPnjs().get(i).getX() == game.getGamescreen().getPlayer().getX()) {
-					if(game.getTiledModel().getPnjs().get(i).getY() == game.getGamescreen().getPlayer().getY() +1 |
-							game.getTiledModel().getPnjs().get(i).getY() == game.getGamescreen().getPlayer().getY() -1) {
-						if(game.getTiledModel().getPnjs().get(i).getMessage() != null) {
-							game.setScreen(new MsgScreen(game,game.getTiledModel().getPnjs().get(i).getMessage()));
+			for(int i=0; i<game.getTiledModelGame().getPnjs().size();i++) {
+				if(game.getTiledModelGame().getPnjs().get(i).getX() == game.getGamescreen().getPlayer().getX()) {
+					if(game.getTiledModelGame().getPnjs().get(i).getY() == game.getGamescreen().getPlayer().getY() +1 |
+							game.getTiledModelGame().getPnjs().get(i).getY() == game.getGamescreen().getPlayer().getY() -1) {
+						if(game.getTiledModelGame().getPnjs().get(i).getMessage() != null) {
+							game.setScreen(new MsgScreen(game,game.getTiledModelGame().getPnjs().get(i).getMessage()));
 							valid=false;
 						}
 					}
 				}
-				else if(game.getTiledModel().getPnjs().get(i).getY() == game.getGamescreen().getPlayer().getY()) {
-					if(game.getTiledModel().getPnjs().get(i).getX() == game.getGamescreen().getPlayer().getX() +1 |
-							game.getTiledModel().getPnjs().get(i).getX() == game.getGamescreen().getPlayer().getX() -1) {
-						if(game.getTiledModel().getPnjs().get(i).getMessage() != null) {
-							game.setScreen(new MsgScreen(game,game.getTiledModel().getPnjs().get(i).getMessage()));
+				else if(game.getTiledModelGame().getPnjs().get(i).getY() == game.getGamescreen().getPlayer().getY()) {
+					if(game.getTiledModelGame().getPnjs().get(i).getX() == game.getGamescreen().getPlayer().getX() +1 |
+							game.getTiledModelGame().getPnjs().get(i).getX() == game.getGamescreen().getPlayer().getX() -1) {
+						if(game.getTiledModelGame().getPnjs().get(i).getMessage() != null) {
+							game.setScreen(new MsgScreen(game,game.getTiledModelGame().getPnjs().get(i).getMessage()));
 							valid=false;
 						}
 					}
@@ -43,6 +47,10 @@ public class GameR extends concreteobserver{
 			}
 			if(valid) {
 				game.setScreen(new MsgScreen(game,"ça ne marche pas..."));
+			}
+			else {
+				Music sound=Gdx.audio.newMusic(Gdx.files.internal("Son/talk.wav"));
+				sound.play();
 			}
 		}
 	}

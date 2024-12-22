@@ -28,7 +28,7 @@ public class RpgMain extends Game {
 	/**
 	 * stockage des informations traitées par la carte tiled
 	 */
-	private TiledModel tiledModel;
+	private TiledModel tiledModelGame;
 	/**
 	 * gestion des assets
 	 */
@@ -45,7 +45,7 @@ public class RpgMain extends Game {
 	/**
 	 * carte tiled sous format tmx
 	 */
-	private TiledMap map;
+	private TiledMap gamemap;
 	private MainMenuScreen mainMenuScreen;
 	/**
 	 * on lie le gamescreen à la classe main pour éviter les erreurs comme la remise à zéro de l'écran de jeu après l'ouverture d'un menu
@@ -82,7 +82,7 @@ public class RpgMain extends Game {
     @Override
     public void create() {
 		//charge la carte Tiled
-		this.map = new  TmxMapLoader().load("carte/worldmap.tmx");
+		this.gamemap = new  TmxMapLoader().load("carte/worldmap.tmx");
     	batch = new SpriteBatch();
     	new RpgMain();
     	loader.start();
@@ -100,7 +100,7 @@ public class RpgMain extends Game {
     	
     	// le TiledParser lit la carte tiled et creer le model TiledModel
     	try {
-    		tiledModel = tiledParser.parse(map,this);
+    		this.tiledModelGame = tiledParser.parse(gamemap,this);
     	} catch (Exception e) {
     		e.printStackTrace();
     		System.out.println("Erreur lors du parsing tiled");
@@ -134,13 +134,9 @@ public class RpgMain extends Game {
     		this.getMainMenuScreen().dispose();
     	}
 		this.getLoader().dispose();
-		this.getMap().dispose();
+		this.getGamemap().dispose();
 		this.getBatch().dispose();
 		this.getManager().dispose();
-    }
-
-    public TiledMap getmap() {
-    	return this.map;
     }
     
 	public TiledParser getTiledParser() {
@@ -151,12 +147,12 @@ public class RpgMain extends Game {
 		this.tiledParser = tiledParser;
 	}
 
-	public TiledModel getTiledModel() {
-		return tiledModel;
+	public TiledModel getTiledModelGame() {
+		return tiledModelGame;
 	}
 
-	public void setTiledModel(TiledModel tiledModel) {
-		this.tiledModel = tiledModel;
+	public void setTiledModelGame(TiledModel tiledModel) {
+		this.tiledModelGame = tiledModel;
 	}
 
 	public TexturePackerHelper getTexturePackerHelper() {
@@ -203,12 +199,12 @@ public class RpgMain extends Game {
 		this.mainMenuScreen = mainMenuScreen;
 	}
 
-	public TiledMap getMap() {
-		return map;
+	public TiledMap getGamemap() {
+		return gamemap;
 	}
 
-	public void setMap(TiledMap map) {
-		this.map = map;
+	public void setGamemap(TiledMap map) {
+		this.gamemap = map;
 	}
 
 	public Loader getLoader() {

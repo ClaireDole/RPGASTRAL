@@ -1,5 +1,8 @@
 package fr.rpgastral.controler.observerpattern.concreteobserver;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
+
 import fr.rpgastral.controler.RpgMain;
 import fr.rpgastral.controler.observerpattern.Event;
 
@@ -21,18 +24,18 @@ public class GameLeft extends concreteobserver{
 		RpgMain game = event.getGame();
 		if(event.compare(new Event(game,"GameScreen", true, "LEFT"))) {
 			Boolean valid = true;
-			for(int i = 0; i< game.getTiledModel().getObstacles().size(); i++ ) {
-				int x = game.getTiledModel().getObstacles().get(i).Getx();
-				int y = game.getTiledModel().getObstacles().get(i).Gety();
+			for(int i = 0; i< game.getTiledModelGame().getObstacles().size(); i++ ) {
+				int x = game.getTiledModelGame().getObstacles().get(i).Getx();
+				int y = game.getTiledModelGame().getObstacles().get(i).Gety();
 				if (x == game.getGamescreen().getPlayer().getX()-1 && y == game.getGamescreen().getPlayer().getY()) {
 					valid = false;
 				}
 			}
 			if(game.getGamescreen().getPlayer().getTenue() != null) {
 				if(game.getGamescreen().getPlayer().getTenue().getName() != "Bénédiction de Susanoo") {
-					for(int i = 0; i< game.getTiledModel().getEau().size(); i++ ) {
-						int x = game.getTiledModel().getEau().get(i).Getx();
-						int y = game.getTiledModel().getEau().get(i).Gety();
+					for(int i = 0; i< game.getTiledModelGame().getEau().size(); i++ ) {
+						int x = game.getTiledModelGame().getEau().get(i).Getx();
+						int y = game.getTiledModelGame().getEau().get(i).Gety();
 						if (x == game.getGamescreen().getPlayer().getX()-1 && y == game.getGamescreen().getPlayer().getY()) {
 							valid = false;
 						}
@@ -40,31 +43,35 @@ public class GameLeft extends concreteobserver{
 				}
 			}
 			else if (game.getGamescreen().getPlayer().getTenue() == null) {
-				for(int i = 0; i< game.getTiledModel().getEau().size(); i++ ) {
-					int x = game.getTiledModel().getEau().get(i).Getx();
-					int y = game.getTiledModel().getEau().get(i).Gety();
+				for(int i = 0; i< game.getTiledModelGame().getEau().size(); i++ ) {
+					int x = game.getTiledModelGame().getEau().get(i).Getx();
+					int y = game.getTiledModelGame().getEau().get(i).Gety();
 					if (x == game.getGamescreen().getPlayer().getX()-1 && y == game.getGamescreen().getPlayer().getY()) {
 						valid = false;
 					}
 				}
 			}
-			for(int i = 0; i< game.getTiledModel().getMonstres().size(); i++ ) {
-				int x = game.getTiledModel().getMonstres().get(i).getX();
-				int y = game.getTiledModel().getMonstres().get(i).getY();
+			for(int i = 0; i< game.getTiledModelGame().getMonstres().size(); i++ ) {
+				int x = game.getTiledModelGame().getMonstres().get(i).getX();
+				int y = game.getTiledModelGame().getMonstres().get(i).getY();
 				if (x == game.getGamescreen().getPlayer().getX()-1 && y == game.getGamescreen().getPlayer().getY()) {
 					valid = false;
 				}
 			}
 			//présence d'ennemis humains
-			for(int i = 0; i< game.getTiledModel().getEhumans().size(); i++ ) {
-				int x = game.getTiledModel().getEhumans().get(i).getX();
-				int y = game.getTiledModel().getEhumans().get(i).getY();
+			for(int i = 0; i< game.getTiledModelGame().getEhumans().size(); i++ ) {
+				int x = game.getTiledModelGame().getEhumans().get(i).getX();
+				int y = game.getTiledModelGame().getEhumans().get(i).getY();
 				if (x == game.getGamescreen().getPlayer().getX()-1 && y == game.getGamescreen().getPlayer().getY()) {
 					valid = false;
 				}
 			}
 			if(game.getGamescreen().getPlayer().getX() -1 >= 0 && valid) {
 				game.getGamescreen().getPlayer().move(game.getGamescreen().getPlayer().getX()-1,game.getGamescreen().getPlayer().getY());
+			}
+			if(!valid) {
+				Sound sound=Gdx.audio.newSound(Gdx.files.internal("Son/bump.mp3"));
+				sound.play();
 			}
 		}
 		

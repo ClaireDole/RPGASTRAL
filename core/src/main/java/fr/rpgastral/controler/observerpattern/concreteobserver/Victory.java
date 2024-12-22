@@ -17,9 +17,9 @@ public class Victory extends concreteobserver {
 	public void update(Event event) {
 		RpgMain game = event.getGame();
 		if(event.compare(new Event(game,"Player",false,"victory"))) {
-			if(game.getTiledModel().getEnemys().isEmpty()) {
+			if(game.getTiledModelGame().getEnemys().isEmpty()) {
+				game.getGamescreen().getBackground().stop();
 				game.setScreen(new VictoryScreen(game));
-				game.getGamescreen().dispose();
 			}
 		}
 	}

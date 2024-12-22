@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
@@ -37,6 +38,7 @@ public class StatInventaire implements Screen, sujet{
 	 * permet de gérer les effets des inputs sur l'écran
 	 */
 	private ArrayList<concreteobserver> observers;
+	private Sound sound;
 	
 	/**
 	 * constructeur
@@ -47,6 +49,8 @@ public class StatInventaire implements Screen, sujet{
 		this.camera = new OrthographicCamera(800,800);
 		this.viewport = new ScreenViewport(camera);
 		this.font = new Font();
+		this.sound=Gdx.audio.newSound(Gdx.files.internal("Son/menu.mp3"));
+		this.sound.play();
 		this.game.getManager().load("pack.png", Texture.class);
 		this.window = this.game.getAtlas().findRegion("Interface/window");
 		this.font = new Font();
@@ -116,6 +120,7 @@ public class StatInventaire implements Screen, sujet{
 	@Override
 	public void dispose() {
 		font.dispose();
+		sound.dispose();
 	}
 	
 	/**

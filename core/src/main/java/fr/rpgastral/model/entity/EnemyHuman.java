@@ -2,6 +2,8 @@ package fr.rpgastral.model.entity;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import fr.rpgastral.controler.RpgMain;
@@ -58,13 +60,15 @@ public class EnemyHuman extends Enemy{
 	 */
 	@Override
 	public void dispawn() {
-		ArrayList<EnemyHuman> list = this.getG().getTiledModel().getEhumans();
+		ArrayList<EnemyHuman> list = this.getG().getTiledModelGame().getEhumans();
 		list.remove(this);
-		this.getG().getTiledModel().setEhumans(list);
-		if(this.getG().getTiledModel().getEnemys().contains(this)) {
-			ArrayList<Enemy> enemys = this.getG().getTiledModel().getEnemys();
+		this.getG().getTiledModelGame().setEhumans(list);
+		if(this.getG().getTiledModelGame().getEnemys().contains(this)) {
+			ArrayList<Enemy> enemys = this.getG().getTiledModelGame().getEnemys();
 			enemys.remove(this);
-			this.getG().getTiledModel().setEnemys(enemys);
+			this.getG().getTiledModelGame().setEnemys(enemys);
+			Sound sound=Gdx.audio.newSound(Gdx.files.internal("Son/success.wav"));
+			sound.play();
 		}
 	}
 

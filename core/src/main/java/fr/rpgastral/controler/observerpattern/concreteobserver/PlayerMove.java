@@ -1,5 +1,9 @@
 package fr.rpgastral.controler.observerpattern.concreteobserver;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
+
 import fr.rpgastral.controler.RpgMain;
 import fr.rpgastral.controler.observerpattern.Event;
 import fr.rpgastral.model.entity.EnemyHuman;
@@ -16,54 +20,69 @@ public class PlayerMove extends concreteobserver{
 		RpgMain game = event.getGame();
 		if(event.compare(new Event(game, "Player", false, "move"))) {
 			//gestion effet terrain volcanique
-			if(game.getTiledModel().getVolcaniques() != null) {
-				for(int i = 0; i< game.getTiledModel().getVolcaniques().size(); i++ ) {
-					int x = game.getTiledModel().getVolcaniques().get(i).Getx();
-					int y = game.getTiledModel().getVolcaniques().get(i).Gety();
+			if(game.getTiledModelGame().getVolcaniques() != null) {
+				for(int i = 0; i< game.getTiledModelGame().getVolcaniques().size(); i++ ) {
+					int x = game.getTiledModelGame().getVolcaniques().get(i).Getx();
+					int y = game.getTiledModelGame().getVolcaniques().get(i).Gety();
 					if (x == game.getGamescreen().getPlayer().getX() && y == game.getGamescreen().getPlayer().getY()) {
 						if(!(game.getGamescreen().getPlayer().getPV() - 0.25f <=0) && (game.getGamescreen().getPlayer().Gettenue()==null ||
 								game.getGamescreen().getPlayer().Gettenue().getName() != "Broche d'Izanami")) {
 							game.getGamescreen().getPlayer().takedamage(0.25f);;
+							Music sound=Gdx.audio.newMusic(Gdx.files.internal("Son/takedamage.wav"));
+							sound.setVolume(10f);
+							sound.play();
 						}
 					}
 				}
 			}
 			//gestion potion
-			if(game.getTiledModel().getPotions() != null) {
-				for(int i = 0; i< game.getTiledModel().getPotions().size(); i++ ) {
-					int x = game.getTiledModel().getPotions().get(i).getX();
-					int y = game.getTiledModel().getPotions().get(i).getY();
+			if(game.getTiledModelGame().getPotions() != null) {
+				for(int i = 0; i< game.getTiledModelGame().getPotions().size(); i++ ) {
+					int x = game.getTiledModelGame().getPotions().get(i).getX();
+					int y = game.getTiledModelGame().getPotions().get(i).getY();
 					if (x == game.getGamescreen().getPlayer().getX() && y == game.getGamescreen().getPlayer().getY()) {
-						game.getGamescreen().getPlayer().Collect(game.getTiledModel().getPotions().get(i));
+						game.getGamescreen().getPlayer().Collect(game.getTiledModelGame().getPotions().get(i));
+						if(game.getTiledModelGame().getPotions().get(i).getDamage()>0) {
+							Sound sound=Gdx.audio.newSound(Gdx.files.internal("Son/bonus.wav"));
+							sound.play();
+						}
+						else {
+							Sound sound=Gdx.audio.newSound(Gdx.files.internal("Son/malus.mp3"));
+							sound.play();
+						}
 					}
 				}
 			}
 			//gestion tenues
-			if(game.getTiledModel().getTenues() != null) {
-				for(int i = 0; i< game.getTiledModel().getTenues().size(); i++ ) {
-					int x = game.getTiledModel().getTenues().get(i).getX();
-					int y = game.getTiledModel().getTenues().get(i).getY();
+			if(game.getTiledModelGame().getTenues() != null) {
+				for(int i = 0; i< game.getTiledModelGame().getTenues().size(); i++ ) {
+					int x = game.getTiledModelGame().getTenues().get(i).getX();
+					int y = game.getTiledModelGame().getTenues().get(i).getY();
 					if (x == game.getGamescreen().getPlayer().getX() && y == game.getGamescreen().getPlayer().getY()) {
-						game.getGamescreen().getPlayer().Collect(game.getTiledModel().getTenues().get(i));
+						Sound sound=Gdx.audio.newSound(Gdx.files.internal("Son/collect.wav"));
+						sound.play();
+						game.getGamescreen().getPlayer().Collect(game.getTiledModelGame().getTenues().get(i));
 					}
 				}
 			}
 			//gestion armes
-			if(game.getTiledModel().getArmes() != null) {
-				for(int i = 0; i< game.getTiledModel().getArmes().size(); i++ ) {
-					int x = game.getTiledModel().getArmes().get(i).getX();
-					int y = game.getTiledModel().getArmes().get(i).getY();
+			if(game.getTiledModelGame().getArmes() != null) {
+				for(int i = 0; i< game.getTiledModelGame().getArmes().size(); i++ ) {
+					int x = game.getTiledModelGame().getArmes().get(i).getX();
+					int y = game.getTiledModelGame().getArmes().get(i).getY();
 					if (x == game.getGamescreen().getPlayer().getX() && y == game.getGamescreen().getPlayer().getY()) {
-						game.getGamescreen().getPlayer().Collect(game.getTiledModel().getArmes().get(i));
+						Sound sound=Gdx.audio.newSound(Gdx.files.internal("Son/collect.wav"));
+						sound.play();
+						game.getGamescreen().getPlayer().Collect(game.getTiledModelGame().getArmes().get(i));
 					}
 				}
 			}
 			//gestion monstres
-			if(game.getTiledModel().getMonstres()!=null) {
-				for(int i = 0; i< game.getTiledModel().getMonstres().size(); i++ ) {
+			if(game.getTiledModelGame().getMonstres()!=null) {
+				for(int i = 0; i< game.getTiledModelGame().getMonstres().size(); i++ ) {
 					//gestion du cycle de mouvement des monstres volant
-					if(game.getTiledModel().getMonstres().get(i).getName().equals("Volant")) {
-						Monstre volant = game.getTiledModel().getMonstres().get(i);
+					if(game.getTiledModelGame().getMonstres().get(i).getName().equals("Volant")) {
+						Monstre volant = game.getTiledModelGame().getMonstres().get(i);
 						if(volant.getPosition()==1) {
 							volant.setY(volant.getY()+1);
 							volant.setPosition(2);
@@ -82,39 +101,42 @@ public class PlayerMove extends concreteobserver{
 						}
 					}
 					//gestion de l'attaque automatique du player par les orcs, gobelins et volants
-					if(game.getTiledModel().getMonstres().get(i).getName().equals("Orc") || game.getTiledModel().getMonstres().get(i).getName().equals("Gobelin")
-							|| game.getTiledModel().getMonstres().get(i).getName().equals("Volant")) {
-						int x = game.getTiledModel().getMonstres().get(i).getX();
-						int y = game.getTiledModel().getMonstres().get(i).getY();
-						for(int j=1; j<= game.getTiledModel().getMonstres().get(i).getPortee();j++) {
+					if(game.getTiledModelGame().getMonstres().get(i).getName().equals("Orc") || game.getTiledModelGame().getMonstres().get(i).getName().equals("Gobelin")
+							|| game.getTiledModelGame().getMonstres().get(i).getName().equals("Volant")) {
+						int x = game.getTiledModelGame().getMonstres().get(i).getX();
+						int y = game.getTiledModelGame().getMonstres().get(i).getY();
+						for(int j=1; j<= game.getTiledModelGame().getMonstres().get(i).getPortee();j++) {
 							if(x+j==game.getGamescreen().getPlayer().getX() && y==game.getGamescreen().getPlayer().getY()
 									|| x-j==game.getGamescreen().getPlayer().getX() && y==game.getGamescreen().getPlayer().getY()
 									|| x==game.getGamescreen().getPlayer().getX() && y-j==game.getGamescreen().getPlayer().getY()
 									||x==game.getGamescreen().getPlayer().getX() && y+j==game.getGamescreen().getPlayer().getY()) {
-								game.getTiledModel().getMonstres().get(i).attaque(game.getGamescreen().getPlayer());
+								Music sound=Gdx.audio.newMusic(Gdx.files.internal("Son/takedamage.wav"));
+								sound.setVolume(10f);
+								sound.play();
+								game.getTiledModelGame().getMonstres().get(i).attaque(game.getGamescreen().getPlayer());
 							}
 						}
 					}
 				}
 			}
 			//gestion des ennemis humains
-			if(game.getTiledModel().getEhumans()!=null) {
-				for(int i = 0; i< game.getTiledModel().getEhumans().size(); i++ ) {
-					EnemyHuman enemy = game.getTiledModel().getEhumans().get(i);
+			if(game.getTiledModelGame().getEhumans()!=null) {
+				for(int i = 0; i< game.getTiledModelGame().getEhumans().size(); i++ ) {
+					EnemyHuman enemy = game.getTiledModelGame().getEhumans().get(i);
 					//gestion du cycle de mouvement des voleurs
 					if(enemy.getName().equals("Voleur")) {
 						if(enemy.getPosition()==1) {
 							Boolean valid = true;
-							for(int j = 0; j< game.getTiledModel().getObstacles().size(); j++ ) {
-								int x = game.getTiledModel().getObstacles().get(j).Getx();
-								int y = game.getTiledModel().getObstacles().get(j).Gety();
+							for(int j = 0; j< game.getTiledModelGame().getObstacles().size(); j++ ) {
+								int x = game.getTiledModelGame().getObstacles().get(j).Getx();
+								int y = game.getTiledModelGame().getObstacles().get(j).Gety();
 								if (x == enemy.getX()+1 && y == enemy.getY()+1) {
 									valid = false;
 								}
 							}
-							for(int j = 0; j< game.getTiledModel().getEau().size(); j++ ) {
-								int x = game.getTiledModel().getEau().get(j).Getx();
-								int y = game.getTiledModel().getEau().get(j).Gety();
+							for(int j = 0; j< game.getTiledModelGame().getEau().size(); j++ ) {
+								int x = game.getTiledModelGame().getEau().get(j).Getx();
+								int y = game.getTiledModelGame().getEau().get(j).Gety();
 								if (x == enemy.getX()+1 && y == enemy.getY()+1) {
 									valid = false;
 								}
@@ -127,16 +149,16 @@ public class PlayerMove extends concreteobserver{
 						}
 						else if(enemy.getPosition()==2) {
 							Boolean valid = true;
-							for(int j = 0; j< game.getTiledModel().getObstacles().size(); j++ ) {
-								int x = game.getTiledModel().getObstacles().get(j).Getx();
-								int y = game.getTiledModel().getObstacles().get(j).Gety();
+							for(int j = 0; j< game.getTiledModelGame().getObstacles().size(); j++ ) {
+								int x = game.getTiledModelGame().getObstacles().get(j).Getx();
+								int y = game.getTiledModelGame().getObstacles().get(j).Gety();
 								if (x == enemy.getX()+1 && y == enemy.getY()-1) {
 									valid = false;
 								}
 							}
-							for(int j = 0; j< game.getTiledModel().getEau().size(); j++ ) {
-								int x = game.getTiledModel().getEau().get(j).Getx();
-								int y = game.getTiledModel().getEau().get(j).Gety();
+							for(int j = 0; j< game.getTiledModelGame().getEau().size(); j++ ) {
+								int x = game.getTiledModelGame().getEau().get(j).Getx();
+								int y = game.getTiledModelGame().getEau().get(j).Gety();
 								if (x == enemy.getX()+1 && y == enemy.getY()-1) {
 									valid = false;
 								}
@@ -149,16 +171,16 @@ public class PlayerMove extends concreteobserver{
 						}
 						else if(enemy.getPosition()==3) {
 							Boolean valid = true;
-							for(int j = 0; j< game.getTiledModel().getObstacles().size(); j++ ) {
-								int x = game.getTiledModel().getObstacles().get(j).Getx();
-								int y = game.getTiledModel().getObstacles().get(j).Gety();
+							for(int j = 0; j< game.getTiledModelGame().getObstacles().size(); j++ ) {
+								int x = game.getTiledModelGame().getObstacles().get(j).Getx();
+								int y = game.getTiledModelGame().getObstacles().get(j).Gety();
 								if (x == enemy.getX()-1 && y == enemy.getY()-1) {
 									valid = false;
 								}
 							}
-							for(int j = 0; j< game.getTiledModel().getEau().size(); j++ ) {
-								int x = game.getTiledModel().getEau().get(j).Getx();
-								int y = game.getTiledModel().getEau().get(j).Gety();
+							for(int j = 0; j< game.getTiledModelGame().getEau().size(); j++ ) {
+								int x = game.getTiledModelGame().getEau().get(j).Getx();
+								int y = game.getTiledModelGame().getEau().get(j).Gety();
 								if (x == enemy.getX()-1 && y == enemy.getY()-1) {
 									valid = false;
 								}
@@ -171,16 +193,16 @@ public class PlayerMove extends concreteobserver{
 						}
 						else if(enemy.getPosition()==4) {
 							Boolean valid = true;
-							for(int j = 0; j< game.getTiledModel().getObstacles().size(); j++ ) {
-								int x = game.getTiledModel().getObstacles().get(j).Getx();
-								int y = game.getTiledModel().getObstacles().get(j).Gety();
+							for(int j = 0; j< game.getTiledModelGame().getObstacles().size(); j++ ) {
+								int x = game.getTiledModelGame().getObstacles().get(j).Getx();
+								int y = game.getTiledModelGame().getObstacles().get(j).Gety();
 								if (x == enemy.getX()-1 && y == enemy.getY()+1) {
 									valid = false;
 								}
 							}
-							for(int j = 0; j< game.getTiledModel().getEau().size(); j++ ) {
-								int x = game.getTiledModel().getEau().get(j).Getx();
-								int y = game.getTiledModel().getEau().get(j).Gety();
+							for(int j = 0; j< game.getTiledModelGame().getEau().size(); j++ ) {
+								int x = game.getTiledModelGame().getEau().get(j).Getx();
+								int y = game.getTiledModelGame().getEau().get(j).Gety();
 								if (x == enemy.getX()-1 && y == enemy.getY()+1) {
 									valid = false;
 								}
@@ -193,16 +215,19 @@ public class PlayerMove extends concreteobserver{
 						}
 					}
 					//gestion de l'attaque automatique du player
-					if(game.getTiledModel().getEhumans().get(i).getName().equals("Chef") || game.getTiledModel().getEhumans().get(i).getName().equals("Brigand")
-							|| game.getTiledModel().getEhumans().get(i).getName().equals("Voleur")) {
-						int x = game.getTiledModel().getEhumans().get(i).getX();
-						int y = game.getTiledModel().getEhumans().get(i).getY();
-						for(int j=1; j<= game.getTiledModel().getEhumans().get(i).getPortee();j++) {
+					if(game.getTiledModelGame().getEhumans().get(i).getName().equals("Chef") || game.getTiledModelGame().getEhumans().get(i).getName().equals("Brigand")
+							|| game.getTiledModelGame().getEhumans().get(i).getName().equals("Voleur")) {
+						int x = game.getTiledModelGame().getEhumans().get(i).getX();
+						int y = game.getTiledModelGame().getEhumans().get(i).getY();
+						for(int j=1; j<= game.getTiledModelGame().getEhumans().get(i).getPortee();j++) {
 							if(x+j==game.getGamescreen().getPlayer().getX() && y==game.getGamescreen().getPlayer().getY()
 									|| x-j==game.getGamescreen().getPlayer().getX() && y==game.getGamescreen().getPlayer().getY()
 									|| x==game.getGamescreen().getPlayer().getX() && y-j==game.getGamescreen().getPlayer().getY()
 									||x==game.getGamescreen().getPlayer().getX() && y+j==game.getGamescreen().getPlayer().getY()) {
-								game.getTiledModel().getEhumans().get(i).attaque(game.getGamescreen().getPlayer());
+								Music sound=Gdx.audio.newMusic(Gdx.files.internal("Son/takedamage.wav"));
+								sound.setVolume(10f);
+								sound.play();
+								game.getTiledModelGame().getEhumans().get(i).attaque(game.getGamescreen().getPlayer());
 							}
 						}
 					}

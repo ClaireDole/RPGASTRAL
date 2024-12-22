@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -42,6 +43,7 @@ public class MainMenuScreen implements Screen, sujet{
 	 * permet de gérer les effets des inputs sur l'écran
 	 */
 	private ArrayList<concreteobserver> observers;
+	private Music sound;
 
 	/**
 	 * constructeur, on passe en paramètre l'instance unique de la classe Main afin de récupérer des informations
@@ -52,6 +54,9 @@ public class MainMenuScreen implements Screen, sujet{
 		this.observers = new ArrayList<concreteobserver>();
 		attach(new mainmenuSPACE("Space"));
 		attach(new Quit("Quit"));
+		this.sound=Gdx.audio.newMusic(Gdx.files.internal("Son/start.wav"));
+		this.sound.setVolume(1.75f);
+		this.sound.play();
 		game.getManager().load("pack.png", Texture.class);
 		region = game.getAtlas().findRegion("Interface/MainMenubackground");
 		camera = new OrthographicCamera(800, 800);
@@ -100,10 +105,12 @@ public class MainMenuScreen implements Screen, sujet{
 	}
 	@Override
 	public void dispose() {
+		this.sound.dispose();
+		this.font.dispose();
 	}
 
 	/**
-	 * @see controler/observerpattern/sujet
+	 * @see fr.rpgastral.controler.observerpattern.sujet
 	 */
 	@Override
 	public void attach(concreteobserver o) {
@@ -112,7 +119,7 @@ public class MainMenuScreen implements Screen, sujet{
 	}
 	
 	/**
-	 * @see controler/observerpattern/sujet
+	 * @see fr.rpgastral.controler.observerpattern.sujet
 	 */
 	@Override
 	public void unattach(Observer o) {
@@ -121,7 +128,7 @@ public class MainMenuScreen implements Screen, sujet{
 	}
 	
 	/**
-	 * @see controler/observerpattern/sujet
+	 * @see fr.rpgastral.controler.observerpattern.sujet
 	 */
 	@Override
 	public void notify(Event e) {

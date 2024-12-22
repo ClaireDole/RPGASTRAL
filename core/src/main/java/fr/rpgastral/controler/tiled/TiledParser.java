@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 import fr.rpgastral.controler.RpgMain;
 import fr.rpgastral.model.TiledModel;
+import fr.rpgastral.model.carte.Teleport;
 import fr.rpgastral.model.carte.Terrain;
 import fr.rpgastral.model.collectible.Armes;
 import fr.rpgastral.model.collectible.Potion;
@@ -224,7 +225,7 @@ public class TiledParser {
 						//parcours des objets du layer
 						for (MapObject element : u.getObjects()) {
 							monstres.add(new Monstre(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),element.getName(),game));
-							if(element.getProperties().get("obligatoire", Boolean.class)) {
+							if((boolean) element.getProperties().get("obligatoire", Boolean.class)) {
 								enemys.add(new Monstre(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),element.getName(),game));
 							}
 						}
@@ -238,14 +239,25 @@ public class TiledParser {
 						//parcours des objets du layer
 						for (MapObject element : u.getObjects()) {
 							ehumans.add(new EnemyHuman(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),element.getName(),game));
-							if(element.getProperties().get("obligatoire", Boolean.class)) {
+							if((boolean) element.getProperties().get("obligatoire", Boolean.class)) {
 								enemys.add(new EnemyHuman(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),element.getName(),game));
 							}
 						}
 						//ajout liste dans le tiledmodel
 						tiledmodel.setEhumans(ehumans);
+						tiledmodel.setEnemys(enemys);
 					}
-					tiledmodel.setEnemys(enemys);
+					//gestion des points de téléportation
+					if (u.getName().equals("Teleport")){
+						//creation liste
+						ArrayList<Teleport> teleports = new ArrayList<Teleport>();
+						//parcours des objets du layer
+						for (MapObject element : u.getObjects()) {
+							teleports.add(new Teleport(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),u.getName()));
+						}
+						//ajout liste dans le tiledmodel
+						tiledmodel.setTeleports(teleports);
+					}
 				}
 		}
 		return tiledmodel;

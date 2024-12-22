@@ -48,9 +48,9 @@ public class Potion extends Collectible{
 	 */
 	@Override
 	public void dispawn() {
-		ArrayList<Potion> list = this.getG().getTiledModel().getPotions();
+		ArrayList<Potion> list = this.getG().getTiledModelGame().getPotions();
 		list.remove(this);
-		this.getG().getTiledModel().setPotions(list);
+		this.getG().getTiledModelGame().setPotions(list);
 	}
 	
 }

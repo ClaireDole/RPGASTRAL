@@ -1,9 +1,12 @@
 package fr.rpgastral.view;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -27,6 +30,8 @@ public class VictoryScreen implements Screen {
 	private AtlasRegion region;
 	private ScreenViewport viewport;
 	private Font font;
+	private SpriteBatch batch;
+	private Sound sound;
 
 	/**
 	 * constructeur, on passe en paramètre l'instance unique de la classe Main afin de récupérer des informations
@@ -34,6 +39,9 @@ public class VictoryScreen implements Screen {
 	 */
 	public VictoryScreen(final RpgMain game) {
 		this.game = game;
+		this.batch = new SpriteBatch();
+		this.sound=Gdx.audio.newSound(Gdx.files.internal("Son/victory.wav"));
+		this.sound.play();
 		game.getManager().load("pack.png", Texture.class);
 		region = game.getAtlas().findRegion("Interface/laurier");
 		camera = new OrthographicCamera(800, 800);
@@ -52,12 +60,12 @@ public class VictoryScreen implements Screen {
 	public void render(float delta) {
 		ScreenUtils.clear(Color.BLACK);
 		viewport.apply();
-		game.getBatch().setProjectionMatrix(viewport.getCamera().combined);
-		game.getBatch().begin();
-		game.getBatch().draw(region, 200,350,400,450);
-		font.Getfont2().draw(game.getBatch(), "Bravo, vous avez terminé le jeu !", 300,300);
-		font.Getfont2().draw(game.getBatch(), "Vous pouvez fermer la fenêtre pour quitter.", 250,200);
-		game.getBatch().end();
+		batch.setProjectionMatrix(viewport.getCamera().combined);
+		batch.begin();
+		batch.draw(region, 200,350,400,450);
+		font.Getfont2().draw(batch, "Bravo, vous avez terminé le jeu !", 300,300);
+		font.Getfont2().draw(batch, "Vous pouvez fermer la fenêtre pour quitter.", 250,200);
+		batch.end();
 	}
 
 	@Override
@@ -83,6 +91,7 @@ public class VictoryScreen implements Screen {
 	@Override
 	public void dispose() {
 		this.font.dispose();
+		this.sound.dispose();
 	}
 
 }

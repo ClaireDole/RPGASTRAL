@@ -1,6 +1,8 @@
 package fr.rpgastral.model;
 
 import java.util.ArrayList;
+
+import fr.rpgastral.model.carte.Teleport;
 import fr.rpgastral.model.carte.Terrain;
 import fr.rpgastral.model.collectible.Armes;
 import fr.rpgastral.model.collectible.Potion;
@@ -34,6 +36,7 @@ public class TiledModel {
 	private ArrayList<Enemy> enemys;
 	private ArrayList<Monstre> monstres;
 	private ArrayList<EnemyHuman> ehumans;
+	private ArrayList<Teleport> teleports;
 	
 	public ArrayList<Terrain> getEau() {
 		return eau;
@@ -132,5 +135,11 @@ public class TiledModel {
 	}
 	public void setEhumans(ArrayList<EnemyHuman> ehumans) {
 		this.ehumans = ehumans;
+	}
+	public ArrayList<Teleport> getTeleports() {
+		return teleports;
+	}
+	public void setTeleports(ArrayList<Teleport> teleports) {
+		this.teleports = teleports;
 	}
 }
