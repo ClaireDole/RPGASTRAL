@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.11" tiledversion="1.11.0" class="home" orientation="orthogonal" renderorder="right-down" width="15" height="15" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="5">
+ <properties>
+  <property name="name" value="home"/>
+ </properties>
+ <tileset firstgid="1" source="home.tsx"/>
+ <tileset firstgid="721" source="desert.tsx"/>
+ <layer id="3" name="sol" width="15" height="15" locked="1">
+  <properties>
+   <property name="franchir" type="bool" value="true"/>
+  </properties>
+  <data encoding="csv">
+754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,
+754,754,754,754,754,754,754,754,754,754,754,754,754,0,754,
+754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,
+754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,
+754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,
+754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,
+754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,
+754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,
+754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,
+754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,
+754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,
+754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,
+754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,
+754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,
+754,754,754,754,754,754,754,754,754,754,754,754,754,754,754
+</data>
+ </layer>
+ <layer id="1" name="mobilier" width="15" height="15" locked="1">
+  <properties>
+   <property name="franchir" type="bool" value="false"/>
+  </properties>
+  <data encoding="csv">
+313,314,0,0,0,0,0,0,0,151,152,151,152,470,471,
+337,338,0,0,0,0,0,0,0,0,0,0,0,494,495,
+151,152,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,129,130,
+198,199,200,201,0,0,0,0,0,0,0,0,0,153,154,
+222,223,224,225,0,0,0,0,0,0,0,14,15,16,17,
+0,0,0,0,0,0,0,0,0,0,0,38,39,40,41,
+410,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+434,0,0,0,0,0,0,0,0,0,532,533,534,0,0,
+458,0,0,0,0,0,0,0,0,0,556,557,558,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="2" name="tapis" width="15" height="15" locked="1">
+  <properties>
+   <property name="franchir" type="bool" value="true"/>
+  </properties>
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,429,430,431,0,0,0,0,0,0,0,0,0,0,
+0,0,453,454,455,0,0,0,0,0,0,0,0,478,479,
+0,0,0,0,0,0,0,0,0,0,0,0,0,502,503,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,478,479,0,0,0,0,0,0,0,
+0,0,0,0,0,0,502,503,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,429,430,431,0,0,0,0,0,0,0,0,0,0,0,
+0,453,454,455,0,0,0,0,0,0,0,0,429,430,431,
+0,0,0,0,0,0,472,0,0,0,0,0,453,454,455
+</data>
+ </layer>
+ <objectgroup id="4" name="Teleport" locked="1">
+  <object id="1" name="worldmap" x="208" y="464">
+   <properties>
+    <property name="X" type="int" value="6"/>
+    <property name="Y" type="int" value="0"/>
+    <property name="destX" type="int" value="27"/>
+    <property name="destY" type="int" value="27"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="5" name="Potions" locked="1">
+  <object id="2" name="Bonus" x="461.333" y="336.667">
+   <properties>
+    <property name="Quantité" type="float" value="1"/>
+    <property name="Type" value="PV"/>
+    <property name="X" type="int" value="14"/>
+    <property name="Y" type="int" value="4"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="6" name="Armes" locked="1">
+  <object id="3" name="Bâton" x="79.3333" y="366.667">
+   <properties>
+    <property name="X" type="int" value="2"/>
+    <property name="Y" type="int" value="3"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="7" name="Tenues" locked="1">
+  <object id="4" name="Eclat de Tsukuyomi" x="112" y="48">
+   <properties>
+    <property name="X" type="int" value="3"/>
+    <property name="Y" type="int" value="13"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

@@ -3,7 +3,7 @@ package fr.rpgastral.lwjgl3;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
-import fr.rpgastral.controler.RpgMain;
+import fr.rpg.controler.RpgMain;
 
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher {

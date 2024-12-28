@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="17" nextobjectid="83">
  <properties>
-  <property name="franchir" type="bool" value="true"/>
+  <property name="name" value="worldmap"/>
  </properties>
  <tileset firstgid="1" source="herbe.tsx"/>
  <tileset firstgid="50" source="eau.tsx"/>
@@ -13,10 +13,7 @@
  <tileset firstgid="1590" source="maison.tsx"/>
  <layer id="2" name="Plaine" class="Plaine" width="50" height="50" locked="1">
   <properties>
-   <property name="arbuste" type="bool" value="false"/>
-   <property name="eau" type="bool" value="false"/>
    <property name="franchir" type="bool" value="true"/>
-   <property name="volcanique" type="bool" value="false"/>
   </properties>
   <data encoding="csv">
 1295,1296,1297,1295,1296,1297,1319,1319,1319,1319,1319,1319,1319,1319,1319,1319,1319,1319,1319,1319,1319,1319,0,1319,1319,1478,1478,1479,1478,1479,1319,1319,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1478,1479,
@@ -73,10 +70,7 @@
  </layer>
  <layer id="1" name="Chemin" class="Chemin" width="50" height="50" locked="1">
   <properties>
-   <property name="arbuste" type="bool" value="false"/>
-   <property name="eau" type="bool" value="false"/>
    <property name="franchir" type="bool" value="true"/>
-   <property name="volcanique" type="bool" value="false"/>
   </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -133,10 +127,7 @@
  </layer>
  <layer id="3" name="Arbuste" width="50" height="50" locked="1">
   <properties>
-   <property name="arbuste" type="bool" value="true"/>
-   <property name="eau" type="bool" value="false"/>
    <property name="franchir" type="bool" value="false"/>
-   <property name="volcanique" type="bool" value="false"/>
   </properties>
   <data encoding="csv">
 1320,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1320,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -191,12 +182,9 @@
 241,241,0,241,241,241,241,241,241,241,241,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="4" name="eau" class="eau" width="50" height="50" locked="1">
+ <layer id="4" name="Eau" width="50" height="50" locked="1">
   <properties>
-   <property name="arbuste" type="bool" value="false"/>
-   <property name="eau" type="bool" value="true"/>
    <property name="franchir" type="bool" value="false"/>
-   <property name="volcanique" type="bool" value="false"/>
   </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -251,12 +239,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,89,89,89,89,89,89,89,89,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="5" name="rocher" width="50" height="50" locked="1">
+ <layer id="5" name="Rocher" width="50" height="50" locked="1">
   <properties>
-   <property name="arbuste" type="bool" value="false"/>
-   <property name="eau" type="bool" value="false"/>
    <property name="franchir" type="bool" value="false"/>
-   <property name="volcanique" type="bool" value="false"/>
   </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,411,412,0,0,0,0,0,462,463,0,0,0,0,0,0,0,0,0,0,0,0,0,0,443,444,1488,1489,0,0,0,0,0,0,0,0,1488,1489,0,0,0,0,456,457,
@@ -311,12 +296,9 @@
 0,0,0,0,0,0,0,0,0,0,0,585,586,585,585,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,585,586,0,0,0,0,0,0,0,0,428,429,430,0,490,491
 </data>
  </layer>
- <layer id="6" name="volcanique" width="50" height="50" locked="1">
+ <layer id="6" name="Volcanique" width="50" height="50" locked="1">
   <properties>
-   <property name="arbuste" type="bool" value="false"/>
-   <property name="eau" type="bool" value="false"/>
    <property name="franchir" type="bool" value="true"/>
-   <property name="volcanique" type="bool" value="true"/>
   </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1572,1572,1572,1572,1572,1573,1573,1573,0,0,1572,1573,1572,1573,0,0,
@@ -478,12 +460,6 @@
   </object>
  </objectgroup>
  <objectgroup id="13" name="Armes" locked="1">
-  <object id="26" name="Bâton" x="1200" y="880">
-   <properties>
-    <property name="X" type="int" value="37"/>
-    <property name="Y" type="int" value="22"/>
-   </properties>
-  </object>
   <object id="27" name="Epée" x="1394" y="1297">
    <properties>
     <property name="X" type="int" value="43"/>
@@ -726,7 +702,7 @@
    <properties>
     <property name="X" type="int" value="22"/>
     <property name="Y" type="int" value="25"/>
-    <property name="msg" value="Si tu es sur le chemin comme ici tu ne prends pas de dégâts !"/>
+    <property name="msg" value="Tu devrais aller chez toi pour avoir des informations si tu n'es pas sûre de toi. "/>
    </properties>
   </object>
   <object id="3" name="Humain" x="716.667" y="817.333">
@@ -851,11 +827,13 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="16" name="Teleport">
-  <object id="81" name="Home" x="848.364" y="717.818">
+ <objectgroup id="16" name="Teleport" locked="1">
+  <object id="81" name="home" x="848.364" y="717.818">
    <properties>
     <property name="X" type="int" value="26"/>
     <property name="Y" type="int" value="27"/>
+    <property name="destX" type="int" value="7"/>
+    <property name="destY" type="int" value="1"/>
    </properties>
   </object>
   <object id="82" name="Player" x="878" y="818.667">
@@ -865,7 +843,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="12" name="Tenues" locked="1">
+ <objectgroup id="12" name="Tenues">
   <object id="20" name="Bénédiction de Susanoo" x="1167.33" y="1552.67">
    <properties>
     <property name="X" type="int" value="36"/>
@@ -894,12 +872,6 @@
    <properties>
     <property name="X" type="int" value="48"/>
     <property name="Y" type="int" value="47"/>
-   </properties>
-  </object>
-  <object id="25" name="Eclat de Tsukuyomi" x="977" y="720.5">
-   <properties>
-    <property name="X" type="int" value="30"/>
-    <property name="Y" type="int" value="28"/>
    </properties>
   </object>
  </objectgroup>

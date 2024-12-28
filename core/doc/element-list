@@ -1,0 +1,10 @@
+fr.rpg.controler
+fr.rpg.controler.loader
+fr.rpg.controler.observerpattern
+fr.rpg.controler.observerpattern.concreteobserver
+fr.rpg.controler.texture
+fr.rpg.controler.tiled
+fr.rpg.model.carte
+fr.rpg.model.collectible
+fr.rpg.model.entity
+fr.rpg.view
