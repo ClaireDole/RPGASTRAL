@@ -42,7 +42,6 @@ public class PlayerMove extends concreteobserver{
 					int x = event.getEcran().getTiledmodel().getPotions().get(i).getX();
 					int y = event.getEcran().getTiledmodel().getPotions().get(i).getY();
 					if (x == game.getPlayer().getX() && y == game.getPlayer().getY()) {
-						game.getPlayer().Collect(event.getEcran().getTiledmodel().getPotions().get(i));
 						if(event.getEcran().getTiledmodel().getPotions().get(i).getDamage()>0) {
 							Sound sound=Gdx.audio.newSound(Gdx.files.internal("Son/bonus.wav"));
 							sound.play();
@@ -51,6 +50,7 @@ public class PlayerMove extends concreteobserver{
 							Sound sound=Gdx.audio.newSound(Gdx.files.internal("Son/malus.mp3"));
 							sound.play();
 						}
+						game.getPlayer().Collect(event.getEcran().getTiledmodel().getPotions().get(i));
 					}
 				}
 			}
@@ -242,9 +242,11 @@ public class PlayerMove extends concreteobserver{
 					Teleport t = event.getEcran().getTiledmodel().getTeleports().get(i);
 					if (x == game.getPlayer().getX() && y == game.getPlayer().getY() && !(t.getName().equals("Player"))) {
 						game.getGameScreens().forEach(screen -> {
+							screen.getBackground().stop();
 							if(screen.getMap().getProperties().get("name", String.class).equals(t.getName())) {
 								game.getPlayer().setGamescreen(screen);
 								game.setScreen(screen);
+								screen.getBackground().play();							
 							}
 						});
 						game.getPlayer().setX(t.getDestX());

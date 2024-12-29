@@ -94,25 +94,28 @@ public class GameScreen implements Screen, sujet {
 	    // charger les images
 		this.game.getManager().load("pack.png",Texture.class);
 		//charger les sons
-		this.background = Gdx.audio.newMusic(Gdx.files.internal("Son/mainbackground.mp3"));
+		if(this.map.getProperties().get("name", String.class).equals("worldmap")) {
+			this.background = Gdx.audio.newMusic(Gdx.files.internal("Son/mainbackground.mp3"));
+		}
+		else if(this.map.getProperties().get("name", String.class).equals("home")) {
+			this.background = Gdx.audio.newMusic(Gdx.files.internal("Son/homebackground.wav"));
+		}
 		this.background.setLooping(true);
 		this.background.setVolume(0.5f);
-		this.background.play();
 		//concreteobservers
 		gestionobservers();
-		//création du player
-		
+		//spawn du player
 		if (this.tiledmodel.getTeleports() != null) {
 			//on récupère le point de téléportation correspondant au spawn du player sur la map
 			for (int i = 0; i < this.tiledmodel.getTeleports().size(); i++) {
 				if (this.tiledmodel.getTeleports().get(i).getName().equals("Player") && this.map.getProperties().get("name",String.class).equals("worldmap") && start) {
 					this.game.getPlayer().setX(this.tiledmodel.getTeleports().get(i).getX());
 					this.game.getPlayer().setY(this.tiledmodel.getTeleports().get(i).getY());
+					this.background.play();
 					this.start = false;
 				}
 			} 
 		}
-	
 		//rendu
 		this.font = new Font();
 		int a = this.tiledmodel.getTilewidth();

@@ -17,7 +17,7 @@ public class GameOver extends concreteobserver {
 	public void update(Event event) {
 		RpgMain game=event.getGame();
 		if(event.compare(new Event(game,"Player",false,"gameover",null))) {
-			game.getPlayer().getGamescreen().getBackground().stop();
+			game.getGameScreens().forEach(screen -> screen.getBackground().stop());
 			game.setScreen(new DeathScreen(game));
 		}
 	}

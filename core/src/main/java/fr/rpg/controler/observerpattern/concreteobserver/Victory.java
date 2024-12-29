@@ -26,7 +26,7 @@ public class Victory extends concreteobserver {
 				}
 			});
 			if(valid.isEmpty()) {
-				game.getPlayer().getGamescreen().getBackground().stop();
+				game.getGameScreens().forEach(screen -> screen.getBackground().stop());
 				game.setScreen(new VictoryScreen(game));
 			}
 		}

@@ -843,7 +843,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="12" name="Tenues">
+ <objectgroup id="12" name="Tenues" locked="1">
   <object id="20" name="Bénédiction de Susanoo" x="1167.33" y="1552.67">
    <properties>
     <property name="X" type="int" value="36"/>
