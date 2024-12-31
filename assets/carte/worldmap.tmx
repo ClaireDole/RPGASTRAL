@@ -753,14 +753,14 @@
    <properties>
     <property name="X" type="int" value="21"/>
     <property name="Y" type="int" value="6"/>
-    <property name="obligatoire" type="bool" value="true"/>
+    <property name="obligatoire" type="bool" value="false"/>
    </properties>
   </object>
   <object id="72" name="Voleur" x="656.167" y="1327">
    <properties>
     <property name="X" type="int" value="20"/>
     <property name="Y" type="int" value="8"/>
-    <property name="obligatoire" type="bool" value="true"/>
+    <property name="obligatoire" type="bool" value="false"/>
    </properties>
   </object>
   <object id="70" name="Brigand" x="527.167" y="1329.17">

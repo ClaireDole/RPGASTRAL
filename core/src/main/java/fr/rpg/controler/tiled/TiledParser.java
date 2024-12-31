@@ -201,35 +201,47 @@ public class TiledParser {
 						tiledmodel.setArmes(armes);
 					}
 					//gestion des ennemis, creation de la liste des ennemis obligatoire pour terminer le jeu
-					ArrayList<Enemy> enemys = new ArrayList<Enemy>();
 					//gestion des ennemis de type Monstre
 					if (u.getName().equals("Monstres")){
 						//creation liste
 						ArrayList<Monstre> monstres = new ArrayList<Monstre>();
+						ArrayList<Enemy> enemys = new ArrayList<Enemy>();
 						//parcours des objets du layer
 						for (MapObject element : u.getObjects()) {
 							monstres.add(new Monstre(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),element.getName(),game));
-							if((boolean) element.getProperties().get("obligatoire", Boolean.class)) {
-								enemys.add(new Monstre(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),element.getName(),game));
+							if(element.getProperties().get("obligatoire", Boolean.class)) {
+								enemys.add(monstres.getLast());
 							}
 						}
 						//ajout liste dans le tiledmodel
 						tiledmodel.setMonstres(monstres);
+						if(tiledmodel.getEnemys()!=null) {
+							tiledmodel.getEnemys().addAll(enemys);
+						}
+						else {
+							tiledmodel.setEnemys(enemys);
+						}
 					}
 					//gestion des ennemis de type Humains
 					if (u.getName().equals("EnemyHumans")){
 						//creation liste
+						ArrayList<Enemy> enemys = new ArrayList<Enemy>();
 						ArrayList<EnemyHuman> ehumans = new ArrayList<EnemyHuman>();
 						//parcours des objets du layer
 						for (MapObject element : u.getObjects()) {
 							ehumans.add(new EnemyHuman(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),element.getName(),game));
 							if((boolean) element.getProperties().get("obligatoire", Boolean.class)) {
-								enemys.add(new EnemyHuman(element.getProperties().get("X", int.class),element.getProperties().get("Y", int.class),element.getName(),game));
+								enemys.add(ehumans.getLast());
 							}
 						}
 						//ajout liste dans le tiledmodel
 						tiledmodel.setEhumans(ehumans);
-						tiledmodel.setEnemys(enemys);
+						if(tiledmodel.getEnemys()!=null) {
+							tiledmodel.getEnemys().addAll(enemys);
+						}
+						else {
+							tiledmodel.setEnemys(enemys);
+						}
 					}
 					//gestion des points de téléportation
 					if (u.getName().equals("Teleport")){

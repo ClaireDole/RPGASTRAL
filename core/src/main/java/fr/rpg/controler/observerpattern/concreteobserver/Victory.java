@@ -1,7 +1,5 @@
 package fr.rpg.controler.observerpattern.concreteobserver;
 
-import java.util.ArrayList;
-
 import fr.rpg.controler.RpgMain;
 import fr.rpg.controler.observerpattern.Event;
 import fr.rpg.view.VictoryScreen;
@@ -19,16 +17,18 @@ public class Victory extends concreteobserver {
 	public void update(Event event) {
 		RpgMain game = event.getGame();
 		if(event.compare(new Event(game,"Player",false,"victory",null))) {
-			ArrayList<Integer> valid = new ArrayList<Integer>();
-			game.getTiledModels().forEach(model -> {if(model.getEnemys() != null)
-				if(!(model.getEnemys().isEmpty())){
-					valid.add(1);
-				}
-			});
-			if(valid.isEmpty()) {
+			if(test(game)) {
 				game.getGameScreens().forEach(screen -> screen.getBackground().stop());
 				game.setScreen(new VictoryScreen(game));
 			}
 		}
+	}
+	private Boolean test(RpgMain game) {
+		for(int i=0; i<game.getTiledModels().size(); i++) {
+			if(!(game.getTiledModels().get(i).getEnemys().isEmpty())) {
+				return false;
+			}
+		}
+		return true;
 	}
 }

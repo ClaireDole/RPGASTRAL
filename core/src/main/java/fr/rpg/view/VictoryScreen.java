@@ -40,7 +40,7 @@ public class VictoryScreen implements Screen {
 	public VictoryScreen(final RpgMain game) {
 		this.game = game;
 		this.batch = new SpriteBatch();
-		this.sound=Gdx.audio.newSound(Gdx.files.internal("Son/victory.wav"));
+		this.sound=Gdx.audio.newSound(Gdx.files.internal("Son/victory.mp3"));
 		this.sound.play();
 		game.getManager().load("pack.png", Texture.class);
 		region = game.getAtlas().findRegion("Interface/laurier");
