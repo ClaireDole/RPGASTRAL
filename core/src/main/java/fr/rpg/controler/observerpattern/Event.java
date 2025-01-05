@@ -8,14 +8,14 @@ import fr.rpg.view.GameScreen;
  * classe permettant l'aiguillage des input vers le concreteobserver correspondant
  * permet de mettre en place correctement l'organisation MVC du projet
  */
-public class Event {
+public class Event implements Comparable<Event>{
 	private GameScreen ecran;
 	private String screen;
 	private Boolean keypressed;
 	private String touche;
 	private RpgMain game;
 	private Collectible c;
-	
+
 	public Event(RpgMain game, String screen, Boolean keypressed, String touche, GameScreen ecran) {
 		this.game = game;
 		this.screen = screen;
@@ -27,15 +27,20 @@ public class Event {
 		this(game, screen, keypressed, touche, ecran);
 		this.c = c;
 	}
-	
-	public Boolean compare(Event e) {
+
+	/**
+	 * implémentation de la méthode compareTo
+	 */
+	@Override
+	public int compareTo(Event e) {
 		if(this.screen==e.screen && this.keypressed==e.keypressed && this.touche == e.touche) {
-			return true;
+			return 0;
 		}
 		else {
-			return false;
+			return 1;
 		}
 	}
+
 	/**
 	 * @return the ecran
 	 */
@@ -108,6 +113,4 @@ public class Event {
 	public void setC(Collectible c) {
 		this.c = c;
 	}
-
-
 }

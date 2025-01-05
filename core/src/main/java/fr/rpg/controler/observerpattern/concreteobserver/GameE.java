@@ -7,15 +7,20 @@ import fr.rpg.controler.RpgMain;
 import fr.rpg.controler.observerpattern.Event;
 import fr.rpg.view.MsgScreen;
 
+/**
+ * input E sur un écran de type GameScreen
+ * correpsond à une tentative d'attaquemd du player
+ */
 public class GameE extends concreteobserver {
 
 	public GameE(String name) {
 		super(name);
 	}
-	
+
+	@Override
 	public void update(Event event) {
 		RpgMain game = event.getGame();
-		if(event.compare(new Event(game,"GameScreen", true, "E",null))) {
+		if(event.compareTo(new Event(game,"GameScreen", true, "E",null))==0) {
 			//cas de l'abscence d'arme
 			if(game.getPlayer().getMd() == null) {
 				game.setScreen(new MsgScreen(game,"Il n'y a pas d'arme dans la main droite."));

@@ -7,6 +7,7 @@ import fr.rpg.controler.RpgMain;
 import fr.rpg.controler.observerpattern.Event;
 
 /**
+ * input flèche bas sur un écran de type GameScreen
  * gestion du mouvement du joueur lorsqu'il veut aller vers le haut
  * on vérifie s'il peut (sortie de la carte, obstacles)
  * puis on regarde s'il existe des collectibles à l'endroit où le joueur se déplace
@@ -14,7 +15,7 @@ import fr.rpg.controler.observerpattern.Event;
  * on déplace le joueur
  */
 public class GameUp extends concreteobserver{
-	
+
 	public GameUp(String name) {
 		super(name);
 	}
@@ -22,7 +23,7 @@ public class GameUp extends concreteobserver{
 	@Override
 	public void update(Event event) {
 		RpgMain game = event.getGame();
-		if(event.compare(new Event(game,"GameScreen", true, "UP",null))) {
+		if(event.compareTo(new Event(game,"GameScreen", true, "UP",null))==0) {
 			Boolean valid = true;
 			if (event.getEcran().getTiledmodel().getObstacles()!=null) {
 				//obstacles
@@ -84,8 +85,6 @@ public class GameUp extends concreteobserver{
 				Sound sound=Gdx.audio.newSound(Gdx.files.internal("Son/bump.mp3"));
 				sound.play();
 			}
-		}
-		
+		}	
 	}
-
 }

@@ -15,15 +15,15 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import fr.rpg.controler.RpgMain;
 import fr.rpg.controler.observerpattern.Event;
+import fr.rpg.controler.observerpattern.Observable;
 import fr.rpg.controler.observerpattern.Observer;
-import fr.rpg.controler.observerpattern.sujet;
 import fr.rpg.controler.observerpattern.concreteobserver.Quit;
 import fr.rpg.controler.observerpattern.concreteobserver.concreteobserver;
 
 /**
  * écran affiché lors de la mort du joueur
  */
-public class DeathScreen implements Screen, sujet{
+public class DeathScreen implements Screen, Observable{
 
 	/**
 	 * instance de la classe main du jeu
@@ -62,7 +62,7 @@ public class DeathScreen implements Screen, sujet{
 		font = new Font();
 		this.render(0.5f);
 	}
-	
+
 	@Override
 	public void show() {
 	}
@@ -77,7 +77,7 @@ public class DeathScreen implements Screen, sujet{
 		font.Getfont2().draw(batch, "Vous êtes mort", 350,350);
 		font.Getfont2().draw(batch, "Pour relancer une partie, relancer le programme.", 250,200);
 		batch.end();
-		
+
 	}
 
 	@Override
@@ -103,31 +103,31 @@ public class DeathScreen implements Screen, sujet{
 		this.batch.dispose();
 		this.sound.dispose();
 	}
-	
+
 	/**
-	 * @see fr.rpg.controler.observerpattern.sujet
+	 * @see fr.rpg.controler.observerpattern.Observable
 	 */
 	@Override
 	public void attach(concreteobserver o) {
 		this.observers.add(o);
-		
+
 	}
-	
+
 	/**
-	 * @see fr.rpg.controler.observerpattern.sujet
+	 * @see fr.rpg.controler.observerpattern.Observable
 	 */
 	@Override
 	public void unattach(Observer o) {
 		this.observers.remove(o);
-		
+
 	}
-	
+
 	/**
-	 * @see fr.rpg.controler.observerpattern.sujet
+	 * @see fr.rpg.controler.observerpattern.Observable
 	 */
 	@Override
 	public void notify(Event e) {
-		if(e.compare(new Event(game,"GameScreen",true,"Q",null))) {
+		if(e.compareTo(new Event(game,"GameScreen",true,"Q",null))==0) {
 			for(int i=0; i<observers.size(); i++) {
 				if(observers.get(i).getName() == "Quit") {
 					observers.get(i).update(e);

@@ -16,8 +16,8 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import fr.rpg.controler.RpgMain;
 import fr.rpg.controler.observerpattern.Event;
+import fr.rpg.controler.observerpattern.Observable;
 import fr.rpg.controler.observerpattern.Observer;
-import fr.rpg.controler.observerpattern.sujet;
 import fr.rpg.controler.observerpattern.concreteobserver.GameA;
 import fr.rpg.controler.observerpattern.concreteobserver.GameDown;
 import fr.rpg.controler.observerpattern.concreteobserver.GameE;
@@ -39,7 +39,7 @@ import fr.rpg.model.carte.TiledModel;
  * on gere aussi les input permettant de jouer
  */
 
-public class GameScreen implements Screen, sujet {
+public class GameScreen implements Screen, Observable {
 
 	final private  RpgMain game;
 	/**
@@ -76,7 +76,7 @@ public class GameScreen implements Screen, sujet {
 	 * validation de première apparition du joueur sur la carte
 	 */
 	private Boolean start;
-	
+
 	/**
 	 * constructeur
 	 * @param game
@@ -91,7 +91,7 @@ public class GameScreen implements Screen, sujet {
 					this.tiledmodel = model;
 				}});
 		this.observers = new ArrayList<concreteobserver>();
-	    // charger les images
+		// charger les images
 		this.game.getManager().load("pack.png",Texture.class);
 		//charger les sons
 		if(this.map.getProperties().get("name", String.class).equals("worldmap")) {
@@ -122,7 +122,7 @@ public class GameScreen implements Screen, sujet {
 		this.unitScale = (float) (1.0/a);
 		this.renderer = new OrthogonalTiledMapRenderer(this.map,unitScale);
 		this.camera = new OrthographicCamera();
-		
+
 		//gestion des dimensions de la camera et viewport en fonction des dimensions de la carte tiled
 		if(this.tiledmodel.getWidth() < 20) { 
 			this.camwidth = this.tiledmodel.getWidth();
@@ -135,24 +135,24 @@ public class GameScreen implements Screen, sujet {
 		}
 		this.camera.setToOrtho(false, this.camwidth, this.camheight);
 		this.viewport = new ExtendViewport(this.camwidth,this.camheight,this.camera); 
-		
+
 		gestionsprites();
 
 		//chargement des fonts
 		this.font = new Font();
 		this.render(0.5f);	
 	}
-	
+
 	/**
-	 * @see fr.rpg.controler.observerpattern.sujet
+	 * @see fr.rpg.controler.observerpattern.Observable
 	 */
 	@Override
 	public void attach(concreteobserver o) {
 		this.observers.add(o);	
 	}
-	
+
 	/**
-	 * @see fr.rpg.controler.observerpattern.sujet
+	 * @see fr.rpg.controler.observerpattern.Observable
 	 */
 	@Override
 	public void unattach(Observer o) {
@@ -160,11 +160,11 @@ public class GameScreen implements Screen, sujet {
 	}
 
 	/**
-	 * @see fr.rpg.controler.observerpattern.sujet
+	 * @see fr.rpg.controler.observerpattern.Observable
 	 */
 	@Override
 	public void notify(Event e) {
-		if(e.compare(new Event(this.game,"GameScreen",true,"Q",null))) {
+		if(e.compareTo(new Event(this.game,"GameScreen",true,"Q",null))==0) {
 			for(int i=0; i<this.observers.size(); i++) {
 				if(this.observers.get(i).getName() == "Quit") {
 					this.observers.get(i).update(e);
@@ -177,7 +177,7 @@ public class GameScreen implements Screen, sujet {
 	@Override
 	public void show() {
 	}
-	
+
 	@Override
 	public void render(float delta) {
 		draw();
@@ -187,7 +187,7 @@ public class GameScreen implements Screen, sujet {
 	@Override
 	public void resize(int width, int height) {
 		this.viewport.update(width, height, true);
-		
+
 	}
 
 	@Override
@@ -201,7 +201,7 @@ public class GameScreen implements Screen, sujet {
 	@Override
 	public void hide() {
 	}
-	
+
 	@Override
 	public void dispose() {
 		font.dispose();
@@ -226,7 +226,7 @@ public class GameScreen implements Screen, sujet {
 		attach(new GameE("E"));
 		attach(new GameZ("Z"));
 	}
-	
+
 	/**
 	 * mise à l'échelle des différents sprites utilisés lors de l'affichage
 	 */
@@ -263,106 +263,106 @@ public class GameScreen implements Screen, sujet {
 			}
 		}
 	}
-	
+
 	/**
 	 * gestion de l'affichage
 	 */
 	private void draw() {
-	    ScreenUtils.clear(Color.BLACK);
-	    int x = this.game.getPlayer().getX();
-	    int y = this.game.getPlayer().getY();
-	    this.camera.position.x = x;
-	    this.camera.position.y = y;
-	    this.camera.update();
-	    this.game.getBatch().setProjectionMatrix(this.camera.combined);
-	    this.renderer.setView(this.camera);
-	    setposition();
-	    this.viewport.apply();
-	    this.game.getBatch().begin();
-	    this.renderer.render();
-	    this.game.getPlayer().getSprite().draw(this.game.getBatch());
-	    //PNJ
-	    if(this.tiledmodel.getPnjs() != null ) {
-	    	for (int i=0; i<this.tiledmodel.getPnjs().size(); i++) {
-	    		this.tiledmodel.getPnjs().get(i).getSprite().draw(this.game.getBatch());
-	    	}
-	    }
-	    //Potion
-	    if(this.tiledmodel.getPotions() != null ) {
-	    	for (int i=0; i<this.tiledmodel.getPotions().size(); i++) {
-	    		this.tiledmodel.getPotions().get(i).getSprite().draw(this.game.getBatch());
-	    	}
-	    }
-	  //Tenue
-	    if(this.tiledmodel.getTenues() != null ) {
-	    	for (int i=0; i<this.tiledmodel.getTenues().size(); i++) {
-	    		this.tiledmodel.getTenues().get(i).getSprite().draw(this.game.getBatch());
-	    	}
-	    }
-	    //Arme
-	    if(this.tiledmodel.getArmes() != null ) {
-	    	for (int i=0; i<this.tiledmodel.getArmes().size(); i++) {
-	    		this.tiledmodel.getArmes().get(i).getSprite().draw(this.game.getBatch());
-	    	}
-	    }
-	  //Monstre
-	    if(this.tiledmodel.getMonstres() != null ) {
-	    	for (int i=0; i<this.tiledmodel.getMonstres().size(); i++) {
-	    		this.tiledmodel.getMonstres().get(i).getSprite().draw(this.game.getBatch());
-	    	}
-	    }
-	  //EnemyHumans
-	    if(this.tiledmodel.getEhumans() != null ) {
-	    	for (int i=0; i<this.tiledmodel.getEhumans().size(); i++) {
-	    		this.tiledmodel.getEhumans().get(i).getSprite().draw(this.game.getBatch());
-	    	}
-	    }
-	    this.game.getBatch().end();
+		ScreenUtils.clear(Color.BLACK);
+		int x = this.game.getPlayer().getX();
+		int y = this.game.getPlayer().getY();
+		this.camera.position.x = x;
+		this.camera.position.y = y;
+		this.camera.update();
+		this.game.getBatch().setProjectionMatrix(this.camera.combined);
+		this.renderer.setView(this.camera);
+		setposition();
+		this.viewport.apply();
+		this.game.getBatch().begin();
+		this.renderer.render();
+		this.game.getPlayer().getSprite().draw(this.game.getBatch());
+		//PNJ
+		if(this.tiledmodel.getPnjs() != null ) {
+			for (int i=0; i<this.tiledmodel.getPnjs().size(); i++) {
+				this.tiledmodel.getPnjs().get(i).getSprite().draw(this.game.getBatch());
+			}
+		}
+		//Potion
+		if(this.tiledmodel.getPotions() != null ) {
+			for (int i=0; i<this.tiledmodel.getPotions().size(); i++) {
+				this.tiledmodel.getPotions().get(i).getSprite().draw(this.game.getBatch());
+			}
+		}
+		//Tenue
+		if(this.tiledmodel.getTenues() != null ) {
+			for (int i=0; i<this.tiledmodel.getTenues().size(); i++) {
+				this.tiledmodel.getTenues().get(i).getSprite().draw(this.game.getBatch());
+			}
+		}
+		//Arme
+		if(this.tiledmodel.getArmes() != null ) {
+			for (int i=0; i<this.tiledmodel.getArmes().size(); i++) {
+				this.tiledmodel.getArmes().get(i).getSprite().draw(this.game.getBatch());
+			}
+		}
+		//Monstre
+		if(this.tiledmodel.getMonstres() != null ) {
+			for (int i=0; i<this.tiledmodel.getMonstres().size(); i++) {
+				this.tiledmodel.getMonstres().get(i).getSprite().draw(this.game.getBatch());
+			}
+		}
+		//EnemyHumans
+		if(this.tiledmodel.getEhumans() != null ) {
+			for (int i=0; i<this.tiledmodel.getEhumans().size(); i++) {
+				this.tiledmodel.getEhumans().get(i).getSprite().draw(this.game.getBatch());
+			}
+		}
+		this.game.getBatch().end();
 	}
-	
+
 	/**
 	 * gestion des positions des différents sprites
 	 */
 	private void setposition() {
 		//SetPositionPNJ
 		this.game.getPlayer().getSprite().setPosition(this.game.getPlayer().getX(), this.game.getPlayer().getY());
-	    if(this.tiledmodel.getPnjs() != null ) {
-	    	for (int i=0; i<this.tiledmodel.getPnjs().size(); i++) {
-	    		this.tiledmodel.getPnjs().get(i).getSprite().setPosition(this.tiledmodel.getPnjs().get(i).getX(),this.tiledmodel.getPnjs().get(i).getY());
-	    	}
-	    }
-	    //SetPositionPotion
-	    if(this.tiledmodel.getPotions() != null ) {
-	    	for (int i=0; i<this.tiledmodel.getPotions().size(); i++) {
-	    		this.tiledmodel.getPotions().get(i).getSprite().setPosition(this.tiledmodel.getPotions().get(i).getX(),this.tiledmodel.getPotions().get(i).getY());
-	    	}
-	    }
-	    //SetPositionTenue
-	    if(this.tiledmodel.getTenues() != null ) {
-	    	for (int i=0; i<this.tiledmodel.getTenues().size(); i++) {
-	    		this.tiledmodel.getTenues().get(i).getSprite().setPosition(this.tiledmodel.getTenues().get(i).getX(),this.tiledmodel.getTenues().get(i).getY());
-	    	}
-	    }
-	  //SetPositionArme
-	    if(this.tiledmodel.getArmes() != null ) {
-	    	for (int i=0; i<this.tiledmodel.getArmes().size(); i++) {
-	    		this.tiledmodel.getArmes().get(i).getSprite().setPosition(this.tiledmodel.getArmes().get(i).getX(),this.tiledmodel.getArmes().get(i).getY());
-	    	}
-	    }
-	  //SetPositionMonstre
-	    if(this.tiledmodel.getMonstres() != null ) {
-	    	for (int i=0; i<this.tiledmodel.getMonstres().size(); i++) {
-	    		this.tiledmodel.getMonstres().get(i).getSprite().setPosition(this.tiledmodel.getMonstres().get(i).getX(),this.tiledmodel.getMonstres().get(i).getY());
-	    	}
-	    }
-	  //SetPositionMonstre
-	    if(this.tiledmodel.getEhumans() != null ) {
-	    	for (int i=0; i<this.tiledmodel.getEhumans().size(); i++) {
-	    		this.tiledmodel.getEhumans().get(i).getSprite().setPosition(this.tiledmodel.getEhumans().get(i).getX(), this.tiledmodel.getEhumans().get(i).getY());
-	    	}
-	    }
+		if(this.tiledmodel.getPnjs() != null ) {
+			for (int i=0; i<this.tiledmodel.getPnjs().size(); i++) {
+				this.tiledmodel.getPnjs().get(i).getSprite().setPosition(this.tiledmodel.getPnjs().get(i).getX(),this.tiledmodel.getPnjs().get(i).getY());
+			}
+		}
+		//SetPositionPotion
+		if(this.tiledmodel.getPotions() != null ) {
+			for (int i=0; i<this.tiledmodel.getPotions().size(); i++) {
+				this.tiledmodel.getPotions().get(i).getSprite().setPosition(this.tiledmodel.getPotions().get(i).getX(),this.tiledmodel.getPotions().get(i).getY());
+			}
+		}
+		//SetPositionTenue
+		if(this.tiledmodel.getTenues() != null ) {
+			for (int i=0; i<this.tiledmodel.getTenues().size(); i++) {
+				this.tiledmodel.getTenues().get(i).getSprite().setPosition(this.tiledmodel.getTenues().get(i).getX(),this.tiledmodel.getTenues().get(i).getY());
+			}
+		}
+		//SetPositionArme
+		if(this.tiledmodel.getArmes() != null ) {
+			for (int i=0; i<this.tiledmodel.getArmes().size(); i++) {
+				this.tiledmodel.getArmes().get(i).getSprite().setPosition(this.tiledmodel.getArmes().get(i).getX(),this.tiledmodel.getArmes().get(i).getY());
+			}
+		}
+		//SetPositionMonstre
+		if(this.tiledmodel.getMonstres() != null ) {
+			for (int i=0; i<this.tiledmodel.getMonstres().size(); i++) {
+				this.tiledmodel.getMonstres().get(i).getSprite().setPosition(this.tiledmodel.getMonstres().get(i).getX(),this.tiledmodel.getMonstres().get(i).getY());
+			}
+		}
+		//SetPositionMonstre
+		if(this.tiledmodel.getEhumans() != null ) {
+			for (int i=0; i<this.tiledmodel.getEhumans().size(); i++) {
+				this.tiledmodel.getEhumans().get(i).getSprite().setPosition(this.tiledmodel.getEhumans().get(i).getX(), this.tiledmodel.getEhumans().get(i).getY());
+			}
+		}
 	}
-	
+
 	/**
 	 * gestion des inputs sur l'écran
 	 */

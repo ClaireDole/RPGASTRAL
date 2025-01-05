@@ -8,13 +8,12 @@ import fr.rpg.controler.observerpattern.Event;
 import fr.rpg.view.MsgScreen;
 
 /**
- * si la touche R est pressée sur le GameScreen alors :
- * 		on vérifie s'il existe un PNJ de type elfe juste à côté de nous
- * 		si oui, on lance le soin du joueur
- * 		sinon, on prévient que cela ne fonctionne pas
+ * input S sur un écran de type GameScreen
+ * tentative de soin du player 
+ * valide uniquement si un ONJ de type elfe est juste à côté du player
  */
 public class GameS extends concreteobserver{
-	
+
 	public GameS(String name) {
 		super(name);
 	}
@@ -23,7 +22,7 @@ public class GameS extends concreteobserver{
 	public void update(Event event) {
 		RpgMain game = event.getGame();
 		Boolean valid = true;
-		if(event.compare(new Event(game,"GameScreen", true, "S",null))) {
+		if(event.compareTo(new Event(game,"GameScreen", true, "S",null))==0) {
 			for(int i=0; i<event.getEcran().getTiledmodel().getPnjs().size();i++) {
 				if(event.getEcran().getTiledmodel().getPnjs().get(i).getX() == game.getPlayer().getX()) {
 					if(event.getEcran().getTiledmodel().getPnjs().get(i).getY() == game.getPlayer().getY() +1 |
@@ -44,11 +43,11 @@ public class GameS extends concreteobserver{
 							valid = false;
 							Sound sound=Gdx.audio.newSound(Gdx.files.internal("Son/heal.wav"));
 							sound.play();
+						}
 					}
 				}
 			}
-			}
-			if(event.compare(new Event(game,"GameScreen", true, "S",null)) && valid) {
+			if(event.compareTo(new Event(game,"GameScreen", true, "S",null))==0 && valid) {
 				game.setScreen(new MsgScreen(game,"ça ne marche pas..."));
 			}
 		}

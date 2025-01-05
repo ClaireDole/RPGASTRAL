@@ -60,7 +60,7 @@ public class Armes extends Collectible{
 		}
 		setSprite(new Sprite(this.getTexture()));
 	}
-	
+
 	/**
 	 * suppression des armes dans le modèle de la carte
 	 * pour plus d'informations @see TiledModel class
@@ -71,7 +71,7 @@ public class Armes extends Collectible{
 		list.remove(this);
 		tiledmodel.setArmes(list);
 	}
-	
+
 	/**
 	 * getter
 	 * @return si l'arme prend les deux slots de mains du player

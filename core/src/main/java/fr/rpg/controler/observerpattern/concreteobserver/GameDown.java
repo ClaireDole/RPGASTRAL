@@ -7,6 +7,7 @@ import fr.rpg.controler.RpgMain;
 import fr.rpg.controler.observerpattern.Event;
 
 /**
+ * Input flèche bas sur un écran de type GameScreen
  * gestion du mouvement du joueur lorsqu'il veut aller vers le bas
  * on vérifie s'il peut (sortie de la carte, obstacles)
  * puis on regarde s'il existe des collectibles à l'endroit où le joueur se déplace
@@ -22,7 +23,7 @@ public class GameDown extends concreteobserver{
 	@Override
 	public void update(Event event) {
 		RpgMain game = event.getGame();
-		if(event.compare(new Event(game,"GameScreen", true, "DOWN",null))) {
+		if(event.compareTo(new Event(game,"GameScreen", true, "DOWN",null))==0) {
 			Boolean valid = true;
 			if (event.getEcran().getTiledmodel().getObstacles()!=null) {
 				//obstacles

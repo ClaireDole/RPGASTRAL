@@ -18,7 +18,7 @@ import fr.rpg.model.entity.Player;
  * Broche d'Izanami --> annule les effets des terrains
  */
 public class Tenue extends Collectible{
-	
+
 	public Tenue(int x, int y, String s, RpgMain g) {
 		super(x,y,s,g);
 		this.setTexture(g.getAtlas().findRegion("Game/collectible/tenue"));
@@ -42,7 +42,7 @@ public class Tenue extends Collectible{
 			setDescription("Bonus de mana");
 		}
 	}
-	
+
 	/**
 	 * les effets sur le joueur directement
 	 * @param p

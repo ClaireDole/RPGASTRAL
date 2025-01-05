@@ -9,20 +9,20 @@ import fr.rpg.model.carte.TiledModel;
  * classe abstraite décrivant des fonctionnalités communes à tous les ennemis
  */
 public abstract class Enemy extends Entity{
-    /**
-     * puissance de l'ennemi en terme de dégâts
-     */
+	/**
+	 * puissance de l'ennemi en terme de dégâts
+	 */
 	private float damage;
-    private String name;
-    /**
-     * portée de l'ennemi
-     */
-    private int portee;
-    /**
-     * position de l'ennemi dans son cycle de mouvement
-     */
-    private int position;
-    /**
+	private String name;
+	/**
+	 * portée de l'ennemi
+	 */
+	private int portee;
+	/**
+	 * position de l'ennemi dans son cycle de mouvement
+	 */
+	private int position;
+	/**
 	 * heure à la nanoseconde près lors du lancement du cooldown
 	 */
 	private long cooldownstart;
@@ -34,39 +34,39 @@ public abstract class Enemy extends Entity{
 	 * @param name nom
 	 * @param g instance de la classe main
 	 */
-    public Enemy(int x, int y,String name, RpgMain g) {
+	public Enemy(int x, int y,String name, RpgMain g) {
 		super(x, y,g);
 		this.setName(name);
 	}
-    /**
-     * gestion de l'attaque
-     * @param p le joueur 
-     */
-    public abstract void attaque(Player p);
-    /**
-     * gestion des dégâts reçus
-     * @param i nombre de dégâts
-     */
-    public abstract void takedamage(float i, TiledModel tiledmodel);
-    /**
-     * gestion de la suppression
-     */
-    public abstract void dispawn(TiledModel tiledmodel);
-    
-    /**
-     * lancement du cooldown
-     */
-    public void cooldownstart() {
-    	this.cooldownstart = TimeUtils.nanoTime();
-    }
-    
-    /**
-     * on regarde si le cooldown est terminée
-     * @return l'état du cooldown false: en cours et true:finit
-     */
-    public boolean cooldownover() {
-    	return (TimeUtils.nanoTime() - this.cooldownstart) >= 2 * 1_000_000_000L;
-    }
+	/**
+	 * gestion de l'attaque
+	 * @param p le joueur 
+	 */
+	public abstract void attaque(Player p);
+	/**
+	 * gestion des dégâts reçus
+	 * @param i nombre de dégâts
+	 */
+	public abstract void takedamage(float i, TiledModel tiledmodel);
+	/**
+	 * gestion de la suppression
+	 */
+	public abstract void dispawn(TiledModel tiledmodel);
+
+	/**
+	 * lancement du cooldown
+	 */
+	public void cooldownstart() {
+		this.cooldownstart = TimeUtils.nanoTime();
+	}
+
+	/**
+	 * on regarde si le cooldown est terminée
+	 * @return l'état du cooldown false: en cours et true:finit
+	 */
+	public boolean cooldownover() {
+		return (TimeUtils.nanoTime() - this.cooldownstart) >= 2 * 1_000_000_000L;
+	}
 	/**
 	 * @return the damage
 	 */

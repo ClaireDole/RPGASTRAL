@@ -54,15 +54,14 @@ public abstract class Collectible{
 		this(x,y,name,g);
 		this.damage=damage;
 	}
-	
-	
+
+
 	/**
 	 * suppression du collectible
 	 * implémentation dans chaque classe concernée
 	 */
-	public void dispawn(TiledModel tiledmodel) {
-	}
-	
+	public abstract void dispawn(TiledModel tiledmodel);
+
 	/**
 	 * getter
 	 * @return abscisse

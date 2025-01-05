@@ -7,33 +7,33 @@ package fr.rpg.model.carte;
  * on peut annuler les effets des terrains volcaniques avec la tenue broche d'Izanami
  */
 public class Terrain{
-    private int x;
-    private int y;
-    private Boolean franchissement;
-    private String name;
-    
-    public Terrain(int x, int y, String n) {
-    	this.x = x;
-    	this.y = y;
-    	this.name = n;
-    	if(this.name =="plaine" | this.name =="chemin" | this.name =="volcanique") {
-    		this.franchissement = true;
-    	}
-    	else {
-    		this.franchissement = false;
-    	}
-    }
-    
-    public int Getx() {
-    	return this.x;
-    }
-    public int Gety() {
-    	return this.y;
-    }
-    public Boolean Getfranchissement() {
-    	return this.franchissement;
-    }
-    public String Getname() {
-    	return this.name;
-    }
+	private int x;
+	private int y;
+	private Boolean franchissement;
+	private String name;
+
+	public Terrain(int x, int y, String n) {
+		this.x = x;
+		this.y = y;
+		this.name = n;
+		if(this.name =="plaine" | this.name =="chemin" | this.name =="volcanique") {
+			this.franchissement = true;
+		}
+		else {
+			this.franchissement = false;
+		}
+	}
+
+	public int Getx() {
+		return this.x;
+	}
+	public int Gety() {
+		return this.y;
+	}
+	public Boolean Getfranchissement() {
+		return this.franchissement;
+	}
+	public String Getname() {
+		return this.name;
+	}
 }

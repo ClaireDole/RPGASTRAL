@@ -13,8 +13,8 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import fr.rpg.controler.RpgMain;
 import fr.rpg.controler.observerpattern.Event;
+import fr.rpg.controler.observerpattern.Observable;
 import fr.rpg.controler.observerpattern.Observer;
-import fr.rpg.controler.observerpattern.sujet;
 import fr.rpg.controler.observerpattern.concreteobserver.Msg1;
 import fr.rpg.controler.observerpattern.concreteobserver.Msg2;
 import fr.rpg.controler.observerpattern.concreteobserver.Msg3;
@@ -28,7 +28,7 @@ import fr.rpg.model.collectible.Tenue;
  * écran gérant l'affichage des messages PNJ et des choix de collectibles
  */
 
-public class MsgScreen implements Screen, sujet{
+public class MsgScreen implements Screen, Observable{
 	
 	private RpgMain game;
 	private OrthographicCamera camera;
@@ -127,7 +127,7 @@ public class MsgScreen implements Screen, sujet{
 	}
 	
 	/**
-	 * @see fr.rpg.controler.observerpattern.sujet
+	 * @see fr.rpg.controler.observerpattern.Observable
 	 */
 	@Override
 	public void attach(concreteobserver o) {
@@ -135,7 +135,7 @@ public class MsgScreen implements Screen, sujet{
 	}
 	
 	/**
-	 * @see fr.rpg.controler.observerpattern.sujet
+	 * @see fr.rpg.controler.observerpattern.Observable
 	 */
 	@Override
 	public void unattach(Observer o) {
@@ -143,11 +143,11 @@ public class MsgScreen implements Screen, sujet{
 	}
 	
 	/**
-	 * @see fr.rpg.controler.observerpattern.sujet
+	 * @see fr.rpg.controler.observerpattern.Observable
 	 */
 	@Override
 	public void notify(Event e) {
-		if(e.compare(new Event(this.game,"GameScreen",true,"Q",null))) {
+		if(e.compareTo(new Event(this.game,"GameScreen",true,"Q",null))==0) {
 			for(int i=0; i<this.observers.size(); i++) {
 				if(this.observers.get(i).getName() == "Quit") {
 					this.observers.get(i).update(e);

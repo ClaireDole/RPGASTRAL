@@ -14,12 +14,12 @@ public class Quit extends concreteobserver{
 
 	@Override
 	public void update(Event event) {
-		
+
 		RpgMain game = event.getGame();
-		
-		if (event.compare(new Event(game,"MenuScreen",true,"Q",null)) | event.compare(new Event(game,"GameScreen",true,"Q",null)) 
-			|event.compare(new Event(game,"MainMenuScreen",true,"Q",null)) | event.compare(new Event(game,"MsgScreen",true,"Q",null))) {
-			
+
+		if (event.compareTo(new Event(game,"MenuScreen",true,"Q",null))==0 | event.compareTo(new Event(game,"GameScreen",true,"Q",null)) ==0
+				|event.compareTo(new Event(game,"MainMenuScreen",true,"Q",null))==0 | event.compareTo(new Event(game,"MsgScreen",true,"Q",null))==0) {
+
 			game.dispose();
 		}
 	}

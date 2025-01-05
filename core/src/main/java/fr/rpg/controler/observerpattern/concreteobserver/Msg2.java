@@ -6,6 +6,7 @@ import fr.rpg.model.collectible.Armes;
 import fr.rpg.model.collectible.Tenue;
 
 /**
+ * input 2 sur un écran de type MsgScreen avec choix
  * correspond au choix 2 lors du choix entre différentes armes ou tenues
  */
 public class Msg2 extends concreteobserver{
@@ -16,7 +17,7 @@ public class Msg2 extends concreteobserver{
 	@Override
 	public void update(Event event) {
 		RpgMain game = event.getGame();
-		if(event.compare(new Event(game,"MsgScreen", true, "2",null))) {
+		if(event.compareTo(new Event(game,"MsgScreen", true, "2",null))==0) {
 			//dans le cas d'une tenue
 			if(event.getC() instanceof Tenue) {
 				event.getEcran().getTiledmodel().getTenues().add(game.getPlayer().getTenue());
@@ -63,7 +64,7 @@ public class Msg2 extends concreteobserver{
 			game.setScreen(game.getPlayer().getGamescreen());
 		}
 	}
-	
+
 	/**
 	 * sert à vérifier qu'on drop l'arme de la main gauche à un endroit atteignable par le joueur
 	 * on autorise les cases de terrain eau car avec la bonne tenue elles sont atteignables

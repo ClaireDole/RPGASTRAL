@@ -12,14 +12,13 @@ public class GameOver extends concreteobserver {
 	public GameOver(String name) {
 		super(name);
 	}
-	
+
 	@Override
 	public void update(Event event) {
 		RpgMain game=event.getGame();
-		if(event.compare(new Event(game,"Player",false,"gameover",null))) {
+		if(event.compareTo(new Event(game,"Player",false,"gameover",null))==0) {
 			game.getGameScreens().forEach(screen -> screen.getBackground().stop());
 			game.setScreen(new DeathScreen(game));
 		}
 	}
-
 }

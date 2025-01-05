@@ -14,7 +14,7 @@ import fr.rpg.model.entity.Player;
  * on ne peut pas le savoir avant d'avoir vu l'effet sur le joueur
  */
 public class Potion extends Collectible{
-	
+
 	public Potion(int x, int y, float e, String s, RpgMain g) {
 		super(x,y,e,s,g);
 		setTexture(g.getAtlas().findRegion("Game/collectible/potion"));
@@ -42,7 +42,7 @@ public class Potion extends Collectible{
 			p.setBonusAttaque(p.getBonusAttaque() + this.getDamage());
 		}
 	}
-	
+
 	/**
 	 * suppression des potions dans le modèle de la carte
 	 * pour plus d'informations @see TiledModel class
@@ -53,5 +53,5 @@ public class Potion extends Collectible{
 		list.remove(this);
 		tiledmodel.setPotions(list);
 	}
-	
+
 }

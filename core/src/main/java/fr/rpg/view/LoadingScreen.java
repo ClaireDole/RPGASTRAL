@@ -19,7 +19,7 @@ public class LoadingScreen implements Screen{
 	private Font font;
 	private Boolean print;
 	private String msg;
-	
+
 	public LoadingScreen(final RpgMain game) {
 		this.game=game;
 		this.camera = new OrthographicCamera();
@@ -63,7 +63,7 @@ public class LoadingScreen implements Screen{
 	@Override
 	public void dispose() {
 	}
-	
+
 	public void Setprint(Boolean a) {
 		this.print = a;
 	}

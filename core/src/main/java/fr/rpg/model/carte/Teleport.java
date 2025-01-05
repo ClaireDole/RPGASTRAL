@@ -28,7 +28,7 @@ public class Teleport {
 	 * ordonnée d'arrivée
 	 */
 	private int destY;
-	
+
 	public Teleport(int X, int Y, String name) {
 		this.X = X;
 		this.Y = Y;

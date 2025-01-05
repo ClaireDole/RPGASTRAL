@@ -79,12 +79,12 @@ public class EnemyHuman extends Enemy{
 	@Override
 	public void takedamage(float i, TiledModel tiledmodel) {
 		setPV(this.getPV() - i);
-        if(!isAlive()) {
-        	this.dispawn(tiledmodel);
-        }
-        else if(this.getName().equals("Brigand")) {
-        	this.attaque(this.getG().getPlayer());
-        }
+		if(!isAlive()) {
+			this.dispawn(tiledmodel);
+		}
+		else if(this.getName().equals("Brigand")) {
+			this.attaque(this.getG().getPlayer());
+		}
 	}
 
 	/**

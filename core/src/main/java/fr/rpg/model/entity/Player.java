@@ -9,8 +9,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import fr.rpg.controler.RpgMain;
 import fr.rpg.controler.observerpattern.Event;
+import fr.rpg.controler.observerpattern.Observable;
 import fr.rpg.controler.observerpattern.Observer;
-import fr.rpg.controler.observerpattern.sujet;
 import fr.rpg.controler.observerpattern.concreteobserver.GameOver;
 import fr.rpg.controler.observerpattern.concreteobserver.PlayerMove;
 import fr.rpg.controler.observerpattern.concreteobserver.Victory;
@@ -24,7 +24,7 @@ import fr.rpg.view.MsgScreen;
 /**
  * classe décrivant le joueur
  */
-public class Player extends Entity implements sujet{
+public class Player extends Entity implements Observable{
 	/**
 	 * arme portée avec la main gauche
 	 */

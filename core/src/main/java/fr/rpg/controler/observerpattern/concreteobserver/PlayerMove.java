@@ -10,6 +10,10 @@ import fr.rpg.model.carte.Teleport;
 import fr.rpg.model.entity.EnemyHuman;
 import fr.rpg.model.entity.Monstre;
 
+/**
+ * se lance lorsque le player effectue la méthode move()
+ * permet de mettre à jour les différents éléments
+ */
 public class PlayerMove extends concreteobserver{
 
 	public PlayerMove(String name) {
@@ -19,7 +23,7 @@ public class PlayerMove extends concreteobserver{
 	@Override
 	public void update(Event event) {
 		RpgMain game = event.getGame();
-		if(event.compare(new Event(game, "Player", false, "move",null))) {
+		if(event.compareTo(new Event(game, "Player", false, "move",null))==0) {
 			//gestion effet terrain volcanique
 			if(event.getEcran().getTiledmodel().getVolcaniques() != null) {
 				for(int i = 0; i< event.getEcran().getTiledmodel().getVolcaniques().size(); i++ ) {

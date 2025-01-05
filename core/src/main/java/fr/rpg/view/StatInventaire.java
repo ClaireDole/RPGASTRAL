@@ -14,8 +14,8 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import fr.rpg.controler.RpgMain;
 import fr.rpg.controler.observerpattern.Event;
+import fr.rpg.controler.observerpattern.Observable;
 import fr.rpg.controler.observerpattern.Observer;
-import fr.rpg.controler.observerpattern.sujet;
 import fr.rpg.controler.observerpattern.concreteobserver.StatP;
 import fr.rpg.controler.observerpattern.concreteobserver.concreteobserver;
 
@@ -23,7 +23,7 @@ import fr.rpg.controler.observerpattern.concreteobserver.concreteobserver;
  * ecran pour les statistiques et inventaire du joueur
  */
 
-public class StatInventaire implements Screen, sujet{
+public class StatInventaire implements Screen, Observable{
 
 	private RpgMain game;
 	private OrthographicCamera camera;
@@ -39,7 +39,7 @@ public class StatInventaire implements Screen, sujet{
 	 */
 	private ArrayList<concreteobserver> observers;
 	private Sound sound;
-	
+
 	/**
 	 * constructeur
 	 * @param game
@@ -58,9 +58,9 @@ public class StatInventaire implements Screen, sujet{
 		attach(new StatP("StatP"));
 		this.render(0.5f);	
 	}
-	
+
 	/**
-	 * @see fr.rpg.controler.observerpattern.sujet
+	 * @see fr.rpg.controler.observerpattern.Observable
 	 */
 	@Override
 	public void attach(concreteobserver o) {
@@ -68,7 +68,7 @@ public class StatInventaire implements Screen, sujet{
 	}
 
 	/**
-	 * @see fr.rpg.controler.observerpattern.sujet
+	 * @see fr.rpg.controler.observerpattern.Observable
 	 */
 	@Override
 	public void unattach(Observer o) {
@@ -76,11 +76,11 @@ public class StatInventaire implements Screen, sujet{
 	}
 
 	/**
-	 * @see fr.rpg.controler.observerpattern.sujet
+	 * @see fr.rpg.controler.observerpattern.Observable
 	 */
 	@Override
 	public void notify(Event e) {
-		if(e.compare(new Event(this.game,"GameScreen",true,"Q",null))) {
+		if(e.compareTo(new Event(this.game,"GameScreen",true,"Q",null))==0) {
 			for(int i=0; i<this.observers.size(); i++) {
 				if(this.observers.get(i).getName() == "Quit") {
 					this.observers.get(i).update(e);
@@ -122,7 +122,7 @@ public class StatInventaire implements Screen, sujet{
 		font.dispose();
 		sound.dispose();
 	}
-	
+
 	/**
 	 * gestion de l'affichage
 	 */
@@ -164,7 +164,7 @@ public class StatInventaire implements Screen, sujet{
 		}
 		this.game.getBatch().end();
 	}
-	
+
 	/**
 	 * gestion des inputs
 	 */

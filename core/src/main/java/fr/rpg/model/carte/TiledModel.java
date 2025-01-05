@@ -19,7 +19,7 @@ import fr.rpg.model.entity.PNJ;
  * sous cette forme, les informations sont utilisables dans le programme 
  */
 public class TiledModel {
-	
+
 	private TiledMap map;
 	private int width;
 	private int height;
@@ -37,7 +37,7 @@ public class TiledModel {
 	private ArrayList<Monstre> monstres;
 	private ArrayList<EnemyHuman> ehumans;
 	private ArrayList<Teleport> teleports;
-	
+
 	/**
 	 * @return the map
 	 */
@@ -242,5 +242,5 @@ public class TiledModel {
 	public void setTeleports(ArrayList<Teleport> teleports) {
 		this.teleports = teleports;
 	}
-	
+
 }

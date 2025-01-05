@@ -9,16 +9,16 @@ import fr.rpg.controler.RpgMain;
  */
 public class PNJ extends Entity{
 	private String race;
-    private String message;
+	private String message;
 
-    /**
-     * constructeur classique
-     * @param x abscisse
-     * @param y ordonnée
-     * @param race humain ou elfe
-     * @param g instance du jeu
-     */
-    public PNJ(int x, int y, String race, RpgMain g) {
+	/**
+	 * constructeur classique
+	 * @param x abscisse
+	 * @param y ordonnée
+	 * @param race humain ou elfe
+	 * @param g instance du jeu
+	 */
+	public PNJ(int x, int y, String race, RpgMain g) {
 		super(x, y, g);
 		this.race = race;
 		if(race=="Elfe") {
@@ -30,38 +30,38 @@ public class PNJ extends Entity{
 			setSprite(new Sprite(this.getTexture()));
 		}
 	}
-    
-    /**
-     * constructeur si le PNJ a un message
-     * @param x abscisse
-     * @param y ordonnée
-     * @param race humain ou elfe
-     * @param g instance du jeu
-     * @param msg dialogue du pnj
-     */
-    public PNJ(int x, int y, String race, RpgMain g, String msg) {
-    	this(x, y, race, g);
+
+	/**
+	 * constructeur si le PNJ a un message
+	 * @param x abscisse
+	 * @param y ordonnée
+	 * @param race humain ou elfe
+	 * @param g instance du jeu
+	 * @param msg dialogue du pnj
+	 */
+	public PNJ(int x, int y, String race, RpgMain g, String msg) {
+		this(x, y, race, g);
 		this.message = msg;
-    }
-    
-    /**
-     * les elfes peuvent soigner le joueur s'il a besoin
-     * @param p joueur
-     */
-    public void Soin(Player p){
-    	if(p.getTenue()!=null) {
-    		if(p.getTenue().getName()=="Bénédiction de Susanoo") {
-    			p.SetPV(5);
-    		}
-    		else if(p.getTenue().getName()=="Eclat de Tsukuyomi") {
-    			p.setMana(6);
-    		}
-    	}
-    	else {
-    		p.SetPV(3);
-    		p.setMana(3);
-    	}
-    }
+	}
+
+	/**
+	 * les elfes peuvent soigner le joueur s'il a besoin
+	 * @param p joueur
+	 */
+	public void Soin(Player p){
+		if(p.getTenue()!=null) {
+			if(p.getTenue().getName()=="Bénédiction de Susanoo") {
+				p.SetPV(5);
+			}
+			else if(p.getTenue().getName()=="Eclat de Tsukuyomi") {
+				p.setMana(6);
+			}
+		}
+		else {
+			p.SetPV(3);
+			p.setMana(3);
+		}
+	}
 
 	/**
 	 * @return the race

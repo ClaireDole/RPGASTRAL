@@ -12,28 +12,28 @@ public abstract class Entity {
 	/**
 	 * coordonnées en abscisse
 	 */
-    private int x;
-    /**
-     * coordoonnées en ordonnée
-     */
-    private int y;
-    private float PV;
-    /**
+	private int x;
+	/**
+	 * coordoonnées en ordonnée
+	 */
+	private int y;
+	private float PV;
+	/**
 	 * region de l'image utilisée lors de l'affichage
 	 */
-    private AtlasRegion texture;
-    private Sprite sprite;
-    private RpgMain g;
-    
-    public Entity(int x, int y, RpgMain game) {
-    	this.x = x;
-    	this.y = y;
-    	this.g = game;
-    }
-    
-    public Boolean isAlive(){
-        return this.PV>0;
-    }
+	private AtlasRegion texture;
+	private Sprite sprite;
+	private RpgMain g;
+
+	public Entity(int x, int y, RpgMain game) {
+		this.x = x;
+		this.y = y;
+		this.g = game;
+	}
+
+	public Boolean isAlive(){
+		return this.PV>0;
+	}
 
 	/**
 	 * @return the x

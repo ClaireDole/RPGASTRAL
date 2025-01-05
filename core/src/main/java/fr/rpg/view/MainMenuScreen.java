@@ -15,8 +15,8 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import fr.rpg.controler.RpgMain;
 import fr.rpg.controler.observerpattern.Event;
+import fr.rpg.controler.observerpattern.Observable;
 import fr.rpg.controler.observerpattern.Observer;
-import fr.rpg.controler.observerpattern.sujet;
 import fr.rpg.controler.observerpattern.concreteobserver.Quit;
 import fr.rpg.controler.observerpattern.concreteobserver.concreteobserver;
 import fr.rpg.controler.observerpattern.concreteobserver.mainmenuSPACE;
@@ -25,7 +25,7 @@ import fr.rpg.controler.observerpattern.concreteobserver.mainmenuSPACE;
  * classe décrivant l'affichage du menu principal
  */
 
-public class MainMenuScreen implements Screen, sujet{
+public class MainMenuScreen implements Screen, Observable{
 
 	/**
 	 * instance de la classe main du jeu
@@ -110,29 +110,29 @@ public class MainMenuScreen implements Screen, sujet{
 	}
 
 	/**
-	 * @see fr.rpg.controler.observerpattern.sujet
+	 * @see fr.rpg.controler.observerpattern.Observable
 	 */
 	@Override
 	public void attach(concreteobserver o) {
 		this.observers.add(o);
-		
+
 	}
-	
+
 	/**
-	 * @see fr.rpg.controler.observerpattern.sujet
+	 * @see fr.rpg.controler.observerpattern.Observable
 	 */
 	@Override
 	public void unattach(Observer o) {
 		this.observers.remove(o);
-		
+
 	}
-	
+
 	/**
-	 * @see fr.rpg.controler.observerpattern.sujet
+	 * @see fr.rpg.controler.observerpattern.Observable
 	 */
 	@Override
 	public void notify(Event e) {
-		if(e.compare(new Event(game,"GameScreen",true,"Q",null))) {
+		if(e.compareTo(new Event(game,"GameScreen",true,"Q",null))==0) {
 			for(int i=0; i<observers.size(); i++) {
 				if(observers.get(i).getName() == "Quit") {
 					observers.get(i).update(e);

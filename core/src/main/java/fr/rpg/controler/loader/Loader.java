@@ -11,17 +11,17 @@ import fr.rpg.view.LoadingScreen;
  * du packing des assets ou de la création du jeu
  */
 public class Loader implements Disposable {
-	
+
 	private Logger logger;
 	private LoadingScreen loadingscreen;
 	private RpgMain game;
-	
+
 	public Loader(final RpgMain game) {
 		this.game = game;
 		this.loadingscreen = new LoadingScreen(game);
 
 	}
-	
+
 	public void start(){
 		game.setScreen(loadingscreen);
 	}

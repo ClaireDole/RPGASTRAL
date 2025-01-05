@@ -8,10 +8,8 @@ import fr.rpg.controler.observerpattern.Event;
 import fr.rpg.view.MsgScreen;
 
 /**
- * si la touche R est pressée sur le GameScreen alors :
- * 		on vérifie s'il existe un PNJ juste à côté de nous
- * 		si oui, on lance son dialogue
- * 		sinon, on prévient que cela ne fonctionne pas
+ * input R sur un écran de type GameScreen
+ * tentative de discussion avec un PNJ
  */
 public class GameR extends concreteobserver{
 
@@ -23,7 +21,7 @@ public class GameR extends concreteobserver{
 	public void update(Event event) {
 		Boolean valid = true;
 		RpgMain game = event.getGame();
-		if(event.compare(new Event(game,"GameScreen", true, "R",null))) {
+		if(event.compareTo(new Event(game,"GameScreen", true, "R",null))==0) {
 			for(int i=0; i<event.getEcran().getTiledmodel().getPnjs().size();i++) {
 				if(event.getEcran().getTiledmodel().getPnjs().get(i).getX() == game.getPlayer().getX()) {
 					if(event.getEcran().getTiledmodel().getPnjs().get(i).getY() == game.getPlayer().getY() +1 |
